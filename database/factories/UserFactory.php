@@ -18,12 +18,12 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'first_name' => $this->faker->name(),
-            'last_name' => $this->faker->name(),
-            'phone' => $this->faker->phoneNumber(),
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'phone' => '09' . rand(10000000, 99999999),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '12345678', // password
             'remember_token' => Str::random(10),
         ];
     }
@@ -38,6 +38,15 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'email_verified_at' => null,
+            ];
+        });
+    }
+
+    public function isAdmin(){
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 1,
+                'password'=>'1q2w3e4r',
             ];
         });
     }

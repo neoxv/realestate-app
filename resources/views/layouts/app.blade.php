@@ -29,7 +29,7 @@
             </main>
 
             @include('includes.admin.right-sidebar')
-            @include('includes.admin.footer-scripts')
+            @include('includes.admin.scripts')
 
 </body>
 </html>

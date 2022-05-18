@@ -3,31 +3,10 @@
     <div class="banner" id="banner">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                {{-- <x-welcome.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="{{asset('client-assets/img/banner/img-3.jpg')}}" :link="'#'" class='t-center' :buttontitle="'Get Started'"/> --}}
-                <div class="carousel-item item-bg">
-                    <img class="d-block w-100 h-100" src="{{asset('client-assets/img/banner/img-2.jpg')}}" alt="banner">
-                    <div class="carousel-caption banner-slider-inner d-flex h-100 text-center">
-                        <div class="carousel-content container b1-inner-2">
-                            <div class="t-right">
-                                <h5 data-animation="animated fadeInDown delay-05s">The Best Real Estate Deals</h5>
-                                <h1 data-animation="animated fadeInDown delay-05s">Best Place For Sell Properties</h1>
-                                <a data-animation="animated fadeInUp delay-10s" href="#" class="btn btn-2 btn-theme"><span>More Details</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item item-bg">
-                    <img class="d-block w-100 h-100" src="{{asset('client-assets/img/banner/img-4.jpg')}}" alt="banner">
-                    <div class="carousel-caption banner-slider-inner d-flex h-100 text-center">
-                        <div class="carousel-content container b1-inner-2">
-                            <div class="t-left">
-                                <h5 data-animation="animated fadeInDown delay-05s">The Best Real Estate Deals</h5>
-                                <h1 data-animation="animated fadeInDown delay-05s">Best Place For Sell Properties</h1>
-                                <a data-animation="animated fadeInUp delay-10s" href="#" class="btn btn-2 btn-theme"><span>More Details</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                <x-welcome.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-3.jpg')" :link="'#'" class='t-right' :button-title="__('Get Started')" :active="true"/>
+                <x-welcome.banner-carousel-item :header="__('Best Place For Sell Properties')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-2.jpg')" :link="'#'" class='t-right' :button-title="__('Get Started')"/>
+                <x-welcome.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-4.jpg')" :link="'#'" class='t-left' :button-title="__('Get Started')"/>
             </div>
             <div class="btn-secton">
                 <ol class="carousel-indicators">
@@ -47,6 +26,7 @@
                 <div class="search-contents ">
                     <form action="https://storage.googleapis.com/theme-vessel-items/checking-sites/xero-2-html/HTML/main/index.html" method="GET">
                         <div class="row">
+                            {{-- change these components in to for loop --}}
                                      @php
                                         $list =[['id'=>'1','name'=>'option 1'],['id'=>'2','name'=>'option 2']];
                                     @endphp

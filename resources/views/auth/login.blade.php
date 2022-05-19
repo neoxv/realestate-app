@@ -1,56 +1,53 @@
 <x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+<!-- Contact section start -->
+<div class="contact-section">
+    <div class="container-fluid">
+        <div class="row login-box">
+            <div class="col-lg-6 align-self-center pad-0 form-section" style="background-color: #FAE9E4">
+                <div class="form-inner">
+                    <x-common.logo :type="'black'"  />
+                    <h3>Sign Into Your Account</h3>
+                    <form action="{{route('login')}}" method="POST">
+                        @csrf
+                        <div class="form-group form-box">
+                            <x-common.input type="text" name="phone"  placeholder="Enter your phone" required  class="input-text"/>
+                            <i class="flaticon-mail-2"></i>
+                        </div>
+                        <div class="form-group form-box">
+                            <x-common.input type="password" name="Password" class="input-text" placeholder="Password" required />
+                            <i class="flaticon-password"></i>
+                        </div>
+                        <div class="checkbox form-group clearfix">
+                            <div class="form-check checkbox-theme">
+                                <x-common.input class="form-check-input" type="checkbox" value="" id="rememberMe" />
+                                <x-common.label class="form-check-label" for="rememberMe" :label="__('Remember me')"/>
+                            </div>
+                            <a href="forgot-password.html" class="forgot-password">Forgot Password</a>
+                        </div>
+                        <div class="form-group">
+                            <x-common.button :title="__('Login')" type="submit" class="btn btn-4 btn-block" />
+                        </div>
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                <x-label for="phone" :value="__('Phone Number')" />
-
-                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus />
+                        <div class="extra-login form-group clearfix">
+                            <span>XERO</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                    <div class="clearfix"></div>
+                    <p>Don't have an account? <a href="{{route('register')}}" class="thembo"> Register here</a></p>
+                </div>
             </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
+            <div class="col-lg-6 bg-color-15 pad-0 none-992 bg-img">
+                <div class="info clearfix">
+                    <h1>Welcome to <a href="index.html">Xero</a></h1>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p>
+                </div>
             </div>
+        </div>
+    </div>
+</div>
+<!-- Contact section end -->
 
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
 </x-guest-layout>
+
+

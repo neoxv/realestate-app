@@ -35,11 +35,7 @@
     </head>
     <body id="top" class="index-body">
         <div class="page_loader"></div>
-        @include('includes.client.header')
-        @include('includes.client.navbar')
-        <div class="font-sans text-gray-900 antialiased">
-            {{ $slot }}
-        </div>
+        {{$slot}}
         @include('includes.client.scripts')
     </body>
 </html>

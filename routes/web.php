@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     Route::get('/', function () {
         return view('pages.welcome');
-    });
+    })->name('welcome');
 });
 
 Route::middleware(['auth'])->group(function () {

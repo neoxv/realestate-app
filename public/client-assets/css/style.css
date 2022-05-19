@@ -8126,7 +8126,7 @@ a {
     align-items: center;
     padding: 15px;
     background: #fff;
-    background: rgba(0, 0, 0, 0.04) url(../img/img-2.jpg) top left repeat;
+    background: rgba(0, 0, 0, 0.04) url(../img/img-3.jpg) top left repeat;
     z-index: 999;
     background-position: center center;
     background-repeat: no-repeat;
@@ -8140,7 +8140,7 @@ a {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgb(41 0 142 / 69%);
+    background: rgb(78 92 193 / 50%);
 }
 
 .contact-section .form-section .extra-login {
@@ -12460,7 +12460,7 @@ body.off-canvas-sidebar-open {
     .property-box-6 .info {
         padding: 0 30px;
     }
-    
+
     .main-title {
         margin-bottom: 40px;
     }
@@ -13576,7 +13576,7 @@ body.off-canvas-sidebar-open {
     .content-area-24{
         padding: 60px 0 30px;
     }
-    
+
     .properties-banner{
         height: 400px;
     }

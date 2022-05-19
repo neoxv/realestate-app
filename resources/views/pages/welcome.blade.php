@@ -1,5 +1,5 @@
-<x-guest-layout>
-<!-- Banner start -->
+<x-common.page-container>
+    <!-- Banner start -->
     <div class="banner" id="banner">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -17,9 +17,9 @@
             </div>
         </div>
     </div>
-<!-- banner end -->
+    <!-- banner end -->
 
-<!-- Search area start -->
+    <!-- Search area start -->
     <div class="search-area" id="search-area-1">
         <div class="container">
             <div class="search-area-inner">
@@ -69,7 +69,7 @@
             </div>
         </div>
     </div>
-<!-- Search area end -->
+    <!-- Search area end -->
 
     <!-- Featured properties start -->
     <div class="featured-properties content-area-2">
@@ -188,4 +188,4 @@
     <!-- Testimonial 3 end -->
 
     <x-welcome.footer/>
-</x-guest-layout>
+</x-common.page-container>

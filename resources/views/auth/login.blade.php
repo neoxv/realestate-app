@@ -4,7 +4,7 @@
     </x-slot>
     <form action="{{route('login')}}" method="POST">
         @csrf
-        <x-common.form-input :type="'text'" :name="'phone'"  :placeholder="'Phone Number'"  />
+        <x-common.form-input :type="'text'" :name="'phone'"  :placeholder="'Phone Number'" :value="old('phone')"  />
 
         <x-common.form-input :type="'password'" :name="'password'"  :placeholder="'Password'"  />
 

@@ -1,24 +1,18 @@
 <x-auth.form>
     <x-slot name="title">
-        {{__('Create An Cccount')}}
+        {{__('Create An Account')}}
     </x-slot>
     <form action="{{route('register')}}" method="POST">
-        <x-common.form-input :type="'text'" :name="'firstname'"  :placeholder="'First Name'" />
+        @csrf
+        <x-common.form-input :type="'text'" :name="'first_name'" :value="old('first_name')"  :placeholder="'First Name'" />
 
-        <x-common.form-input :type="'text'" :name="'lastname'"  :placeholder="'Last Name'" />
+        <x-common.form-input :type="'text'" :name="'last_name'"  :placeholder="'Last Name'" :value="old('last_name')" />
 
-        <x-common.form-input :type="'text'" :name="'phone'"  :placeholder="'Phone Number'" />
+        <x-common.form-input :type="'text'" :name="'phone'"  :placeholder="'Phone Number'" :value="old('phone')" />
 
-        <x-common.form-input :type="'password'" :name="'password'"  :placeholder="'Password'"/>
+        <x-common.form-input :type="'password'" :name="'password'"  :placeholder="'Password'" />
 
-        <x-common.form-input :type="'password_confirmation'" :name="'password_confirmation'"  :placeholder="'Password'"/>
-
-
-        <div class="checkbox form-group clearfix">
-            <x-common.checkbox :check-id="'rememberMe'"  class="checkbox-theme">
-                    I agree to the <a href="#"> terms of service</a>
-            </x-common.checkbox>
-        </div>
+        <x-common.form-input :type="'password'" :name="'password_confirmation'"  :placeholder="'Password'"/>
 
         <div class="form-group">
             <button type="submit" class="btn btn-4 btn-block">Register</button>

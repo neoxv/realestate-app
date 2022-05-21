@@ -11,12 +11,26 @@
             </div>
             <div class="col-lg-3 col-md-3 col-sm-5">
                 <ul class="top-social-media pull-right">
+                @auth()
+                <li style="color: white">
+                    {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
+                </li>
+                    <li>
+                        <form action="{{route('logout')}}" method="POST">
+                        @csrf
+                            <button class="btn sign-in btn-link" type="submit" style="color: white" ><i class="fa fa-sign-in"></i> Logout </button>
+                        </form>
+                    </li>
+                @endauth
+                @guest()
                     <li>
                         <a href="{{route('login')}}" class="sign-in"><i class="fa fa-sign-in"></i> Login </a>
                     </li>
                     <li>
                         <a href="{{route('register')}}" class="sign-in"><i class="fa fa-user"></i> Register</a>
                     </li>
+                @endguest
+
                 </ul>
             </div>
         </div>

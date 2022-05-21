@@ -16,7 +16,9 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(['auth.user'])->group(function () {
-
+        Route::get('/profile', function () {
+            return view('pages.user-profile');
+        })->name('profile');
     });
 });
 

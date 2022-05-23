@@ -76,21 +76,24 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink7"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    My Account
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li>
-                                        <a class="dropdown-item" href="user-profile.html">Profile</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="favorited-properties.html">Favorited
-                                        Properties</a>
-                                    </li>
-                                </ul>
-                            </li>
+                            @auth
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink7"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        My Account
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <li>
+                                            <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="favorited-properties.html">Favorited
+                                            Properties</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endauth
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

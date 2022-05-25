@@ -24,6 +24,9 @@ return new class extends Migration
             $table->integer('bathroom');
             $table->integer('area');
             $table->foreignId('owner_id')->constrained();
+            $table->boolean('is_featured')->default(false);
+            $table->dateTime('feature_expiry_date')->nullable();
+            $table->boolean('is_rental')->default(false);
             $table->timestamps();
         });
     }

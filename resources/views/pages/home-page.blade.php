@@ -76,18 +76,13 @@
         <div class="container">
             <div class="main-title">
                 <h1>Featured Properties</h1>
-                <ul class="list-inline-listing filters filteriz-navigation">
-                    <li class="active btn filtr-button filtr" data-filter="all">All</li>
-                    <li data-filter="1" class="btn btn-inline filtr-button filtr">Apartment</li>
-                    <li data-filter="2" class="btn btn-inline filtr-button filtr">House</li>
-                    <li data-filter="3" class="btn btn-inline filtr-button filtr">Office</li>
-                </ul>
+
             </div>
             <div class="row filter-portfolio wow fadeInUp delay-04s">
                 <div class="cars">
-                    @for ($i = 0; $i < 6; $i++)
-                        <x-home-page.featured-card/>
-                    @endfor
+                    @foreach ($featured as $item)
+                        <x-home-page.featured-card :property='$item'/>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -120,9 +115,9 @@
         <div class="container">
             <x-home-page.title :title="__('Recent Properties')" :subtitle="__('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.')" />
             <div class="row">
-                @for ($i = 0; $i < 4; $i++)
+                @foreach ($recent as $item )
                     <x-home-page.recent-card/>
-                @endfor
+                @endforeach
             </div>
         </div>
     </div>

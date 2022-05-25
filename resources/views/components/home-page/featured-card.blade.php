@@ -1,8 +1,9 @@
+@props(['property'])
 <div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2">
     <div class="property-box-7">
         <div class="property-thumbnail">
             <a href="properties-details.html" class="property-img">
-                <div class="tag-2">For Sale</div>
+                <div class="tag-2">{{$property->is_rental?'For Rent':'For Sale'}}</div>
                 <div class="price-box"><span>$850.00</span> Per night</div>
                 <img src="{{asset('client-assets/img/property/img-4.jpg')}}" alt="property-box-7" class="img-fluid">
             </a>

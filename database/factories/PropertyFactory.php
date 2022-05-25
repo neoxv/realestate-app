@@ -26,6 +26,17 @@ class PropertyFactory extends Factory
             'bathroom'=>$this->faker->numberBetween(1,5),
             'area'=>$this->faker->numberBetween(100,1000),
             'owner_id'=>$this->faker->numberBetween(1,10),
+            'feature_expiry_date'=>$this->faker->dateTime,
         ];
     }
+
+    public function featured()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_featured' => true,
+            ];
+        });
+    }
+
 }

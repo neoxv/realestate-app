@@ -1,3 +1,4 @@
+@props(['property'])
 <div class="col-lg-3 col-md-6 col-sm-12 wow fadeInLeft delay-04s">
     <div class="property-box-8">
         <div class="photo-thumbnail">
@@ -7,10 +8,10 @@
                     <span class="blog-one__plus"></span>
                 </a>
             </div>
-            <div class="tag-for">For Rent</div>
+            <div class="tag-for">{{$property->is_rental?'For Rent':'For Sale'}}</div>
             <div class="price-ratings-box">
                 <p class="price">
-                    $178,000
+                    {{number_format($property->price)}} Birr
                 </p>
                 <div class="ratings">
                     <i class="fa fa-star"></i>
@@ -24,18 +25,18 @@
         <div class="detail">
             <div class="heading">
                 <h3>
-                    <a href="properties-details.html">Real Luxury Villa</a>
+                    <a href="properties-details.html">{{$property->name}}</a>
                 </h3>
                 <div class="location">
                     <a href="properties-details.html">
-                        <i class="flaticon-facebook-placeholder-for-locate-places-on-maps"></i>123 Kathal St. Tampa City,
+                        <i class="flaticon-facebook-placeholder-for-locate-places-on-maps"></i>{{$property->address}},
                     </a>
                 </div>
             </div>
             <div class="properties-listing">
-                <span>3 Beds</span>
-                <span>2 Baths</span>
-                <span>980 sqft</span>
+                <span>{{$property->bedroom}} Beds</span>
+                <span>{{$property->bathroom}} Baths</span>
+                <span>{{$property->area}} sqmt</span>
             </div>
         </div>
     </div>

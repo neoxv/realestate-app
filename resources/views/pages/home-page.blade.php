@@ -116,7 +116,7 @@
             <x-home-page.title :title="__('Recent Properties')" :subtitle="__('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.')" />
             <div class="row">
                 @foreach ($recent as $item )
-                    <x-home-page.recent-card/>
+                    <x-home-page.recent-card :property='$item'/>
                 @endforeach
             </div>
         </div>

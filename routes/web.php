@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('pages.welcome');
-})->name('home');
+Route::get('/', [HomeController::class,'show'])->name('home');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -16,7 +15,13 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(['auth.user'])->group(function () {
+        Route::get('/profile', function () {
+            return view('pages.user-profile');
+        })->name('profile');
 
+        Route::get('/properties', function () {
+            return view('pages.properties');
+        })->name('properties');
     });
 });
 

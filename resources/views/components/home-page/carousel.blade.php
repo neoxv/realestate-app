@@ -9,9 +9,9 @@
     <div class="carousel-inner">
         @for ($i = 0; $i< 5; $i++)
             @if($i == 0)
-                <x-welcome.carousel-item class="carousel-item active"/>
+                <x-home-page.carousel-item class="carousel-item active"/>
             @else
-                <x-welcome.carousel-item class="carousel-item"/>
+                <x-home-page.carousel-item class="carousel-item"/>
             @endif
         @endfor
     </div>

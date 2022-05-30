@@ -1,5 +1,5 @@
 
-<x-common.header/>
+<x-common.client.header/>
 <!-- main header start -->
 <header class="main-header sticky-header" id="main-header-2">
     <div class="container">

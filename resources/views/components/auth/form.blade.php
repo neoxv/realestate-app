@@ -5,7 +5,7 @@
         <div class="row login-box">
             <div class="col-lg-6 align-self-center pad-0 form-section" style="background-color: #FAE9E4">
                 <div class="form-inner">
-                    <x-common.logo :type="'black'"  />
+                    <x-common.client.logo :type="'black'"  />
 
                         <h3>{{$title}}</h3>
                     <!-- Session Status -->

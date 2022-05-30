@@ -12,7 +12,6 @@
                 {{ $slot }}
             </main>
 
-            @include('includes.admin.right-sidebar')
             @include('includes.admin.scripts')
 
 </body>

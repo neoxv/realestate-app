@@ -23,6 +23,8 @@ return new class extends Migration
             $table->integer('bedroom');
             $table->integer('bathroom');
             $table->integer('area');
+            $table->integer('closing_price')->nullable();
+            $table->boolean('is_sold')->default(false);
             $table->enum('type', ['house', 'land', 'apartment', 'warehouse', 'building', 'shop'])->default('house');
             $table->foreignId('owner_id')->constrained();
             $table->boolean('is_featured')->default(false);

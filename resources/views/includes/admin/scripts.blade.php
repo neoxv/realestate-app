@@ -14,9 +14,9 @@
     new Chart(ctx1, {
       type: "line",
       data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: ["December","January","February","March","April", "May"],
         datasets: [{
-          label: "Mobile apps",
+          label: "Joined Users",
           tension: 0.4,
           borderWidth: 0,
           pointRadius: 0,
@@ -24,7 +24,7 @@
           backgroundColor: gradientStroke1,
           borderWidth: 3,
           fill: true,
-          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+          data: [0,100,125,10,25,30,400,45,47,9,10],
           maxBarThickness: 6
 
         }],
@@ -72,7 +72,7 @@
             },
             ticks: {
               display: true,
-              color: '#ccc',
+              color: '#808080',
               padding: 20,
               font: {
                 size: 11,

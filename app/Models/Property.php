@@ -12,7 +12,7 @@ class Property extends Model
 
     protected function getProfitAttribute()
     {
-        if($this->is_sold) {
+        if($this->is_brokered) {
             return $this->closing_price - $this->price;
         }
         return 0.0;

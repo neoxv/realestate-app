@@ -13,7 +13,7 @@
 </td>
 <td>
     <div class="text-center">
-    <p class="text-xs font-weight-bold mb-0">Sales:</p>
+    <p class="text-xs font-weight-bold mb-0">Brokered:</p>
     <h6 class="text-sm mb-0">{{number_format($sales)}}</h6>
     </div>
 </td>
@@ -26,7 +26,7 @@
 <td class="align-middle text-sm">
     <div class="col text-center">
     <p class="text-xs font-weight-bold mb-0">Profit:</p>
-    <h6 class="text-sm mb-0">{{$profit}}%</h6>
+    <h6 class="text-sm mb-0">{{number_format($profit)}} ETB</h6>
     </div>
 </td>
 </tr>

@@ -26,4 +26,5 @@
             <x-admin.list-card :detail='$report'/>
         </div>
     </div>
+    <x-admin.chart-script :user-data="$user_count"/>
 </x-common.admin.container>

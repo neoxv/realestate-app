@@ -7,12 +7,18 @@
           {{-- <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           </div> --}}
           <ul class="navbar-nav ms-md-auto justify-content-end">
-            <li class="nav-item d-flex align-items-center">
+            <li class="nav-item d-flex align-items-center justify-content-around">
                 @auth()
-                    <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
-                        <i class="fa fa-sign-out me-sm-1"></i>
+                 <li style="color: white;margin-right:15px;margin-top:6px;">
+                    {{ ucfirst(Auth::user()->first_name) }} {{ ucfirst(Auth::user()->last_name) }}
+                </li>
+                <form action="{{route('logout.admin')}}" method="POST">
+                    @csrf
+                    <button class="btn  btn-link" type="submit" style="color: white" >
+                         <i class="fa fa-sign-out me-sm-1"></i>
                         <span class="d-sm-inline d-none">Sign Out</span>
-                    </a>
+                    </button>
+                </form>
                 @endauth
                 @guest
                     <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">

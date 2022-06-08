@@ -10,7 +10,7 @@ Route::get('/', [HomeController::class,'show'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['auth.admin'])->group(function () {
-        Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+        Route::get('/dashboard',[DashboardController::class,'index'])->name('admin.dashboard');
     });
 
     Route::middleware(['auth.user'])->group(function () {

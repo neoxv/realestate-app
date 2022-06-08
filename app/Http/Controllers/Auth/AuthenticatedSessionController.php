@@ -43,7 +43,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended('/profile');
+        return redirect()->intended(route('profile'));
     }
 
     /**
@@ -58,7 +58,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended('/dashboard');
+        return redirect()->intended(route('admin.dashboard'));
     }
 
     /**
@@ -75,7 +75,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('home');
     }
 
     /**
@@ -92,6 +92,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/admin');
+        return redirect()->route('admin');
     }
 }

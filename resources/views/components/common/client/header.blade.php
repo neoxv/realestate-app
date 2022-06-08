@@ -13,7 +13,7 @@
                 <ul class="top-social-media pull-right">
                 @auth()
                 <li style="color: white">
-                    {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
+                    {{ ucfirst(Auth::user()->first_name) }} {{ ucfirst(Auth::user()->last_name) }}
                 </li>
                     <li>
                         <form action="{{route('logout')}}" method="POST">

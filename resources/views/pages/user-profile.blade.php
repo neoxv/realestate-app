@@ -1,6 +1,6 @@
-<x-common.page-container>
+<x-common.client.container>
 <!-- Sub banner start -->
-<x-common.sub-banner/>
+<x-common.client.sub-banner/>
 <!-- Sub banner end -->
 
 <!-- User page start -->
@@ -102,7 +102,7 @@
 <!-- User page end -->
 <x-user-profile.footer/>
 
-</x-common.page-container>
+</x-common.client.container>
 
 
 

@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\UserService;
 use App\Services\PropertyService;
 use Illuminate\Support\ServiceProvider;
+use App\Interfaces\UserServiceInterface;
 use App\Interfaces\PropertyServiceInterface;
 
 class ServiceServiceProvider extends ServiceProvider
@@ -16,6 +18,7 @@ class ServiceServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(PropertyServiceInterface::class, PropertyService::class);
+        $this->app->bind(UserServiceInterface::class, UserService::class);
     }
 
     /**

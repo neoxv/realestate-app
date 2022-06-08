@@ -1,4 +1,4 @@
-<x-common.page-container>
+<x-common.client.container>
     <!-- Banner start -->
     <div class="banner" id="banner">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -31,33 +31,33 @@
                                         $list =[['id'=>'1','name'=>'option 1'],['id'=>'2','name'=>'option 2']];
                                     @endphp
                             <x-home-page.filter-container >
-                                    <x-common.select class="search-fields" name="area" :options="$list" />
+                                    <x-common.client.select class="search-fields" name="area" :options="$list" />
                             </x-home-page.filter-container >
 
                             <x-home-page.filter-container >
-                                    <x-common.select class="search-fields" name="property-status" :options="$list" />
+                                    <x-common.client.select class="search-fields" name="property-status" :options="$list" />
                             </x-home-page.filter-container >
 
                             <x-home-page.filter-container >
-                                    <x-common.select class="search-fields" name="location" :options="$list" />
+                                    <x-common.client.select class="search-fields" name="location" :options="$list" />
                             </x-home-page.filter-container >
 
                             <x-home-page.filter-container >
-                                    <x-common.select class="search-fields" name="category" :options="$list" />
+                                    <x-common.client.select class="search-fields" name="category" :options="$list" />
                             </x-home-page.filter-container >
 
                         </div>
                         <div class="row">
                             <x-home-page.filter-container >
-                                    <x-common.select class="search-fields" name="bedrooms" :options="$list" />
+                                    <x-common.client.select class="search-fields" name="bedrooms" :options="$list" />
                             </x-home-page.filter-container >
 
                             <x-home-page.filter-container >
-                                    <x-common.select class="search-fields" name="bathrooms" :options="$list" />
+                                    <x-common.client.select class="search-fields" name="bathrooms" :options="$list" />
                             </x-home-page.filter-container >
 
                             <x-home-page.filter-container >
-                                <x-common.range-slider />
+                                <x-common.client.range-slider />
                             </x-home-page.filter-container >
 
                             <x-home-page.filter-container >
@@ -183,4 +183,4 @@
     <!-- Testimonial 3 end -->
 
     <x-home-page.footer/>
-</x-common.page-container>
+</x-common.client.container>

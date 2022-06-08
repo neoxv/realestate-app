@@ -61,7 +61,6 @@ class PropertyService implements PropertyServiceInterface
         ->where('status', '=', true)
         ->groupBy('type')
         ->get();
-
         return $propertyCount;
     }
 }

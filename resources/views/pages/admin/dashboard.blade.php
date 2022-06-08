@@ -12,7 +12,7 @@
     </div>
     <div class="row mt-4">
         <div class="col-lg-6 mb-lg-0 mb-4">
-            <x-admin.chart-card :title="'Users Overview'" :subtitle="'Increase per Month'" :id="'chart-line'"/>
+            <x-admin.chart-card :title="'Users Overview'" :subtitle="'Increase per Month'" :id="'chart-line'" />
         </div>
         <div class="col-lg-3">
             <x-admin.chart-card :title="'Property Sell Overview'" :subtitle="'Increase per Sale'" :id="'doughnut-chart1'"/>
@@ -29,5 +29,5 @@
             <x-admin.list-card :detail='$report'/>
         </div>
     </div>
-    <x-admin.chart-script :user-data="$user_count"/>
+    <x-admin.chart-script :user-data="$user_count" :data='$report'/>
 </x-common.admin.container>

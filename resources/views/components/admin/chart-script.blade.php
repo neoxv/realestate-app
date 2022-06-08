@@ -1,7 +1,5 @@
-@props(['userData'])
-@php
-    print_r($userData->pluck('count')->first());
-@endphp
+@props(['userData','data'])
+
 <script src="{{asset('admin-assets/js/plugins/chartjs.min.js')}}"></script>
  <script>
     var ctx1 = document.getElementById("chart-line").getContext("2d");
@@ -101,79 +99,56 @@
       },
     });
   </script>
-<script>
-      const ctx = document.getElementById('doughnut-chart1').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-      },
-});
-  </script>
   <script>
-      const ctx2 = document.getElementById('doughnut-chart2').getContext('2d');
-const myChart2 = new Chart(ctx2, {
-    type: 'doughnut',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [1, 29, 31, 15, 12, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-      },
-});
+var doughnutLabels = ['House', 'Land', 'Apartment', 'Building', 'Shop'];
+var salesData=[];
+var stockData=[];
+
+@foreach ($data as $item )
+    salesData.push({{$item->sale_count}});
+    stockData.push({{$item->stock_count}});
+@endforeach
+
+doughnutChartMaker( salesData,doughnutLabels,'doughnut-chart1')
+doughnutChartMaker( stockData,doughnutLabels,'doughnut-chart2')
+doughnutChartMaker()
+function doughnutChartMaker( data, labels,element) {
+    const ctx = document.getElementById(element).getContext('2d');
+    const chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '# of Votes',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                            intersect: false,
+                            mode: 'index',
+                            },
+                }
+            });
+return chart;
+}
   </script>

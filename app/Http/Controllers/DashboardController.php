@@ -49,4 +49,28 @@ class DashboardController extends Controller
         // dd($report);
     }
 
+    public function propertyIndex()
+    {
+        // $property = $this->propertyService->getAllProperty();
+        // return view('pages.admin.property', ['property' => $property]);
+        return view('pages.admin.properties');
+    }
+
+    public function userIndex()
+    {
+        // $user = $this->userService->getAllUser();
+        // return view('pages.admin.user', ['user' => $user]);
+        return view('pages.admin.users');
+    }
+
+    public function advertisementIndex()
+    {
+        return view('pages.admin.advertisements');
+    }
+
+    public function settingIndex()
+    {
+        return view('pages.admin.settings');
+    }
+
 }

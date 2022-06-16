@@ -17,4 +17,10 @@ class Property extends Model
         }
         return 0.0;
     }
+
+
+    public function owner()
+    {
+        return $this->belongsTo(Owner::class);
+    }
 }

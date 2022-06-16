@@ -15,6 +15,6 @@ class OwnerSeeder extends Seeder
      */
     public function run()
     {
-        Owner::factory()->count(1)->create();
+        Owner::factory()->count(10)->create();
     }
 }

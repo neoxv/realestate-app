@@ -10,7 +10,7 @@ class PropertyService implements PropertyServiceInterface
 {
     public function getAll()
     {
-        return Property::all();
+        return Property::with('owner')->paginate(5,['*'],'propertiesPage');
     }
 
     public function getFeatured()

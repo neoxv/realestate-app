@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Interfaces\UserServiceInterface;
+use App\Interfaces\OwnerServiceInterface;
 use App\Interfaces\PropertyServiceInterface;
 
 class DashboardController extends Controller
@@ -15,11 +16,13 @@ class DashboardController extends Controller
      */
     private PropertyServiceInterface $propertyService;
     private UserServiceInterface $userService;
+    private OwnerServiceInterface $ownerService;
 
-    public function __construct(PropertyServiceInterface $propertyService, UserServiceInterface $userService)
+    public function __construct(PropertyServiceInterface $propertyService, UserServiceInterface $userService, OwnerServiceInterface $ownerService)
     {
         $this->propertyService = $propertyService;
         $this->userService = $userService;
+        $this->ownerService = $ownerService;
     }
 
     public function index()
@@ -51,9 +54,7 @@ class DashboardController extends Controller
 
     public function propertyIndex()
     {
-        // $property = $this->propertyService->getAllProperty();
-        // return view('pages.admin.property', ['property' => $property]);
-        return view('pages.admin.properties');
+        return view('pages.admin.properties',['properties' => $this->propertyService->getAll(),'owners' => $this->ownerService->getAll()]);
     }
 
     public function userIndex()

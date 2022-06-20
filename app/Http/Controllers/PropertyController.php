@@ -4,9 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Interfaces\PropertyServiceInterface;
+use App\Http\Requests\admin\PropertyCreateRequest;
 
 class PropertyController extends Controller
 {
+    private PropertyServiceInterface $propertyService;
+    private OwnerServiceInterface $ownerService;
+
+    public function __construct(PropertyServiceInterface $propertyService)
+    {
+        $this->propertyService = $propertyService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +32,13 @@ class PropertyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(PropertyCreateRequest $request)
     {
-        //
+        $response = $this->propertyService->create($request->all());
+        if($response['success']){
+            return redirect()->route('admin.properties')->with('success', $response['message']);
+        }
+        return redirect()->route('admin.properties')->with('error', $response['message']);
     }
 
     /**

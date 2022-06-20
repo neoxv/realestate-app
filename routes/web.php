@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PropertyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -15,6 +16,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/users',[DashboardController::class,'userIndex'])->name('admin.users');
         Route::get('/advertisements',[DashboardController::class,'advertisementIndex'])->name('admin.advertisements');
         Route::get('/settings', [DashboardController::class, 'settingIndex'])->name('admin.settings');
+        Route::post('/property/create',[PropertyController::class, 'create'])->name('property.create');
     });
 
     Route::middleware(['auth.user'])->group(function () {

@@ -1,5 +1,169 @@
 <x-common.admin.container>
     <x-admin.table :headers="['Property','Owner','Bedroom','Bathroom','Area','Status','price','closing','type']" :title="'Properties Table'" >
+        <x-slot name="form">
+        <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#property-form">+</button>
+            <div class="modal fade" id="property-form" tabindex="-1" role="dialog" aria-labelledby="property-form" aria-hidden="true" >
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card card-plain">
+                    <div class="card-header pb-0 text-left">
+                        <h3 class="font-weight-bolder text-primary text-gradient">Add Property</h3>
+                        <p class="mb-0">Enter property information.</p>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{{route('property.create')}}" >
+                            @csrf
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-primary" for="name">Property Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="G+3 Living House..." required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="type" class="text-primary">Type</label>
+                                    <select class="form-control @error('type') is-invalid @enderror" name="type" id="type" placeholder="Building" required>
+                                        @foreach ($types as $type)
+                                            <option value="{{$type}}">{{ucfirst($type)}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-primary" for="price">Price</label>
+                                    <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" placeholder="Birr" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-primary" for="area">Area</label>
+                                    <input type="number" class="form-control @error('area') is-invalid @enderror" id="area" name="area" placeholder="sqm" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-primary" for="bedroom">Bedrooms</label>
+                                    <input class="form-control" type="number" value="1" id="bedroom" name="bedroom" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-primary" for="bathroom">Bathroom</label>
+                                    <input class="form-control" type="number" value="1" id="bedroom" name="bathroom" required>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                            <div class="form-group">
+                               <label class="text-primary" for="address">Address</label>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="Summit condominum" required>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                 <label class="text-primary" for="city">City</label>
+                                <input type="text" class="form-control" id="city" name="city" placeholder="Addis ababa" required>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                <label for="owner" class="text-primary">Owner</label>
+                                <select class="form-control" name="owner_id" id="owner" placeholder="Abebe Kebede" required>
+                                @foreach ($owners as $owner )
+                                    <option value="{{$owner->id}}">{{ucfirst($owner->name)}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="description" class="text-primary">Detaild Information</label>
+                                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                            </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="is_rental" class="text-primary">Transaction Type</label>
+                                    <select class="form-control" name="is_rental" id="is_rental" required>
+                                            <option value="true">Rental</option>
+                                            <option value="false">Sale</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="is_negotiable" class="text-primary">Price Type</label>
+                                    <select class="form-control" name="is_negotiable" id="is_negotiable" required>
+                                            <option value="true">Negotiable</option>
+                                            <option value="false">Fixed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="text-primary">Features</label>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" name="parking">
+                                    <label class="custom-control-label" for="customCheck1">Parking</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" name="swimming-pool">
+                                    <label class="custom-control-label" for="customCheck1">Swimming Pool</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" name="alarm">
+                                    <label class="custom-control-label" for="customCheck1">Alarm</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" name="laundary-room">
+                                    <label class="custom-control-label" for="customCheck1">Laundary Room</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" name="garage">
+                                    <label class="custom-control-label" for="customCheck1">Garage</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" name="patio">
+                                    <label class="custom-control-label" for="customCheck1">Places to seat/Patio</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-center pt-0 px-lg-2 px-1 mt-4">
+                        <button type="button" class="btn bg-gradient-secondary mr-2">Cancel</button>
+                        <button type="submit" class="btn bg-gradient-primary ml-2">Submit</button>
+                        </div>
+                        </form>
+                    </div>
+
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </x-slot>
         @foreach ($properties as $item )
 
             <tr>
@@ -9,7 +173,7 @@
                         <img src="{{asset('admin-assets/img/team-2.jpg')}}" class="avatar avatar-sm me-3" alt="user1">
                     </div>
                     <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">{{$item->name}}</h6>
+                        <h6 class="mb-0 text-sm" >{{$item->name}}</h6>
                         <p class="text-xs text-secondary mb-0">{{$item->address}}, {{$item->city}}</p>
                     </div>
                     </div>
@@ -54,8 +218,67 @@
         {{$properties->links()}}
         </div>
 
-  <x-admin.table :headers="['Name','Address','Primary Phone','Secondary Phone','Email','Pending Properties']" :title="'Owners Table'">
-        @foreach ($owners as $item )
+  <x-admin.table :headers="['Name','Address','Primary Phone','Secondary Phone','Email','Pending Properties']" :title="'Owners Table'" >
+            <x-slot name="form">
+        <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#owner-form">+</button>
+            <div class="modal fade" id="owner-form" tabindex="-1" role="dialog" aria-labelledby="owner-form" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card card-plain">
+                    <div class="card-header pb-0 text-left">
+                        <h3 class="font-weight-bolder text-primary text-gradient">Add Owner</h3>
+                        <p class="mb-0">Enter owner information.</p>
+                    </div>
+                    <div class="card-body">
+                        <form role="form ">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="text-primary">Full Name</label>
+                                        <input type="text" class="form-control" id="name" placeholder="G+3 Living House...">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="text-primary">Email</label>
+                                        <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="text-primary">Primary Phone</label>
+                                        <input type="text" class="form-control" id="phone" placeholder="+251...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="text-primary">Address</label>
+                                        <input type="text" class="form-control" id="name" placeholder="G+3 Living House...">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="text-primary">Secondary Phone</label>
+                                        <input type="text" class="form-control" id="phone" placeholder="+251...">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                        <button type="button" class="btn bg-gradient-secondary">Cancel</button>
+                        <button type="button" class="btn bg-gradient-primary">Submit</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </x-slot>
+    @foreach ($owners as $item )
 
             <tr>
                 <td>
@@ -96,4 +319,19 @@
         <div class="d-flex justify-content-end" style="margin-right:10px;">
         {{$owners->links()}}
         </div>
+               <div class="d-flex justify-content-end flex-column align-items-end" >
+
+                @if ($errors->any())
+               {{-- <x-common.toast :title="'Error'" :message="$error"/> --}}
+                    @foreach ($errors->all() as $error)
+                        <x-common.toast :title="'Error'" :message="$error" :type="'error'"/>
+                    @endforeach
+               @elseif (Session::has('success'))
+                    <x-common.toast :title="'Success'" :message="Session::get('success')" :type="'success'"/>
+
+               @elseif (Session::has('error'))
+                    <x-common.toast :title="'Error'" :message="Session::get('error')" :type="'error'"/>
+               @endif
+               </div>
+
     </x-common.admin.container>

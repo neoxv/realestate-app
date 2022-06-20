@@ -111,7 +111,7 @@ var stockData=[];
 
 doughnutChartMaker( salesData,doughnutLabels,'doughnut-chart1')
 doughnutChartMaker( stockData,doughnutLabels,'doughnut-chart2')
-doughnutChartMaker()
+// doughnutChartMaker()
 function doughnutChartMaker( data, labels,element) {
     const ctx = document.getElementById(element).getContext('2d');
     const chart = new Chart(ctx, {

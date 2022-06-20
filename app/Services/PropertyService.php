@@ -30,7 +30,12 @@ class PropertyService implements PropertyServiceInterface
 
     public function create($data)
     {
-        return Property::create($data);
+        $property = Property::create($data);
+        if($property){
+            return ['success' => true, 'message' => 'Property created successfully.'];
+        }
+
+        return ['success' => false, 'message' => 'Property creation failed.'];
     }
 
     public function update($id, $data)
@@ -62,5 +67,9 @@ class PropertyService implements PropertyServiceInterface
         ->groupBy('type')
         ->get();
         return $propertyCount;
+    }
+
+    public function getAllTypes(){
+        return ['land','shop','house','building'];
     }
 }

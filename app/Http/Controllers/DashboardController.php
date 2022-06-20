@@ -54,7 +54,7 @@ class DashboardController extends Controller
 
     public function propertyIndex()
     {
-        return view('pages.admin.properties',['properties' => $this->propertyService->getAll(),'owners' => $this->ownerService->getAll()]);
+        return view('pages.admin.properties',['properties' => $this->propertyService->getAll(),'owners' => $this->ownerService->getAll(),'types' => $this->propertyService->getAllTypes()]);
     }
 
     public function userIndex()

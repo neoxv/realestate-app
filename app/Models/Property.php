@@ -9,6 +9,7 @@ class Property extends Model
 {
     use HasFactory;
     protected $appends = ['profit'];
+    protected $guarded = ['id'];
 
     protected function getProfitAttribute()
     {

@@ -21,4 +21,19 @@ class OwnerService implements OwnerServiceInterface
     {
         return Owner::find($id);
     }
+
+    public function getOwnersForCreate(){
+        return Owner::get(['id', 'name']);
+    }
+
+    public function create($data)
+    {
+
+        $owner = Owner::create($data);
+        if ($owner) {
+            return ['success' => true, 'message' => 'Owner created successfully'];
+        }
+
+        return ['success' => false, 'message' => 'Owner creation failed'];
+    }
 }

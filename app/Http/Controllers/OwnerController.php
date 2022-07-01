@@ -4,27 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Owner;
 use Illuminate\Http\Request;
+use App\Http\Requests\admin\OwnerCreateRequest;
+use App\Interfaces\OwnerServiceInterface;
 
 class OwnerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    private OwnerServiceInterface $ownerService;
 
+    public function __construct(OwnerServiceInterface $ownerService)
+    {
+        $this->ownerService = $ownerService;
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(OwnerCreateRequest $request)
     {
-        //
+        $response = $this->ownerService->create($request->all());
+        if ($response['success']) {
+            return redirect()->route('admin.properties')->with('success', $response['message']);
+        }
+        return redirect()->route('admin.properties')->with('error', $response['message']);
     }
 
     /**

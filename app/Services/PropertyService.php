@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Document;
 use App\Models\Property;
 use Illuminate\Support\Facades\DB;
 use App\Interfaces\PropertyServiceInterface;
@@ -15,7 +16,7 @@ class PropertyService implements PropertyServiceInterface
 
     public function getFeatured()
     {
-        return Property::where('is_featured', true)->get();
+        return Property::where('is_featured', true)->with('documents')->get();
     }
 
     public function getRecent()
@@ -32,10 +33,15 @@ class PropertyService implements PropertyServiceInterface
     {
         $property = Property::create($data);
         if($property){
-            return ['success' => true, 'message' => 'Property created successfully.'];
+            foreach ($data['document'] as $key => $value) {
+                $imageUpload = new Document();
+                $imageUpload->filename = $value;
+                $property->documents()->save($imageUpload);
+            }
+            return ['success' => true, 'message' => 'Property created successfully'];
         }
 
-        return ['success' => false, 'message' => 'Property creation failed.'];
+        return ['success' => false, 'message' => 'Property creation failed'];
     }
 
     public function update($id, $data)

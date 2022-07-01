@@ -54,14 +54,12 @@ class DashboardController extends Controller
 
     public function propertyIndex()
     {
-        return view('pages.admin.properties',['properties' => $this->propertyService->getAll(),'owners' => $this->ownerService->getAll(),'types' => $this->propertyService->getAllTypes()]);
+        return view('pages.admin.properties',['properties' => $this->propertyService->getAll(), 'ownersList' => $this->ownerService->getOwnersForCreate(),'owners' => $this->ownerService->getAll(),'types' => $this->propertyService->getAllTypes()]);
     }
 
     public function userIndex()
     {
-        // $user = $this->userService->getAllUser();
-        // return view('pages.admin.user', ['user' => $user]);
-        return view('pages.admin.users');
+        return view('pages.admin.users',['users' => $this->userService->getAll()]);
     }
 
     public function advertisementIndex()

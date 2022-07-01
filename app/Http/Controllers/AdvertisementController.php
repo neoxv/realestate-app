@@ -2,20 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Property;
+use App\Models\Advertisement;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use App\Interfaces\PropertyServiceInterface;
-use App\Http\Requests\admin\PropertyCreateRequest;
 
-class PropertyController extends Controller
+class AdvertisementController extends Controller
 {
-    private PropertyServiceInterface $propertyService;
-
-    public function __construct(PropertyServiceInterface $propertyService)
-    {
-        $this->propertyService = $propertyService;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -31,13 +22,9 @@ class PropertyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(PropertyCreateRequest $request)
+    public function create()
     {
-        $response = $this->propertyService->create($request->all());
-        if($response['success']){
-            return redirect()->route('admin.properties')->with('success', $response['message']);
-        }
-        return redirect()->route('admin.properties')->with('error', $response['message']);
+        //
     }
 
     /**
@@ -54,10 +41,10 @@ class PropertyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Property  $property
+     * @param  \App\Models\Advertisement  $advertisement
      * @return \Illuminate\Http\Response
      */
-    public function show(Property $property)
+    public function show(Advertisement $advertisement)
     {
         //
     }
@@ -65,10 +52,10 @@ class PropertyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Property  $property
+     * @param  \App\Models\Advertisement  $advertisement
      * @return \Illuminate\Http\Response
      */
-    public function edit(Property $property)
+    public function edit(Advertisement $advertisement)
     {
         //
     }
@@ -77,10 +64,10 @@ class PropertyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Property  $property
+     * @param  \App\Models\Advertisement  $advertisement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Property $property)
+    public function update(Request $request, Advertisement $advertisement)
     {
         //
     }
@@ -88,10 +75,10 @@ class PropertyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Property  $property
+     * @param  \App\Models\Advertisement  $advertisement
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Property $property)
+    public function destroy(Advertisement $advertisement)
     {
         //
     }

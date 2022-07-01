@@ -12,7 +12,7 @@
                         <p class="mb-0">Enter property information.</p>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{route('property.create')}}" >
+                        <form method="post" action="{{route('property.create')}}" id="createProperty">
                             @csrf
                         <div class="row">
                             <div class="col-md-4">
@@ -76,7 +76,7 @@
                                 <div class="form-group">
                                 <label for="owner" class="text-primary">Owner</label>
                                 <select class="form-control" name="owner_id" id="owner" placeholder="Abebe Kebede" required>
-                                @foreach ($owners as $owner )
+                                @foreach ($ownersList as $owner )
                                     <option value="{{$owner->id}}">{{ucfirst($owner->name)}}</option>
                                 @endforeach
                                 </select>
@@ -85,13 +85,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="description" class="text-primary">Detaild Information</label>
-                                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-                            </div>
-                            </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="is_rental" class="text-primary">Transaction Type</label>
                                     <select class="form-control" name="is_rental" id="is_rental" required>
@@ -100,7 +94,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="is_negotiable" class="text-primary">Price Type</label>
                                     <select class="form-control" name="is_negotiable" id="is_negotiable" required>
@@ -108,6 +102,20 @@
                                             <option value="false">Fixed</option>
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="description" class="text-primary">Detaild Information</label>
+                                <textarea class="form-control" id="description" name="description" rows="6" required></textarea>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                            <label for="images" class="text-primary">Property Images</label>
+                            <div class="needsclick dropzone form-control" id="dropzone">
+
+                            </div>
                             </div>
                         </div>
                         <div class="row">
@@ -218,120 +226,164 @@
         {{$properties->links()}}
         </div>
 
-  <x-admin.table :headers="['Name','Address','Primary Phone','Secondary Phone','Email','Pending Properties']" :title="'Owners Table'" >
-            <x-slot name="form">
-        <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#owner-form">+</button>
-            <div class="modal fade" id="owner-form" tabindex="-1" role="dialog" aria-labelledby="owner-form" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                <div class="modal-body p-0">
-                    <div class="card card-plain">
-                    <div class="card-header pb-0 text-left">
-                        <h3 class="font-weight-bolder text-primary text-gradient">Add Owner</h3>
-                        <p class="mb-0">Enter owner information.</p>
-                    </div>
-                    <div class="card-body">
-                        <form role="form ">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="text-primary">Full Name</label>
-                                        <input type="text" class="form-control" id="name" placeholder="G+3 Living House...">
+    <x-admin.table :headers="['Name','Address','Primary Phone','Secondary Phone','Email','Pending Properties']" :title="'Owners Table'" >
+                <x-slot name="form">
+            <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#owner-form">+</button>
+                <div class="modal fade" id="owner-form" tabindex="-1" role="dialog" aria-labelledby="owner-form" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card card-plain">
+                        <div class="card-header pb-0 text-left">
+                            <h3 class="font-weight-bolder text-primary text-gradient">Add Owner</h3>
+                            <p class="mb-0">Enter owner information.</p>
+                        </div>
+                        <div class="card-body">
+                            <form role="form" method="post" action="{{route('owner.create')}}" id="createOwner"">
+                               @csrf
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="text-primary">Full Name</label>
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="text-primary">Email</label>
+                                            <input type="email" class="form-control" placeholder="Email" name="email" aria-label="Email" aria-describedby="email-addon">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="text-primary">Primary Phone</label>
+                                            <input type="text" class="form-control" id="primary_phone" name="primary_phone" placeholder="09...">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="text-primary">Email</label>
-                                        <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="text-primary">Address</label>
+                                            <input type="text" class="form-control" id="address" name="address" placeholder="Bole...">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="text-primary">Secondary Phone</label>
+                                            <input type="text" class="form-control" id="secondary_phone" name="secondary_phone" placeholder="09...">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="text-primary">Primary Phone</label>
-                                        <input type="text" class="form-control" id="phone" placeholder="+251...">
-                                    </div>
+                                <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                                    <button type="button" class="btn bg-gradient-secondary">Cancel</button>
+                                    <button type="submit" class="btn bg-gradient-primary">Submit</button>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="text-primary">Address</label>
-                                        <input type="text" class="form-control" id="name" placeholder="G+3 Living House...">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="text-primary">Secondary Phone</label>
-                                        <input type="text" class="form-control" id="phone" placeholder="+251...">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                        <button type="button" class="btn bg-gradient-secondary">Cancel</button>
-                        <button type="button" class="btn bg-gradient-primary">Submit</button>
+                            </form>
+                        </div>
+
+                        </div>
                     </div>
                     </div>
                 </div>
                 </div>
-            </div>
-            </div>
-        </x-slot>
-    @foreach ($owners as $item )
+            </x-slot>
+        @foreach ($owners as $item )
 
-            <tr>
-                <td>
-                    <div class="d-flex px-2 py-1">
-                    <div>
-                        <img src="{{asset('admin-assets/img/team-2.jpg')}}" class="avatar avatar-sm me-3" alt="user1">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">{{$item->name}}</h6>
-                    </div>
-                    </div>
-                </td>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{$item->address}}</span>
-                </td>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{$item->primary_phone}}</span>
-                </td>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{$item->secondary_phone}}</span>
-                </td>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{$item->email}}</span>
-                </td>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{$item->sold_properties}}</span>
-                </td>
-                <td class="align-middle">
-                    <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-ellipsis-v text-xs"></i>
-                    </button>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <div class="d-flex px-2 py-1">
+                        <div>
+                            <img src="{{asset('admin-assets/img/team-2.jpg')}}" class="avatar avatar-sm me-3" alt="user1">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{$item->name}}</h6>
+                        </div>
+                        </div>
+                    </td>
+                    <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{$item->address}}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{$item->primary_phone}}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{$item->secondary_phone}}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{$item->email}}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{$item->sold_properties}}</span>
+                    </td>
+                    <td class="align-middle">
+                        <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-ellipsis-v text-xs"></i>
+                        </button>
+                    </td>
+                </tr>
 
-        @endforeach
+            @endforeach
 
-        </x-admin.table >
-        <div class="d-flex justify-content-end" style="margin-right:10px;">
+    </x-admin.table >
+    <div class="d-flex justify-content-end" style="margin-right:10px;">
         {{$owners->links()}}
-        </div>
-               <div class="d-flex justify-content-end flex-column align-items-end" >
+    </div>
+    <div class="d-flex justify-content-end flex-column align-items-end" >
+        @if ($errors->any())
+        {{-- <x-common.toast :title="'Error'" :message="$error"/> --}}
+            @foreach ($errors->all() as $error)
+                <x-common.toast :title="'Error'" :message="$error" :type="'error'"/>
+            @endforeach
+        @elseif (Session::has('success'))
+            <x-common.toast :title="'Success'" :message="Session::get('success')" :type="'success'"/>
 
-                @if ($errors->any())
-               {{-- <x-common.toast :title="'Error'" :message="$error"/> --}}
-                    @foreach ($errors->all() as $error)
-                        <x-common.toast :title="'Error'" :message="$error" :type="'error'"/>
-                    @endforeach
-               @elseif (Session::has('success'))
-                    <x-common.toast :title="'Success'" :message="Session::get('success')" :type="'success'"/>
-
-               @elseif (Session::has('error'))
-                    <x-common.toast :title="'Error'" :message="Session::get('error')" :type="'error'"/>
-               @endif
-               </div>
+        @elseif (Session::has('error'))
+            <x-common.toast :title="'Error'" :message="Session::get('error')" :type="'error'"/>
+        @endif
+    </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
+<script>
+  var uploadedDocumentMap = {}
+  Dropzone.options.dropzone = {
+    url: "{{ route('store.document') }}",
+    method: "post",
+    maxFiles:5,
+    acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
+    parallelUploads: 2,
+    uploadMultiple: true,
+    maxFilesize: 2, // MB
+    addRemoveLinks: true,
+    timeout: 10000,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    renameFile: function(file) {
+      var dt = new Date();
+      var time = dt.getTime();
+      return time + file.name;
+    },
+    success: function (file, response) {
+        let formContainer = document.querySelector('#createProperty');
+        var input = document.createElement("input");
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', 'document[]');
+        input.setAttribute('value', response.image);
+        formContainer.append(input)
+        uploadedDocumentMap[file.name] = response.name
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      var name = ''
+      if (typeof file.file_name !== 'undefined') {
+        name = file.file_name
+      } else {
+        name = uploadedDocumentMap[file.name]
+      }
+      $('form').find('input[name="document[]"][value="' + name + '"]').remove()
+    }
+  }
+</script>
 
     </x-common.admin.container>

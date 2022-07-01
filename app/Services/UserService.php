@@ -10,7 +10,8 @@ class UserService implements UserServiceInterface
 {
     public function getAll()
     {
-        return User::all();
+        return User::paginate(5, ['*'], 'usersPage');
+
     }
 
     public function getById($id)

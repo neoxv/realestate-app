@@ -79,7 +79,7 @@
 
             </div>
             <div class="row filter-portfolio wow fadeInUp delay-04s">
-                <div class="cars">
+                <div class="cards">
                     @foreach ($featured as $item)
                         <x-home-page.featured-card :property='$item'/>
                     @endforeach

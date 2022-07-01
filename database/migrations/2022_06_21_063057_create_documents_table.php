@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('owners', function (Blueprint $table) {
+        Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('primary_phone')->unique();
-            $table->string('address')->nullable();
-            $table->string('secondary_phone')->unique()->nullable();
-            $table->string('email')->nullable()->unique();
+            $table->string('filename');
+            $table->integer('documentable_id');
+            $table->string('documentable_type');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('owners');
+        Schema::dropIfExists('documents');
     }
 };

@@ -36,6 +36,7 @@ class PropertyCreateRequest extends FormRequest
             'is_rental'=>'required|boolean',
             'owner_id'=>'required|string|max:255',
             'is_negotiable'=>'required|boolean',
+            'document'=>'required'
         ];
     }
 

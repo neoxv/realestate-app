@@ -21,89 +21,31 @@
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="{{route('search')}}" id="navbarDropdownMenuLink2"
+                                     aria-haspopup="true" aria-expanded="false">
                                     Properties
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">List
-                                            Layout</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="properties-list-rightside.html">Right
-                                                    Sidebar</a></li>
-                                            <li><a class="dropdown-item" href="properties-list-leftside.html">Left
-                                                    Sidebar</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="properties-list-fullwidth.html">Fullwidth</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Grid
-                                            Layout</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="properties-grid-rightside.html">Right
-                                                    Sidebar</a></li>
-                                            <li><a class="dropdown-item" href="properties-grid-leftside.html">Left
-                                                    Sidebar</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="properties-grid-fullwidth.html">Fullwidth</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Map
-                                            View</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="properties-map-rightside-list.html">Map
-                                                    List Right Sidebar</a></li>
-                                            <li><a class="dropdown-item" href="properties-map-leftside-list.html">Map
-                                                    List Left Sidebar</a></li>
-                                            <li><a class="dropdown-item" href="properties-map-rightside-grid.html">Map
-                                                    Grid Right Sidebar</a></li>
-                                            <li><a class="dropdown-item" href="properties-map-leftside-grid.html">Map
-                                                    Grid Left Sidebar</a></li>
-                                            <li><a class="dropdown-item" href="properties-map-full.html">Map
-                                                    FullWidth</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
-                                            href="#">Property Detail</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="properties-details.html">Property Detail
-                                                    1</a></li>
-                                            <li><a class="dropdown-item" href="properties-details-2.html">Property
-                                                    Detail 2</a></li>
-                                            <li><a class="dropdown-item" href="properties-details-3.html">Property
-                                                    Detail 3</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </li>
                             @auth
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink7"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        My Account
+                                    <a class="nav-link dropdown-toggle" href="{{route('profile')}}" id="navbarDropdownMenuLink2"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        Profile
                                     </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li>
-                                            <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="favorited-properties.html">Favorited
-                                            Properties</a>
-                                        </li>
-                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="{{route('favourites')}}" id="navbarDropdownMenuLink2"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        Favourites
+                                    </a>
                                 </li>
                             @endauth
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="{{route('contact')}}" id="navbarDropdown3" role="button"
+                                   aria-haspopup="true" aria-expanded="false">
                                     Contact
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                                    <a class="dropdown-item" href="contact-1.html">Contact 1</a>
-                                    <a class="dropdown-item" href="contact-2.html">Contact 2</a>
-                                    <a class="dropdown-item" href="contact-3.html">Contact 3</a>
-                                </div>
                             </li>
                             <li class="nav-item " style="padding:30px 17px 35px">
                                     <form class="form-inline my-2 my-lg-0">

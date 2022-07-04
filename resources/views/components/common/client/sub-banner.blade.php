@@ -1,10 +1,11 @@
+@props(['title'=>'title' ])
 <div class="sub-banner">
     <div class="container">
         <div class="breadcrumb-area">
-            <h1>My Profile</h1>
+            <h1>{{strtoupper($title)}}</h1>
             <ul class="breadcrumbs">
                 <li><a href="index.html">Home</a></li>
-                <li class="active">My Profile</li>
+                <li class="active">{{ucfirst($title)}}</li>
             </ul>
         </div>
     </div>

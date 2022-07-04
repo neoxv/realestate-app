@@ -30,7 +30,7 @@
                                 </li>
                                 <li>
                                     <a href="favorited-properties.html">
-                                        <i class="flaticon-heart-shape-outline"></i>Favorited Properties
+                                        <i class="flaticon-heart-shape-outline"></i>Favourited Properties
                                     </a>
                                 </li>
                                 <li>

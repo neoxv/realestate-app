@@ -9,7 +9,17 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class,'show'])->name('home');
+Route::get('/property-list', function () {
+    return view('pages.property-list');
+})->name('search');
 
+Route::get('/property-detail', function () {
+    return view('pages.property-detail');
+})->name('detail');
+
+Route::get('/contact', function () {
+    return view('pages.contact');
+})->name('contact');
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['auth.admin'])->group(function () {
@@ -28,9 +38,10 @@ Route::middleware(['auth'])->group(function () {
             return view('pages.user-profile');
         })->name('profile');
 
-        Route::get('/property-list', function () {
-            return view('pages.properties');
-        })->name('properties');
+        Route::get('/favourites', function () {
+            return view('pages.favourites');
+        })->name('favourites');
+
     });
 
     Route::post('/store-document', [DocumentController::class,'store'])->name('store.document');

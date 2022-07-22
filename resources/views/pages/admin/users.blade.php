@@ -15,23 +15,29 @@
                     </div>
                     </div>
                 </td>
-                <td style="padding: 12px 24px;">
+                <td class="align-middle text-center" style="padding: 12px 24px;">
                     <p class="text-xs font-weight-bold mb-0">{{$item->last_name}}</p>
                 </td>
-                <td style="padding: 12px 24px;">
+                <td class="align-middle text-center" style="padding: 12px 24px;">
                     <span class="text-secondary text-xs font-weight-bold">{{$item->email}}</span>
                 </td>
-                <td style="padding: 12px 24px;">
+                <td class="align-middle text-center" style="padding: 12px 24px;">
                     <span class="text-secondary text-xs font-weight-bold">{{$item->phone}}</span>
                 </td>
-                <td style="padding: 12px 24px;">
+                <td class="align-middle text-center" style="padding: 12px 24px;">
                     <span class="text-secondary text-xs font-weight-bold">{{$item->created_at}}</span>
                 </td>
-                <td class="align-middle">
-                    <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-ellipsis-v text-xs"></i>
-                    </button>
-                </td>
+                <td class="align-middle text-center">
+                        <div class="dropdown">
+                            <button class="btn  bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </td>
             </tr>
 
         @endforeach
@@ -42,19 +48,8 @@
         </div>
 
 
-    <div class="d-flex justify-content-end flex-column align-items-end" >
-        @if ($errors->any())
-        {{-- <x-common.toast :title="'Error'" :message="$error"/> --}}
-            @foreach ($errors->all() as $error)
-                <x-common.toast :title="'Error'" :message="$error" :type="'error'"/>
-            @endforeach
-        @elseif (Session::has('success'))
-            <x-common.toast :title="'Success'" :message="Session::get('success')" :type="'success'"/>
+   <x-admin.toast-container />
 
-        @elseif (Session::has('error'))
-            <x-common.toast :title="'Error'" :message="Session::get('error')" :type="'error'"/>
-        @endif
-    </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
 

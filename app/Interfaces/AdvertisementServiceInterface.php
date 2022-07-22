@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface OwnerServiceInterface
+interface AdvertisementServiceInterface
 {
     public function getAll();
     public function getById($id);

@@ -17,7 +17,8 @@ class DocumentController extends Controller
     {
         $image = $request->file('file');
         $imageName = $image[0]->getClientOriginalName();
-        $image[0]->move(public_path('client-assets/img/property'), $imageName);
+        $location = $request->location ?? 'img';
+        $image[0]->move(public_path($location), $imageName);
         return response()->json(['success' => true, 'image' => $imageName]);
     }
 
@@ -44,7 +45,8 @@ class DocumentController extends Controller
     {
         $filename =  $request->get('filename');
         ImageUpload::where('filename', $filename)->delete();
-        $path = public_path() . '/client-assets/img/property/' . $filename;
+        $location = $request->location??'img';
+        $path = public_path() . $location . $filename;
         if (file_exists($path)) {
             unlink($path);
         }

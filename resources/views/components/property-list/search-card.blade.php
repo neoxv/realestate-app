@@ -20,7 +20,7 @@
                             <i class="fa fa-star-o"></i>
                         </div>
                     </div>
-                    <img src="{{asset( $property != null && count($property->documents) > 0 ?'client-assets/img/property/'. $property->documents->first()->filename:'default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 10vw; object-fit: cover;">
+                    <img src="{{asset( $property != null && count($property->documents) > 0 ?'img/property/'. $property->documents->first()->filename:'default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 10vw; object-fit: cover;">
 
                 </a>
                 <div class="property-overlay">

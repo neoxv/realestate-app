@@ -22,8 +22,15 @@ class OwnerService implements OwnerServiceInterface
         return Owner::find($id);
     }
 
-    public function getOwnersForCreate(){
-        return Owner::get(['id', 'name']);
+    public function get($columns){
+        if($columns != [] || $columns != null){
+            return Owner::all($columns);
+        }
+        return Owner::all();
+    }
+
+    public function getOwnersByPhonenumber($phonenumber){
+        return Owner::where('primary_phone',$phonenumber)->orWhere('secondary_phone',$phonenumber)->with('properties')->get();
     }
 
     public function create($data)

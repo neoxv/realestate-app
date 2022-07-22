@@ -1,14 +1,12 @@
 @props(['property'])
-@php
-        Log::error($property->documents != null);
-@endphp
+
 <div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2">
     <div class="property-box-7">
         <div class="property-thumbnail">
             <a href="properties-details.html" class="property-img">
                 <div class="tag-2">{{$property->is_rental?'For Rent':'For Sale'}}</div>
                 <div class="price-box"><span>{{number_format($property->price)}} Birr </span>{{$property->is_negotiable?'Negotioable':'Fixed'}} </div>
-                <img src="{{asset(count($property->documents) > 0 ?'client-assets/img/property/'. $property->documents->first()->filename:'default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 15vw; object-fit: cover;">
+                <img src="{{asset(count($property->documents) > 0 ?'img/properties/'. $property->documents->first()->filename:'default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 15vw; object-fit: cover;">
             </a>
         </div>
         <div class="detail">

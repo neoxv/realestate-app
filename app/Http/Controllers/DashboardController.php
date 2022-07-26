@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Interfaces\UserServiceInterface;
 use App\Interfaces\OwnerServiceInterface;
 use App\Interfaces\PropertyServiceInterface;
+use App\Interfaces\SettingServiceInterface;
 
 class DashboardController extends Controller
 {
@@ -21,14 +22,16 @@ class DashboardController extends Controller
     private OwnerServiceInterface $ownerService;
     private ClientServiceInterface $clientService;
     private AdvertisementServiceInterface $advertisementService;
+    private SettingServiceInterface $settingService;
 
-    public function __construct(PropertyServiceInterface $propertyService, UserServiceInterface $userService, OwnerServiceInterface $ownerService, ClientServiceInterface $clientService, AdvertisementServiceInterface $advertisementService)
+    public function __construct(PropertyServiceInterface $propertyService, UserServiceInterface $userService, OwnerServiceInterface $ownerService, ClientServiceInterface $clientService, AdvertisementServiceInterface $advertisementService, SettingServiceInterface $settingService)
     {
         $this->propertyService = $propertyService;
         $this->userService = $userService;
         $this->ownerService = $ownerService;
         $this->clientService = $clientService;
         $this->advertisementService = $advertisementService;
+        $this->settingService = $settingService;
     }
 
     public function index()
@@ -75,7 +78,7 @@ class DashboardController extends Controller
 
     public function settingIndex()
     {
-        return view('pages.admin.settings');
+        return view('pages.admin.settings',['setting'=>$this->settingService->getAll()]);
     }
 
 }

@@ -263,7 +263,7 @@
                         <div class="dropdown">
                             <button class="btn bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="z-index: 1">
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px">
                                 <li><a class="dropdown-item" href="#">Edit</a></li>
                                 <li class="dropdown-item" onclick="featureProperty({{$item->id}})">{{$item->is_featured?'Stop Featuring':'Feature'}}</li>
                                 <li><a class="dropdown-item" href="#">Close Property</a></li>
@@ -280,7 +280,12 @@
         </div>
 
     <x-admin.table :headers="['Name','Address','Primary Phone','Secondary Phone','Email','Pending Properties']" :title="'Owners Table'" >
-                <x-slot name="form">
+        <div class="row">
+            <div class="col-md-3 m-2" style="padding: 0px 24px">
+                <x-admin.search :action="'property.search'" :key="isset($key)?$key:''"/>
+            </div>
+        </div>
+        <x-slot name="form">
             <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#owner-form">+</button>
                 <div class="modal fade" id="owner-form" tabindex="-1" role="dialog" aria-labelledby="owner-form" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -341,6 +346,7 @@
                 </div>
                 </div>
             </x-slot>
+
         @foreach ($owners as $item )
 
                 <tr>
@@ -373,7 +379,7 @@
                         <div class="dropdown">
                             <button class="btn bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -400,7 +406,7 @@
     url: "{{ route('store.document') }}",
     init:function() {
                 this.on("sending", function(file, xhr, formData){
-                        formData.append("location", "img/property");
+                        formData.append("location", "img/properties");
                 });
             },
     method: "post",
@@ -417,7 +423,11 @@
     renameFile: function(file) {
       var dt = new Date();
       var time = dt.getTime();
-      return time + file.name;
+      if(file.name.length <= 5){
+        return time + file.name;
+      }else{
+        return time + file.name.substring(0,5)
+      }
     },
     success: function (file, response) {
         let formContainer = document.querySelector('#createProperty');

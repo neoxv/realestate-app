@@ -16,9 +16,18 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
         $image = $request->file('file');
-        $imageName = $image[0]->getClientOriginalName();
-        $location = $request->location ?? 'img';
-        $image[0]->move(public_path($location), $imageName);
+        if(is_array($image)){
+            foreach ($image as $img) {
+                $imageName = $img->getClientOriginalName();
+                $location = $request->location ?? 'img';
+                $img->move(public_path($location), $imageName);
+            }
+        }else{
+            $imageName = $image->getClientOriginalName();
+            $location = $request->location ?? 'img';
+            $image->move(public_path($location), $imageName);
+        }
+
         return response()->json(['success' => true, 'image' => $imageName]);
     }
 

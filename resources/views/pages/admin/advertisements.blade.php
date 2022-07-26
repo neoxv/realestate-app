@@ -1,5 +1,10 @@
 <x-common.admin.container>
     <x-admin.table :headers="['Property','Owner','from','to']" :title="'Featured Table'" >
+    <div class="row">
+        <div class="col-md-3 m-2" style="padding: 0px 24px">
+            <x-admin.search :action="'property.search'" :key="isset($key)?$key:''"/>
+        </div>
+    </div>
         <x-slot name='form'>
         </x-slot>
         @foreach ($featured as $item )
@@ -29,10 +34,10 @@
                         <div class="dropdown">
                             <button class="btn bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Action</a></li>
                             </ul>
                         </div>
                     </td>
@@ -46,7 +51,12 @@
 
 
  <x-admin.table :headers="['Advertisment','Client','LINK','from','to','status']" :title="'Advertisment Table'" >
-        <x-slot name="form">
+    <div class="row">
+        <div class="col-md-3 m-2" style="padding: 0px 24px">
+            <x-admin.search :action="'property.search'" :key="isset($key)?$key:''"/>
+        </div>
+    </div>
+    <x-slot name="form">
         <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#advertisment-form">+</button>
             <div class="modal fade" id="advertisment-form" tabindex="-1" role="dialog" aria-labelledby="advertisment-form" aria-hidden="true" >
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -151,7 +161,7 @@
                         <div class="dropdown">
                             <button class="btn bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -168,7 +178,12 @@
 
 
  <x-admin.table :headers="['Client','Phonenumber','Advertisments']" :title="'Clients Table'" >
-        <x-slot name="form">
+        <div class="row">
+        <div class="col-md-3 m-2" style="padding: 0px 24px">
+            <x-admin.search :action="'property.search'" :key="isset($key)?$key:''"/>
+        </div>
+    </div>
+    <x-slot name="form">
         <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#client-form">+</button>
             <div class="modal fade" id="client-form" tabindex="-1" role="dialog" aria-labelledby="client-form" aria-hidden="true" >
             <div class="modal-dialog modal-dialog-centered modal-md" role="document">
@@ -223,7 +238,7 @@
                         <div class="dropdown">
                             <button class="btn bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -266,7 +281,11 @@
     renameFile: function(file) {
       var dt = new Date();
       var time = dt.getTime();
-      return time + file.name;
+      if(file.name.length <= 5){
+        return time + file.name;
+      }else{
+        return time + file.name.substring(0,5)
+      }
     },
     success: function (file, response) {
         let formContainer = document.querySelector('#createFeature');

@@ -7,6 +7,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/owner/create', [OwnerController::class, 'create'])->name('owner.create');
         Route::post('/client/create', [ClientController::class, 'create'])->name('client.create');
         Route::post('/advertisements/create', [AdvertisementController::class, 'create'])->name('advertisement.create');
+        Route::post('/settings/create', [SettingController::class, 'create'])->name('setting.create');
 
         Route::post('/property/update', [PropertyController::class, 'update'])->name('property.update');
 

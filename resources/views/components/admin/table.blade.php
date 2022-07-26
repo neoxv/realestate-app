@@ -10,7 +10,7 @@
     </div>
     <div class="card-body px-0 pt-0 pb-2">
         <div class="table-responsive p-0" style="overflow-x:hidden;overflow-y:hidden">
-        <table class="table align-items-center mb-0" >
+        <table class="table align-items-center" style="margin-bottom: 10px;" >
             <thead>
             <tr>
             @foreach ($headers as $header)

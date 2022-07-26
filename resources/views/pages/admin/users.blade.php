@@ -1,5 +1,10 @@
 <x-common.admin.container>
     <x-admin.table :headers="['First Name','Last Name','Email','Phone Number','Created At']" :title="'Users Table'" >
+    <div class="row">
+        <div class="col-md-3 m-2" style="padding: 0px 24px">
+            <x-admin.search :action="'property.search'" :key="isset($key)?$key:''"/>
+        </div>
+    </div>
         <x-slot name="form">
         </x-slot>
         @foreach ($users as $item )
@@ -31,7 +36,7 @@
                         <div class="dropdown">
                             <button class="btn  bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>

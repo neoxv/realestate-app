@@ -4,6 +4,6 @@
     <p>{{$subtitle}}</p>
 
     @if($show)
-        <a href="{{$buttonurl}}" class="important-btn btn-5">{{$buttontitle}}</a>
+        <a href="{{route($buttonurl)}}" class="important-btn btn-5">{{$buttontitle}}</a>
     @endif
 </div>

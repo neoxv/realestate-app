@@ -1,5 +1,11 @@
 <x-common.admin.container>
     <x-admin.table :headers="['Property','Owner','Bedroom','Bathroom','Area','Status','price','closing','type']" :title="'Properties Table'" >
+
+    <div class="row">
+        <div class="col-md-3 m-2" style="padding: 0px 24px">
+            <x-admin.search :action="'property.search'" :key="isset($key)?$key:''"/>
+        </div>
+    </div>
         <x-slot name="form">
         <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#property-form">+</button>
             <div class="modal fade" id="property-form" tabindex="-1" role="dialog" aria-labelledby="property-form" aria-hidden="true" >
@@ -172,6 +178,47 @@
             </div>
             </div>
         </x-slot>
+
+        <div class="modal fade" id="feature-form" tabindex="-1" role="dialog" aria-labelledby="feature-form" aria-hidden="true" >
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card card-plain">
+                            <div class="card-header pb-0 text-left">
+                                <h3 class="font-weight-bolder text-primary text-gradient">Feature Property</h3>
+                                <p class="mb-0">Enter Feature information.</p>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" action="{{route('property.update')}}" id="featureProperty">
+                                    @csrf
+                                    <input type="hidden" name="featured_id" id="featured_id" value="">
+                                    <input type="hidden" name="is_featured" id="is_featured" value="true">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-primary" for="from">From</label>
+                                            <input class="form-control" type="date" value="{{\Carbon\Carbon::now()->toDateString()}}" id="feature_from" name="feature_from" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-primary" for="to">To</label>
+                                            <input class="form-control" type="date" value="{{\Carbon\Carbon::now()->toDateString()}}" id="feature_to" name="feature_to" required>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-center pt-0 px-lg-2 px-1 mt-4">
+                                    <button type="button" class="btn bg-gradient-secondary mr-2">Cancel</button>
+                                    <button type="submit" class="btn bg-gradient-primary ml-2">Submit</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         @foreach ($properties as $item )
 
             <tr>
@@ -210,13 +257,19 @@
                     <span class="text-secondary text-xs font-weight-bold">{{number_format($item->closing_price)}} Birr</span>
                 </td>
                 <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{$item->type}}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{strtoupper($item->type)}}</span>
                 </td>
-                <td class="align-middle">
-                    <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-ellipsis-v text-xs"></i>
-                    </button>
-                </td>
+                <td class="align-middle text-center">
+                        <div class="dropdown">
+                            <button class="btn bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px">
+                                <li><a class="dropdown-item" href="#">Edit</a></li>
+                                <li class="dropdown-item" onclick="featureProperty({{$item->id}})">{{$item->is_featured?'Stop Featuring':'Feature'}}</li>
+                                <li><a class="dropdown-item" href="#">Close Property</a></li>
+                            </ul>
+                        </div>
+                    </td>
             </tr>
 
         @endforeach
@@ -227,7 +280,12 @@
         </div>
 
     <x-admin.table :headers="['Name','Address','Primary Phone','Secondary Phone','Email','Pending Properties']" :title="'Owners Table'" >
-                <x-slot name="form">
+        <div class="row">
+            <div class="col-md-3 m-2" style="padding: 0px 24px">
+                <x-admin.search :action="'property.search'" :key="isset($key)?$key:''"/>
+            </div>
+        </div>
+        <x-slot name="form">
             <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#owner-form">+</button>
                 <div class="modal fade" id="owner-form" tabindex="-1" role="dialog" aria-labelledby="owner-form" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -288,6 +346,7 @@
                 </div>
                 </div>
             </x-slot>
+
         @foreach ($owners as $item )
 
                 <tr>
@@ -316,10 +375,16 @@
                     <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{$item->sold_properties}}</span>
                     </td>
-                    <td class="align-middle">
-                        <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-ellipsis-v text-xs"></i>
-                        </button>
+                    <td class="align-middle text-center">
+                        <div class="dropdown">
+                            <button class="btn bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
 
@@ -329,25 +394,21 @@
     <div class="d-flex justify-content-end" style="margin-right:10px;">
         {{$owners->links()}}
     </div>
-    <div class="d-flex justify-content-end flex-column align-items-end" >
-        @if ($errors->any())
-        {{-- <x-common.toast :title="'Error'" :message="$error"/> --}}
-            @foreach ($errors->all() as $error)
-                <x-common.toast :title="'Error'" :message="$error" :type="'error'"/>
-            @endforeach
-        @elseif (Session::has('success'))
-            <x-common.toast :title="'Success'" :message="Session::get('success')" :type="'success'"/>
 
-        @elseif (Session::has('error'))
-            <x-common.toast :title="'Error'" :message="Session::get('error')" :type="'error'"/>
-        @endif
-    </div>
+    <x-admin.toast-container />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
 <script>
+
   var uploadedDocumentMap = {}
   Dropzone.options.dropzone = {
     url: "{{ route('store.document') }}",
+    init:function() {
+                this.on("sending", function(file, xhr, formData){
+                        formData.append("location", "img/properties");
+                });
+            },
     method: "post",
     maxFiles:5,
     acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
@@ -362,7 +423,11 @@
     renameFile: function(file) {
       var dt = new Date();
       var time = dt.getTime();
-      return time + file.name;
+      if(file.name.length <= 5){
+        return time + file.name;
+      }else{
+        return time + file.name.substring(0,5)
+      }
     },
     success: function (file, response) {
         let formContainer = document.querySelector('#createProperty');
@@ -384,6 +449,15 @@
       $('form').find('input[name="document[]"][value="' + name + '"]').remove()
     }
   }
+
+  function featureProperty(id) {
+    $('#feature-form').modal('show');
+    document.getElementById('featured_id').value = id
+    document.getElementById('is_featured').value = true
+    document.getElementById('feature_from').valueAsDate = new Date()
+    document.getElementById('feature_to').valueAsDate = new Date()
+  }
+
 </script>
 
     </x-common.admin.container>

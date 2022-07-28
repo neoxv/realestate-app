@@ -2522,14 +2522,14 @@ a {
     opacity: 1;
 }
 
-.property-box-4:hover:after {
+/* .property-box-4:hover:after {
     background-image: linear-gradient(2deg, #2339d6e3 8%, #c7c7c700 100%)!important;
     opacity: 1;
 }
 
 .property-box-4:before {
     background: linear-gradient(180deg,rgba(15,15,15,0),rgba(15,15,15,.75));
-}
+} */
 
 /** PROPERTY BOX 5 **/
 .property-box-5 {

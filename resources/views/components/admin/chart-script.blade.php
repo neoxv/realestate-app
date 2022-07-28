@@ -10,24 +10,29 @@
     gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
     gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var data = [0,0,0,0,0,0];
+    var data = [0,0,0,0,0,0,0,0,0,0,0,0];
     @foreach($userData as $user)
         data[{{$user->month}}-1] = {{$user->count}};
     @endforeach
     var currentMonth = (new Date()).getMonth();
-    var sliced;
+    var slicedLabel;
+    var slicedData;
     if(currentMonth - 5 < 0) {
-        var secondHalf = months.slice(0, currentMonth + 1);
-        var firstHalf = months.slice(currentMonth - 5);
-        sliced = firstHalf.concat(secondHalf);
+        var secondHalfData = data.slice(0, currentMonth + 1);
+        var firstHalfData = data.slice(currentMonth - 5);
+        slicedData = firstHalfLabel.concat(secondHalfLabel);
+        var secondHalfLabel = months.slice(0, currentMonth + 1);
+        var firstHalfLabel = months.slice(currentMonth - 5);
+        sliced = firstHalfLabel.concat(secondHalfLabel);
     } else {
-        sliced = months.slice(currentMonth - 5, currentMonth + 1);
+        slicedLabel = months.slice(currentMonth - 5, currentMonth + 1);
+        slicedData = data.slice(currentMonth - 5, currentMonth + 1);
     }
 
     new Chart(ctx1, {
       type: "line",
       data: {
-        labels: sliced,
+        labels: slicedLabel,
         datasets: [{
           label: "Joined Users",
           tension: 0.4,
@@ -37,7 +42,7 @@
           backgroundColor: gradientStroke1,
           borderWidth: 3,
           fill: true,
-          data: data,
+          data: slicedData,
           maxBarThickness: 6
 
         }],

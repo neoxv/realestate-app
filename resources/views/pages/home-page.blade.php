@@ -94,15 +94,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 align-self-center wow fadeInLeft delay-04s">
-                    <x-home-page.title class="main-title-2" :title="__('Why Choose Us')" :subtitle="__('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.')" :show="true" :buttontitle="__('More Details')" :buttonurl="__('services.html')" />
+                    <x-home-page.title class="main-title-2" :title="__('Work With Us')" :subtitle="__('Stopping advertising to save money is like stopping your watch to save time.')" :show="true" :buttontitle="__('Contact Us')" :buttonurl="__('contact')" />
                 </div>
                 <div class="col-lg-7 offset-lg-1 wow fadeInRight delay-04s">
                     <div class="row">
-
-                    @for ($i = 0; $i < 4; $i++)
-                        <x-home-page.service-card/>
+                    @foreach ($ads as $ad )
+                        <x-home-page.advertisement-card :ad='$ad'/>
+                    @endforeach
+                    @for ($i = 0; $i < (4- count($ads)); $i++)
+                        <x-home-page.advertisement-card/>
                     @endfor
-
                     </div>
                 </div>
             </div>

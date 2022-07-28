@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('price');
             $table->string('address');
             $table->string('city');
+            $table->string('subCity')->nullable();
             $table->string('description');
             $table->integer('bedroom');
             $table->integer('bathroom');
@@ -29,7 +30,8 @@ return new class extends Migration
             $table->enum('type', ['house', 'land', 'apartment', 'warehouse', 'building', 'shop'])->default('house');
             $table->foreignId('owner_id')->constrained();
             $table->boolean('is_featured')->default(false);
-            $table->dateTime('feature_expiry_date')->nullable();
+            $table->dateTime('feature_from')->nullable();
+            $table->dateTime('feature_to')->nullable();
             $table->boolean('is_rental')->default(false);
             $table->boolean('is_negotiable')->default(false);
             $table->timestamps();

@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Advertisement;
 use Illuminate\Http\Request;
+use App\Models\Advertisement;
+use App\Interfaces\ClientServiceInterface;
+use App\Interfaces\AdvertisementServiceInterface;
+
 
 class AdvertisementController extends Controller
 {
+    private AdvertisementServiceInterface $advertisementService;
+    private ClientServiceInterface $clientService;
+
+    public function __construct(AdvertisementServiceInterface $advertisementService, ClientServiceInterface $clientService)
+    {
+        $this->advertisementService = $advertisementService;
+        $this->clientService = $clientService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +33,13 @@ class AdvertisementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $response = $this->advertisementService->create($request->all());
+        if ($response['success']) {
+            return redirect()->route('admin.advertisements')->with('success', $response['message']);
+        }
+        return redirect()->route('admin.advertisements')->with('error', $response['message']);
     }
 
     /**

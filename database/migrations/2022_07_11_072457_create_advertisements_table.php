@@ -15,7 +15,14 @@ return new class extends Migration
     {
         Schema::create('advertisements', function (Blueprint $table) {
             $table->id();
+            $table->boolean('status')->default(false);
+            $table->string('title');
+            $table->string('link');
+            $table->dateTime('from');
+            $table->dateTime('to');
             $table->timestamps();
+            $table->foreignId('client_id')->constrained();
+
         });
     }
 

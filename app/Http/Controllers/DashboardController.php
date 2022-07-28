@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\AdvertisementServiceInterface;
+use App\Interfaces\ClientServiceInterface;
 use Illuminate\Http\Request;
 use App\Interfaces\UserServiceInterface;
 use App\Interfaces\OwnerServiceInterface;
 use App\Interfaces\PropertyServiceInterface;
+use App\Interfaces\SettingServiceInterface;
 
 class DashboardController extends Controller
 {
@@ -17,12 +20,18 @@ class DashboardController extends Controller
     private PropertyServiceInterface $propertyService;
     private UserServiceInterface $userService;
     private OwnerServiceInterface $ownerService;
+    private ClientServiceInterface $clientService;
+    private AdvertisementServiceInterface $advertisementService;
+    private SettingServiceInterface $settingService;
 
-    public function __construct(PropertyServiceInterface $propertyService, UserServiceInterface $userService, OwnerServiceInterface $ownerService)
+    public function __construct(PropertyServiceInterface $propertyService, UserServiceInterface $userService, OwnerServiceInterface $ownerService, ClientServiceInterface $clientService, AdvertisementServiceInterface $advertisementService, SettingServiceInterface $settingService)
     {
         $this->propertyService = $propertyService;
         $this->userService = $userService;
         $this->ownerService = $ownerService;
+        $this->clientService = $clientService;
+        $this->advertisementService = $advertisementService;
+        $this->settingService = $settingService;
     }
 
     public function index()
@@ -54,7 +63,7 @@ class DashboardController extends Controller
 
     public function propertyIndex()
     {
-        return view('pages.admin.properties',['properties' => $this->propertyService->getAll(), 'ownersList' => $this->ownerService->getOwnersForCreate(),'owners' => $this->ownerService->getAll(),'types' => $this->propertyService->getAllTypes()]);
+        return view('pages.admin.properties',['properties' => $this->propertyService->getAll(), 'ownersList' => $this->ownerService->get(['id', 'name']),'owners' => $this->ownerService->getAll(),'types' => $this->propertyService->getAllTypes()]);
     }
 
     public function userIndex()
@@ -64,12 +73,12 @@ class DashboardController extends Controller
 
     public function advertisementIndex()
     {
-        return view('pages.admin.advertisements');
+        return view('pages.admin.advertisements',['featured' => $this->propertyService->getFeatured(5), 'advertisements'=>$this->advertisementService->getAll(),'clients'=> $this->clientService->getAll()]);
     }
 
     public function settingIndex()
     {
-        return view('pages.admin.settings');
+        return view('pages.admin.settings',['setting'=>$this->settingService->getAll()]);
     }
 
 }

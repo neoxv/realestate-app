@@ -29,7 +29,8 @@ class PropertyFactory extends Factory
             'is_brokered' => $this->faker->boolean,
             'is_rental' => $this->faker->boolean,
             'owner_id'=>$this->faker->numberBetween(1,10),
-            'feature_expiry_date'=>$this->faker->dateTime,
+            'feature_from'=>$this->faker->dateTime,
+            'feature_to' => $this->faker->dateTime,
             'is_negotiable'=>$this->faker->boolean,
             'type'=>$this->faker->randomElement(['house', 'land', 'apartment', 'warehouse', 'building', 'shop']),
         ];

@@ -7,6 +7,7 @@
 
         <!--     Fonts and icons     -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+        <script src="{{asset('admin-assets/js/core/jquery.min.js')}}"></script>
         <!-- Nucleo Icons -->
         <link href="{{asset('admin-assets/css/nucleo-icons.css')}}" rel="stylesheet" />
         <link href="{{asset('admin-assets/css/nucleo-svg.css')}}" rel="stylesheet" />

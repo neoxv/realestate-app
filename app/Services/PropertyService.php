@@ -14,9 +14,21 @@ class PropertyService implements PropertyServiceInterface
         return Property::with('owner')->paginate(5,['*'],'propertiesPage');
     }
 
-    public function getFeatured()
+    public function getFeatured($page = null)
     {
-        return Property::where('is_featured', true)->with('documents')->get();
+        if($page != null){
+            return Property::where('is_featured', true)->with(['documents', 'owner'])->paginate($page, ['*'], 'featuredPage');
+        }
+
+        return Property::where('is_featured', true)->with(['documents', 'owner'])->get();
+    }
+
+    public  function get($columns = null,$joins = null,$paginate = true)
+    {
+        if ($columns != [] || $columns != null) {
+            return Property::all($columns);
+        }
+        return Property::all();
     }
 
     public function getRecent()
@@ -47,8 +59,13 @@ class PropertyService implements PropertyServiceInterface
     public function update($id, $data)
     {
         $property = Property::find($id);
+        $data['is_featured'] = true;
         $property->update($data);
-        return $property;
+        if($property){
+            return (object) ['success' => true, 'message' => 'Property Updated Successfully!'];
+        }
+
+        return (object) ['success' => false, 'message' => 'Property creation failed'];
     }
 
     public function delete($id)
@@ -77,5 +94,26 @@ class PropertyService implements PropertyServiceInterface
 
     public function getAllTypes(){
         return ['land','shop','house','building'];
+    }
+
+    public function search($key){
+        $property = Property::with('owner')->where(function ($query) use ($key) {
+
+            $columns = ['name', 'city','address','type'];
+
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $key . '%');
+            }
+
+            $query->orWhereHas('owner', function ($q) use ($key) {
+                $q->where(function ($q) use ($key) {
+                    $q->orWhere('name', 'LIKE', '%' . $key . '%');
+                    $q->orWhere('email', 'LIKE', '%' . $key . '%');
+                    $q->orWhere('primary_phone', 'LIKE', '%' . $key . '%');
+                    $q->orWhere('secondary_phone', 'LIKE', '%' . $key . '%');
+                });
+            });
+        })->paginate(5, ['*'], 'propertiesPage');
+        return $property;
     }
 }

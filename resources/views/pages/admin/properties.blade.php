@@ -426,7 +426,7 @@
       if(file.name.length <= 5){
         return time + file.name;
       }else{
-        return time + file.name.substring(0,5)
+        return time + file.name.substring(file.name.length - 6)
       }
     },
     success: function (file, response) {

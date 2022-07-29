@@ -42,19 +42,19 @@ $(function () {
                     $('.sticky-header').addClass('header-shrink');
                 }
                 if($('.do-sticky').length < 1) {
-                    $('.logo img').attr('src', 'client-assets/img/logos/black-logo.png');
+                    $('.logo img').attr('src', 'storage/img/settings/logo.jpg');
                 }
             }
             else {
                 $('.sticky-header').removeClass('header-shrink');
                 if($('.do-sticky').length < 1 && $('.fixed-header').length == 0 && $('.fixed-header2').length == 0) {
-                    $('.logo img').attr('src', 'client-assets/img/logos/logo.png');
+                    $('.logo img').attr('src', 'storage/img/settings/logo.jpg');
                 } else {
-                    $('.logo img').attr('src', 'client-assets/img/logos/logo.png');
+                    $('.logo img').attr('src', 'storage/img/settings/logo.jpg');
                 }
             }
         } else {
-            $('.logo img').attr('src', 'client-assets/img/logos/black-logo.png');
+            $('.logo img').attr('src', 'storage/img/settings/logo.jpg');
         }
     }
 

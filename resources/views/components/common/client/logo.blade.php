@@ -1,8 +1,8 @@
 @props(['type'])
 <a href="{{route('home')}}" class="logos">
     @if ($type == 'black')
-        <img src="{{asset('client-assets/img/logos/black-logo.png')}}" alt="logo">
+        <img src="{{asset('storage/img/settings/' . config('app.logo'))}}" alt="logo" style="border-radius: 10px" class="w-50 h-50   border-radius-lg shadow-sm">
     @else
-        <img src="{{asset('client-assets/img/logos/white-logo.png')}}" alt="logo">
+        <img src="{{asset('storage/img/settings/' . config('app.logo'))}}" alt="logo" style="border-radius: 10px" class="w-50 h-50 border-radius-lg shadow-sm">
     @endif
 </a>

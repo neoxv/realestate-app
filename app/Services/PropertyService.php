@@ -44,7 +44,7 @@ class PropertyService implements PropertyServiceInterface
     public function create($data)
     {
         $property = Property::create($data);
-        if($property){
+        if($property && array_key_exists('document', $data)){
             foreach ($data['document'] as $key => $value) {
                 $imageUpload = new Document();
                 $imageUpload->filename = $value;

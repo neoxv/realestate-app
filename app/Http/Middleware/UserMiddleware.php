@@ -19,7 +19,7 @@ class UserMiddleware
         if (auth()->check() && !auth()->user()->isAdmin()) {
             return $next($request);
         } else if(auth()->check() && auth()->user()->isAdmin()){
-            return redirect('/dashboard');
+            return redirect()->route('admin.dashboard');
         }
     }
 }

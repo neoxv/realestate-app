@@ -6,7 +6,7 @@
     </div>
     <div class="sidebar-inner">
         <div class="sidebar-logo">
-            <img src="{{asset('client-assets/img/logos/black-logo.png')}}" alt="sidebarlogo">
+            <img src="{{asset('storage/img/settings/' . config('app.logo'))}}" alt="sidebarlogo" style="border-radius: 10px">
         </div>
         <div class="sidebar-navigation">
             <h3 class="heading">Pages</h3>

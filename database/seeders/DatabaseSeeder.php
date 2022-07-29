@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\OwnerSeeder;
+use Database\Seeders\SettingSeeder;
 use Database\Seeders\PropertySeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -16,6 +17,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([UserSeeder::class, OwnerSeeder::class, PropertySeeder::class]);
+        $this->call([UserSeeder::class, OwnerSeeder::class, PropertySeeder::class, SettingSeeder::class]);
     }
 }

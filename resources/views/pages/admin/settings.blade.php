@@ -26,7 +26,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="text-primary" for="address">Address</label>
-                            <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address" placeholder="Building, Office Number" required value={{$setting ? $setting->address:""}}>
+                            <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address" placeholder="Building, Office Number"  value={{$setting ? $setting->address:""}}>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="text-primary" for="youtube">Youtube</label>
-                            <input class="form-control" type="text" id="youtube" name="youtube" placeholder="Youtube URL" required value={{$setting ? $setting->youtube:""}}>
+                            <input class="form-control" type="text" id="youtube" name="youtube" placeholder="Youtube URL"  value={{$setting ? $setting->youtube:""}}>
 
                         </div>
                     </div>
@@ -72,11 +72,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row flex align-items-center">
                     <div class="col-md-6">
                     <div class="form-group">
                         <label for="description" class="text-primary">About Information</label>
-                        <textarea class="form-control" id="description" name="description" rows="6" required  >{{$setting ? $setting->description:""}}</textarea>
+                        <textarea class="form-control" id="description" name="description" rows="6"   >{{$setting ? $setting->description:""}}</textarea>
                     </div>
                     </div>
                     <div class="col-md-3">
@@ -88,12 +88,11 @@
                     <div class="col-md-3">
                     <label for="images" class="text-primary">Current Logo</label>
                         <div class=" position-relative">
-                        <img src="{{asset(count([$setting->documents]) > 0 ?'img/settings/'. $setting->documents->filename:'img/default.png')}}" alt="Logo" class="w-100 border-radius-lg shadow-sm" style="border: 2px solid #555;">
+                        <img src="{{asset(isset($setting->documents->filename) ?'storage/img/settings/'. $setting->documents->filename:'storage/img/default.png')}}" alt="Logo" class="w-100 border-radius-lg shadow-sm" style="height: 200px">
                         </div>
                     </div>
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1 mt-4">
-                    <button type="button" class="btn bg-gradient-secondary mr-2">Cancel</button>
                     <button type="submit" class="btn bg-gradient-primary ml-2">Submit</button>
                 </div>
             </form>
@@ -128,13 +127,9 @@
       'X-CSRF-TOKEN': "{{ csrf_token() }}"
     },
     renameFile: function(file) {
-      var dt = new Date();
-      var time = dt.getTime();
-      if(file.name.length <= 5){
-        return time + file.name;
-      }else{
-        return time + file.name.substring(0,5)
-      }
+        var name = file.name.split('.')
+        var extension = name[name.length -1]
+        return 'logo.'+extension
     },
     success: function (file, response) {
         let formContainer = document.querySelector('#createProperty');
@@ -143,7 +138,7 @@
         input.setAttribute('name', 'document[]');
         input.setAttribute('value', response.image);
         formContainer.append(input)
-        uploadedDocumentMap[file.name] = response.name
+        uploadedDocumentMap[file.name] = response.image
     },
     removedfile: function (file) {
       file.previewElement.remove()

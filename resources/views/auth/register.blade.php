@@ -18,7 +18,7 @@
             <button type="submit" class="btn btn-4 btn-block">Register</button>
         </div>
         <div class="extra-login form-group clearfix">
-            <span>XERO</span>
+            <span>{{config('app.name')}}</span>
         </div>
         <div class="clearfix"></div>
     </form>

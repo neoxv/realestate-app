@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('app_name');
             $table->string('email');
             $table->string('primary_phone');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('secondary_phone')->nullable();
             $table->string('address')->nullable();
             $table->string('tiktok')->nullable();

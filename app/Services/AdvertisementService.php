@@ -34,7 +34,7 @@ class AdvertisementService implements AdvertisementServiceInterface
     public function create($data)
     {
         $advertisement = Advertisement::create($data);
-        if ($advertisement) {
+        if ($advertisement && array_key_exists('document', $data)){
                 foreach ($data['document'] as $key => $value) {
                     $imageUpload = new Document();
                     $imageUpload->filename = $value;

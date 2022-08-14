@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Owner;
 use App\Models\Document;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +22,17 @@ class Property extends Model
         return 0.0;
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($property) {
+            $largestNumber = Property::max('number');
+            if($largestNumber == null || $largestNumber == 0) {
+                $largestNumber = 1000;
+            }
+            $property->number = $largestNumber + 1;
+        });
+    }
 
     public function owner()
     {
@@ -29,5 +41,10 @@ class Property extends Model
 
     public function documents(){
         return $this->morphMany(Document::class,'documentable');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->where('user_id', auth()->user()->id ?? 0);
     }
 }

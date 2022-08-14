@@ -30,7 +30,7 @@
 
         <!-- Custom Stylesheet -->
         <link type="text/css" rel="stylesheet" href="{{asset('client-assets/css/style.css')}}">
-        <link rel="stylesheet" type="text/css" id="style_sheet" href="{{asset('client-assets/css/skins/default.css')}}">
+        <link type="text/css" rel="stylesheet"  id="style_sheet" href="{{asset('client-assets/css/skins/default.css')}}">
 
     </head>
     <body id="top" class="index-body">

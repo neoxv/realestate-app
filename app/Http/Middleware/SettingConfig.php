@@ -20,6 +20,8 @@ class SettingConfig
         $setting = Setting::first()->with('documents')->first();
         if($setting){
             config(['app.name' => strtoupper($setting->app_name),'app.logo' => $setting->documents->filename]);
+        }{
+            config(['app.name' => 'REAL ESTATE','app.logo' => 'logo.jpg']);
         }
         return $next($request);
     }

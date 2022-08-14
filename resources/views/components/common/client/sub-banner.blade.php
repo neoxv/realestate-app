@@ -4,7 +4,7 @@
         <div class="breadcrumb-area">
             <h1>{{strtoupper($title)}}</h1>
             <ul class="breadcrumbs">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="{{route('home')}}">Home</a></li>
                 <li class="active">{{ucfirst($title)}}</li>
             </ul>
         </div>

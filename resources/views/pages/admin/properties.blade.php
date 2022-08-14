@@ -83,7 +83,7 @@
                                 <label for="owner" class="text-primary">Owner</label>
                                 <select class="form-control" name="owner_id" id="owner" placeholder="Abebe Kebede" required>
                                 @foreach ($ownersList as $owner )
-                                    <option value="{{$owner->id}}">{{ucfirst($owner->name)}}</option>
+                                    <option value="{{$owner->id}}">{{ucfirst($owner->name).' - '.$owner->primary_phone}}</option>
                                 @endforeach
                                 </select>
                             </div>

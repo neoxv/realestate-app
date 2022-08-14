@@ -24,5 +24,5 @@
         <div class="clearfix"></div>
     </form>
     <div class="clearfix"></div>
-    <p>Don't have an account? <a href="{{route('register')}}" class="thembo"> Register here</a></p>
+    <p>Don't have an account? <a href="{{route('register')}}" class="thembo" style="color:rgb(78 92 193 )"> Register here</a></p>
 </x-auth.form>

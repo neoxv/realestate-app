@@ -18,7 +18,7 @@
                         <div class="detail clearfix">
                             <ul>
                                 <li>
-                                    <a href="{{route('profile')}}" class="active">
+                                    <a href="{{route('profile')}}" class="">
                                         <i class="flaticon-user"></i>Profile
                                     </a>
                                 </li>
@@ -28,7 +28,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{route('profile.password')}}">
+                                    <a href="{{route('profile.password')}}" class="active">
                                         <i class="flaticon-locked-padlock"></i>Change Password
                                     </a>
                                 </li>
@@ -46,27 +46,42 @@
             </div>
             <div class="col-lg-8 col-md-12 col-sm-12">
                 <div class="my-address contact-2">
-                    <h3 class="heading-3">Profile Details</h3>
-                    <form action="#" method="POST" action="{{route('profile')}}" enctype="multipart/form-data">
+                    <h3 class="heading-3">Password Details</h3>
+                    <form method="post" action="{{route('profile.password')}}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" value="{{Auth::user()->id}}">
                         <div class="row">
                             <div class="col-lg-12 ">
                                 <div class="form-group name">
-                                    <label>Your Name</label>
-                                    <input type="text" name="name" class="form-control" value="{{ucfirst(Auth::user()->first_name) . " " . ucfirst(Auth::user()->last_name)}}" placeholder="John Deo">
+                                    <label>Old Password</label>
+                                    <input type="password" name="old_password" class="form-control @error('old_password') border-danger @enderror" value="" placeholder="Old Password">
+                                    <div class="m-0">
+                                        @error('old_password')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 ">
                                 <div class="form-group subject">
-                                    <label>Phone</label>
-                                    <input type="text" name="phone" value="{{Auth::user()->phone}}" class="form-control" placeholder="Phone">
+                                    <label>New Password</label>
+                                    <input type="password" name="password" value="" class="form-control @error('password') border-danger @enderror" placeholder="New Password">
+                                    <div class="m-0">
+                                        @error('password')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 ">
                                 <div class="form-group number">
-                                    <label>Email</label>
-                                    <input type="email" name="email" value="{{Auth::user()->email}}" class="form-control" placeholder="Email">
+                                    <label>Password Confirmation</label>
+                                    <input type="password" name="password_confirmation" value="" class="form-control @error('password') border-danger @enderror" placeholder="Confirm Password">
+                                    <div class="m-0">
+                                        @error('password')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">

@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12">
                 <nav class="navbar navbar-expand-lg navbar-light rounded">
-                    <a class="navbar-brand logo" href="index.html">
+                    <a class="navbar-brand logo" href="{{route('home')}}">
                         <img src="{{asset('storage/img/settings/' . config('app.logo'))}}" alt="logo" style="border-radius: 10px">
                     </a>
                     <button class="navbar-toggler" type="button" id="drawer">
@@ -21,7 +21,7 @@
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{{route('search')}}" id="navbarDropdownMenuLink2"
+                                <a class="nav-link dropdown-toggle" href="{{route('user.property.list')}}" id="navbarDropdownMenuLink2"
                                      aria-haspopup="true" aria-expanded="false">
                                     Properties
                                 </a>
@@ -34,7 +34,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="{{route('favourites')}}" id="navbarDropdownMenuLink2"
+                                    <a class="nav-link dropdown-toggle" href="{{route('favourites',['user'=> Auth::user()->id])}}" id="navbarDropdownMenuLink2"
                                         aria-haspopup="true" aria-expanded="false">
                                         Favourites
                                     </a>
@@ -48,8 +48,9 @@
                                 </a>
                             </li>
                             <li class="nav-item " style="padding:30px 17px 35px">
-                                    <form class="form-inline my-2 my-lg-0">
-                                    <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+                                    <form class="form-inline my-2 my-lg-0" action="{{route('user.property.search')}}" method="post">
+                                        @csrf
+                                    <input class="form-control mr-2" type="search" placeholder="Search" name="search" aria-label="Search" value="{{$key}}">
                                     <button   class="btn my-2 my-sm-0" style="color: white; background-color:#3f56ff;padding:6px" type="submit"><i class="fa fa-search" ></i> Search</button>
                                 </form>
                             </li>

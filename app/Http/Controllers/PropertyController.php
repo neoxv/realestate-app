@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use App\Services\PropertyService;
 use Illuminate\Support\Facades\Log;
 use App\Interfaces\OwnerServiceInterface;
 use App\Interfaces\PropertyServiceInterface;
 use App\Http\Requests\admin\PropertyCreateRequest;
-use App\Services\PropertyService;
 
 class PropertyController extends Controller
 {
@@ -21,9 +22,9 @@ class PropertyController extends Controller
         $this->ownerService = $ownerService;
     }
 
-    public function index()
+    public function getById(Property $property)
     {
-        //
+        return view('pages.property-detail',['property' => $property,'recents'=>$this->propertyService->getRecent(3),'related'=>$this->propertyService->getByAttribute('type', $property->type, ['documents'],2)]);
     }
 
     public function create(PropertyCreateRequest $request)
@@ -36,15 +37,22 @@ class PropertyController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function getFavourites(User $user)
     {
-        //
+        return view('pages.favourites',['favourites'=>$this->propertyService->getFavourites($user)]);
+    }
+
+    public function favourite(Request $request)
+    {
+        $response = $this->propertyService->favourite($request->id,$request->user);
+        return response()->json($response);
     }
 
 
     public function show(Property $property)
     {
-        //
+        $response = $this->propertyService->get();
+        return view('pages.property-list',['properties'=>$response]);
     }
 
 
@@ -84,6 +92,27 @@ class PropertyController extends Controller
         return redirect()->route('admin.properties');
 
 
+    }
+
+    public function filter(Request $request)
+    {
+        $keys = $request->all();
+        unset($keys['_token']);
+        if ($keys != null && count($keys) > 0) {
+            $properties = $this->propertyService->filter($keys);
+            return view('pages.property-list', ['properties' => $properties]);
+        }
+        return redirect()->route('search');
+    }
+
+    public function userSearch(Request $request)
+    {
+        $key = $request->input('search');
+        if ($key != '' || $key != null) {
+            $properties = $this->propertyService->userSearch($key);
+            return view('pages.property-list', ['properties' => $properties, 'key' => $key]);
+        }
+        return redirect()->route('user.property.list');
     }
 
     public function createFeature(Request $request){

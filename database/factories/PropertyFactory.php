@@ -16,11 +16,13 @@ class PropertyFactory extends Factory
      */
     public function definition()
     {
+        $subcities = ['Addis Ketema', 'Akaky Kaliti', 'Arada', 'Bole', 'Gullele', 'Kirkos', 'Kolfe Keranio', 'Lideta', 'Nifas Silk-Lafto', 'Yeka'];
         return [
             'name'=>$this->faker->name,
             'price'=>$this->faker->numberBetween(1000000,10000000),
             'address'=>$this->faker->streetAddress(),
             'city'=>$this->faker->city,
+            'subcity' => strtolower($this->faker->randomElement($subcities)),
             'description'=>$this->faker->text,
             'bedroom'=>$this->faker->numberBetween(1,5),
             'bathroom'=>$this->faker->numberBetween(1,5),

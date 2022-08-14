@@ -4,9 +4,9 @@
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
 
-                <x-home-page.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-3.jpg')" :link="'#'" class='t-right' :button-title="__('Get Started')" :active="true"/>
-                <x-home-page.banner-carousel-item :header="__('Best Place For Sell Properties')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-2.jpg')" :link="'#'" class='t-right' :button-title="__('Get Started')"/>
-                <x-home-page.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-4.jpg')" :link="'#'" class='t-left' :button-title="__('Get Started')"/>
+                <x-home-page.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-3.jpg')" :link="'#featuredProperties'" class='t-right' :button-title="__('Get Started')" :active="true"/>
+                <x-home-page.banner-carousel-item :header="__('Best Place For Sell Properties')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-2.jpg')" :link="'#featuredProperties'" class='t-right' :button-title="__('Get Started')"/>
+                <x-home-page.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-4.jpg')" :link="'#featuredProperties'" class='t-left' :button-title="__('Get Started')"/>
             </div>
             <div class="btn-secton">
                 <ol class="carousel-indicators">
@@ -24,44 +24,43 @@
         <div class="container">
             <div class="search-area-inner">
                 <div class="search-contents ">
-                    <form action="https://storage.googleapis.com/theme-vessel-items/checking-sites/xero-2-html/HTML/main/index.html" method="GET">
+                    <form action="{{route('user.property.filter')}}" method="post">
+                        @csrf
                         <div class="row">
-                            {{-- change these components in to for loop --}}
-                                     @php
-                                        $list =[['id'=>'1','name'=>'option 1'],['id'=>'2','name'=>'option 2']];
-                                    @endphp
-                            <x-home-page.filter-container >
-                                    <x-common.client.select class="search-fields" name="area" :options="$list" />
+                            <x-home-page.filter-container :label="'Type'">
+                                    <x-common.client.select class="search-fields" :name="'is_rental'" :options="[['value'=>'1','name'=>'For Rent'],['value'=>'2','name'=>'For Sale']]" />
                             </x-home-page.filter-container >
 
-                            <x-home-page.filter-container >
-                                    <x-common.client.select class="search-fields" name="property-status" :options="$list" />
+                            <x-home-page.filter-container :label="'Category'">
+                                    <x-common.client.select class="search-fields" :name="'type'" :options="[['value'=>'house','name'=>'House'],['value'=>'land','name'=>'Land'],['value'=>'apartment','name'=>'Apartment'],['value'=>'warehouse','name'=>'Warehouse'],['value'=>'building','name'=>'Building'],['value'=>'shop','name'=>'Shop']]" />
                             </x-home-page.filter-container >
 
-                            <x-home-page.filter-container >
-                                    <x-common.client.select class="search-fields" name="location" :options="$list" />
+                            <x-home-page.filter-container :label="'Location'" >
+                                    <x-common.client.select class="search-fields" :name="'city'" :options="[['value'=>'addis ababa','name'=>'Addis Ababa']]" />
                             </x-home-page.filter-container >
 
-                            <x-home-page.filter-container >
-                                    <x-common.client.select class="search-fields" name="category" :options="$list" />
+                            <x-home-page.filter-container :label="'Sub City'" >
+                                @php
+                                    $subcity_list = array_map(function ($a) { return ['value'=>strtolower($a),'name'=>$a]; },['Addis Ketema','Akaky Kaliti','Arada', 'Bole', 'Gullele','Kirkos','Kolfe Keranio', 'Lideta','Nifas Silk-Lafto','Yeka']);
+                                @endphp
+                                    <x-common.client.select class="search-fields" :name="'subcity'" :options="$subcity_list" />
                             </x-home-page.filter-container >
 
                         </div>
                         <div class="row">
-                            <x-home-page.filter-container >
-                                    <x-common.client.select class="search-fields" name="bedrooms" :options="$list" />
+                            <x-home-page.filter-container  :label="'Bedroom'">
+                                    <x-common.client.select class="search-fields" :name="'bedroom'" :options="[['value'=>'1','name'=>'1'],['value'=>'2','name'=>'2'],['value'=>'3','name'=>'3'],['value'=>'4','name'=>'4']]" />
+                            </x-home-page.filter-container >
+                            <x-home-page.filter-container :label="'Area'">
+                                <x-common.client.range-slider  :max="100000" :minname="'min_area'" :maxname="'max_area'" :unit="'sqm'"/>
+                            </x-home-page.filter-container >
+
+                            <x-home-page.filter-container :label="'Price'">
+                                <x-common.client.range-slider  :max="50000000" :minname="'min_price'" :maxname="'max_price'" :unit="'birr'"/>
                             </x-home-page.filter-container >
 
                             <x-home-page.filter-container >
-                                    <x-common.client.select class="search-fields" name="bathrooms" :options="$list" />
-                            </x-home-page.filter-container >
-
-                            <x-home-page.filter-container >
-                                <x-common.client.range-slider />
-                            </x-home-page.filter-container >
-
-                            <x-home-page.filter-container >
-                                <button class="btn btn-4 btn-block" type="submit">Search</button>
+                                <button class="btn btn-4 btn-block" type="submit">Filter</button>
                             </x-home-page.filter-container >
                         </div>
                     </form>
@@ -72,7 +71,7 @@
     <!-- Search area end -->
 
     <!-- Featured properties start -->
-    <div class="featured-properties content-area-2">
+    <div class="featured-properties content-area-2" id="featuredProperties">
         <div class="container">
             <div class="main-title">
                 <h1>Featured Properties</h1>

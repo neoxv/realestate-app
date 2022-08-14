@@ -6,40 +6,77 @@ use App\Models\Document;
 use App\Models\Property;
 use Illuminate\Support\Facades\DB;
 use App\Interfaces\PropertyServiceInterface;
+use App\Models\User;
 
 class PropertyService implements PropertyServiceInterface
 {
     public function getAll()
     {
-        return Property::with('owner')->paginate(5,['*'],'propertiesPage');
+        return Property::with(['owner'])->paginate(5,['*'],'propertiesPage');
     }
 
     public function getFeatured($page = null)
     {
         if($page != null){
-            return Property::where('is_featured', true)->with(['documents', 'owner'])->paginate($page, ['*'], 'featuredPage');
+            return Property::where('is_featured', true)->with(['documents', 'owner','users'])->paginate($page, ['*'], 'featuredPage');
         }
 
-        return Property::where('is_featured', true)->with(['documents', 'owner'])->get();
+        return Property::where('is_featured', true)->with(['documents', 'owner','users'])->get();
     }
 
-    public  function get($columns = null,$joins = null,$paginate = true)
+    public  function get()
     {
-        if ($columns != [] || $columns != null) {
-            return Property::all($columns);
-        }
-        return Property::all();
+        return Property::where('is_brokered', false)->where('status',true)->with(['documents','users'])->paginate(5, ['*'], 'listPage');;
     }
 
-    public function getRecent()
+    public function getRecent($amount=5)
     {
-        return Property::latest()->get()->take(4);
+        return Property::latest()->get()->take($amount);
     }
 
     public function getById($id)
     {
         return Property::find($id);
     }
+
+    public function getByAttribute($attribute, $value,$with=['documents','users'],$page=5){
+        return Property::where($attribute,$value)->with($with)->paginate($page,['*'],'byAttributePage');
+    }
+
+    public function getFavourites($user)
+    {
+        return $user->properties()->paginate(6,['*'],'favouritesPage');
+        //or should we just use properties->with users
+    }
+
+    public function favourite($propertyId, $userId){
+        $property = Property::with('users')->find($propertyId);
+
+        //check after having multiple users favorite a specfic property what
+        //these will return
+        //dd($property->users)
+        //if property users contain the specific user id then detach the user like
+        //    $property->users()->detach($user_id);
+        //the make favourite false and icon null
+        if(count($property->users) > 0){
+           $property->users()->detach($userId);
+            return [
+                'success' => true,
+                'favourite' => false,
+                'icon' => $propertyId . 'icon'
+            ];
+        }else{
+            $user = User::find($userId);
+            $property->users()->attach($user);
+            return [
+                'success' => true,
+                'favourite' => true,
+                'icon' => $propertyId . 'icon'
+            ];
+        }
+
+    }
+
 
     public function create($data)
     {
@@ -93,7 +130,7 @@ class PropertyService implements PropertyServiceInterface
     }
 
     public function getAllTypes(){
-        return ['land','shop','house','building'];
+        return ['land','shop','house','building', 'apartment', 'warehouse'];
     }
 
     public function search($key){
@@ -113,6 +150,37 @@ class PropertyService implements PropertyServiceInterface
                     $q->orWhere('secondary_phone', 'LIKE', '%' . $key . '%');
                 });
             });
+        })->paginate(5, ['*'], 'propertiesPage');
+        return $property;
+    }
+
+    public function userSearch($key)
+    {
+        $property = Property::with(['documents','users'])->where(function ($query) use ($key) {
+
+            $columns = ['name', 'city', 'address', 'type','price','subcity'];
+
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $key . '%');
+            }
+        })->paginate(5, ['*'], 'propertiesPage');
+        return $property;
+    }
+
+    public function filter($keys)
+    {
+        $property = Property::where(function ($query) use ($keys) {
+                foreach ($keys as $key => $value) {
+                    if($key != 'min_price' && $key != 'max_price' && $key != 'min_area' && $key != 'max_area' && ($key != 'subcity' || ($key == 'subcity' && $keys['city'] == 'addis ababa'))){
+                        $query->where($key, '=', $value);
+                    }
+                }
+
+                $query->where('price', '>=', $keys['min_price']);
+                $query->where('price', '<=', $keys['max_price']);
+                $query->where('area', '>=', $keys['min_area']);
+                $query->where('area', '<=', $keys['max_area']);
+                $query->where('is_brokered', '=', 0);
         })->paginate(5, ['*'], 'propertiesPage');
         return $property;
     }

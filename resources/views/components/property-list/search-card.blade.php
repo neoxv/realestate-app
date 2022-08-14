@@ -2,15 +2,17 @@
 <div class="property-box-5">
     <div class="row">
         <div class="col-lg-5 col-md-5 col-pad">
-            <div class="property-thumbnail">
-                <a href="{{route('detail')}}" class="property-img">
-                    <div class="listing-badges">
-                        <span class="featured">Featured</span>
-                    </div>
-                    <div class="tag-for">For Sale</div>
+            <div class="">
+                <a href="{{route('detail',['property'=>$property->id])}}" class="property-img">
+                    @if ($property->is_featured)
+                        <div class="listing-badges">
+                            <span class="featured">Featured</span>
+                        </div>
+                    @endif
+                    <div class="tag-for">{{$property->is_rental?'For Rent':'For Sale'}}</div>
                     <div class="price-ratings-box">
-                        <p class="price">
-                            $178,000
+                        <p class="price " style="background-color: rgba(0, 0, 0, 0.3);padding:5px 10px 3px 10px;border-radius:2px;">
+                            {{number_format($property->price)}} Birr
                         </p>
                         <div class="ratings">
                             <i class="fa fa-star"></i>
@@ -20,56 +22,91 @@
                             <i class="fa fa-star-o"></i>
                         </div>
                     </div>
-                    <img src="{{asset( $property != null && count($property->documents) > 0 ?'storage/img/property/'. $property->documents->first()->filename:'storage/img/default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 10vw; object-fit: cover;">
+                    <img src="{{asset( $property != null && count($property->documents) > 0 ?'storage/img/property/'. $property->documents->first()->filename:'storage/img/default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
 
                 </a>
-                <div class="property-overlay">
-                    <a href="properties-details.html" class="overlay-link">
-                        <i class="fa fa-link"></i>
-                    </a>
-                    <a class="overlay-link property-video" title="Test Title">
-                        <i class="fa fa-video-camera"></i>
-                    </a>
-                    <div class="property-magnify-gallery">
-                        <a href="assets/img/property/img-1.jpg" class="overlay-link">
-                            <i class="fa fa-expand"></i>
-                        </a>
-                        <a href="assets/img/property/img-2.jpg" class="hidden"></a>
-                        <a href="assets/img/property/img-3.jpg" class="hidden"></a>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="col-lg-7 col-md-7 align-self-center col-pad">
             <div class="detail">
-                <!-- title -->
+                <a href="{{route('detail',['property'=>$property->id])}}" class="property-img">
                 <h1 class="title">
-                    <a href="properties-details.html">Modern Family Home</a>
+                    {{$property->name}}
                 </h1>
-                <!-- Location -->
                 <div class="location">
-                    <a href="properties-details.html">
-                        <i class="fa fa-map-marker"></i>123 Kathal St. Tampa City,
-                    </a>
+                        <i class="fa fa-map-marker"></i>{{$property->address}}
                 </div>
-                <!-- Paragraph -->
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy<span class="d-none-1200">nibh euismod…</span></p>
-                <!--  Facilities list -->
+                <p>{{$property->description}}</p>
                 <ul class="facilities-list clearfix">
                     <li>
-                        <i class="flaticon-bed"></i> 3 Beds
+                        @if(Auth::check())
+                            <form  id="favouriteForm">
+                                @csrf
+                                <input type="hidden" name="id" value="{{$property->id}}">
+                                @if(count($property->users) > 0)
+                                    <a onclick="favouriteProperty(event,{{$property->id}})"><i id="{{$property->id . 'icon'}}" class="fa fa-heart" style="color: red" ></i></a></li>
+                                @else
+                                    <a onclick="favouriteProperty(event,{{$property->id}})"><i id="{{$property->id . 'icon'}}" class="fa fa-heart" ></i></a></li>
+                                @endif
+                            </form>
+                            @else
+                            <a href="{{route('login')}}"><i class="fa fa-heart" ></i></a></li>
+                        @endif
                     </li>
                     <li>
-                        <i class="flaticon-bath"></i> 2 Baths
+                        <i class="fa fa-home"></i> {{ucfirst($property->type)}}
                     </li>
                     <li>
-                        <i class="flaticon-square-layouting-with-black-square-in-east-area"></i> Sq Ft:3400
+                        <i class="flaticon-square-layouting-with-black-square-in-east-area"></i> Sqm:{{$property->area}}
                     </li>
-                    <li>
+                    @if($property->type == 'house' || $property->type == 'apartment')
+                        <li>
+                            <i class="flaticon-bed"></i> {{$property->bedroom}} Beds
+                        </li>
+                        <li>
+                            <i class="flaticon-bath"></i> {{$property->bathroom}} Baths
+                        </li>
+                    @endif
+                    {{-- <li>
                         <i class="flaticon-car-repair"></i> 1 Garage
-                    </li>
+                    </li> --}}
                 </ul>
+            </a>
             </div>
         </div>
     </div>
 </div>
+<script>
+
+  function favouriteProperty(event,property){
+      event.preventDefault();
+      let _token = $("input[name=_token]").val();
+         $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': _token
+                  }
+              });
+      $.ajax({
+        url: "{{route('favourite')}}",
+        type:"POST",
+        data:{
+          id:property,
+          user: "{{Auth::user()?Auth::user()->id:''}}"
+        },
+        success:function(response){
+            console.log(response);
+          if(response.success) {
+            let icon = document.getElementById(response.icon)
+            if(!response.favourite){
+                icon.style.color = '#535353'
+            }else{
+                icon.style.color = 'red';
+            }
+          }
+        },
+        error:function(response){
+            console.log(response)
+        }
+       });
+}
+</script>

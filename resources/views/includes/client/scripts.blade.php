@@ -20,7 +20,7 @@
 <script src="{{asset('client-assets/js/slick.min.js')}}"></script>
 <script src="{{asset('client-assets/js/maps.js')}}"></script>
 <script src="{{asset('client-assets/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4omYJlOaP814WDcCG8eubXcbhB-44Uac"></script>
+{{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4omYJlOaP814WDcCG8eubXcbhB-44Uac"></script> --}}
 <script src="{{asset('client-assets/js/ie-emulation-modes-warning.js')}}"></script>
 <!-- Custom JS Script -->
 <script  src="{{asset('client-assets/js/app.js')}}"></script>

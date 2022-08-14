@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function show()
     {
         $featured = $this->propertyService->getFeatured(null);
-        $recent = $this->propertyService->getRecent();
+        $recent = $this->propertyService->getRecent(4);
         $ads = $this->advertisementService->getActiveAdvertisements();
         return view('pages.home-page',['featured'=>$featured,'recent'=>$recent,'ads'=> $ads]);
     }

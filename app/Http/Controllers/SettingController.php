@@ -23,11 +23,20 @@ class SettingController extends Controller
     public function create(Request $request)
     {
         config(['app.name' => $request->input('app_name')]);
-        $response = $this->settingService->create($request->all());
-        if ($response['success']) {
-            return redirect()->route('admin.settings')->with('success', $response['message']);
+        if (isset($request['document'])) {
+            $setting = Setting::with('documents')->where('id', $request->id)->first();
+            if($setting){
+                $documents = $setting->documents;
+                foreach ($documents as $document) {
+                    $this->documentService->destroy($document->filename, 'img/settings');
+                }
+            }
         }
-        return redirect()->route('admin.settings')->with('error', $response['message']);
+        $response = $this->settingService->create($request->all());
+        if ($response->success) {
+            return redirect()->route('admin.settings')->with('success', $response->message);
+        }
+        return redirect()->route('admin.settings')->with('error', $response->message);
     }
 
     /**

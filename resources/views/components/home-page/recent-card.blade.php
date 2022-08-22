@@ -34,8 +34,8 @@
                 </div>
             </div>
             <div class="properties-listing">
-                <span>{{$property->bedroom}} Beds</span>
-                <span>{{$property->bathroom}} Baths</span>
+                <span>{{$property->bedroom??0}} Beds</span>
+                <span>{{$property->bathroom??0}} Baths</span>
                 <span>{{$property->area}} sqmt</span>
             </div>
         </div>

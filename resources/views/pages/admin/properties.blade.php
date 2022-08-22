@@ -3,11 +3,11 @@
 
     <div class="row">
         <div class="col-md-3 m-2" style="padding: 0px 24px">
-            <x-admin.search :action="'property.search'" :key="isset($key)?$key:''"/>
+            <x-admin.search :action="'property.search'" :key="isset($key) && $subject == 'property'?$key:''"/>
         </div>
     </div>
         <x-slot name="form">
-        <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#property-form">+</button>
+        <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#property-form" onclick="resetPropertyForm()">+</button>
             <div class="modal fade" id="property-form" tabindex="-1" role="dialog" aria-labelledby="property-form" aria-hidden="true" >
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                 <div class="modal-content">
@@ -15,132 +15,147 @@
                     <div class="card card-plain">
                     <div class="card-header pb-0 text-left">
                         <h3 class="font-weight-bolder text-primary text-gradient">Add Property</h3>
-                        <p class="mb-0">Enter property information.</p>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{route('property.create')}}" id="createProperty">
+                        <form method="post" onsubmit="setPropertyAction(this)" id="createProperty">
                             @csrf
+                            <input type="hidden" name="id" id="property-id">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="text-primary" for="name">Property Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="G+3 Living House..." required>
+                                    <label for="is_rental" class="text-primary">Transaction Type</label>
+                                    <select class="form-control" name="is_rental" id="is_rental" required>
+                                            <option value="1">Rental</option>
+                                            <option value="0">Sale</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="type" class="text-primary">Type</label>
-                                    <select class="form-control @error('type') is-invalid @enderror" name="type" id="type" placeholder="Building" required>
+                                    <select class="form-control @error('type') is-invalid @enderror" onclick="typeChoice(event)" name="type" id="type" placeholder="Building" required>
                                         @foreach ($types as $type)
                                             <option value="{{$type}}">{{ucfirst($type)}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                             <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-primary" for="city">City</label>
+                                    <input type="text" class="form-control" id="city" name="city" placeholder="Addis ababa" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-primary" for="city">Sub-City</label>
+                                    @php
+                                        $subcity_list = array_map(function ($a) { return ['value'=>strtolower((explode('|',$a))[0]),'name'=>$a]; },['None','Addis Ketema|አዲስ ከተማ ','Akaky Kaliti|አቃቂ ቃሊቲ','Arada|አራዳ', 'Bole|ቦሌ', 'Gullele|ጉሌሌ','Kirkos|ቂርቆስ','Kolfe Keranio|ኮልፌ ቀራንዮ', 'Lideta|ልደታ','Nifas Silk-Lafto|ንፋስ ስልክ ላፍቶ','Yeka|የካ']);
+                                    @endphp
+                                    <select class="form-control @error('subcity') is-invalid @enderror"  name="subcity" id="subcity" placeholder="Subcity" >
+                                        @foreach ($subcity_list as $item)
+                                            <option value="{{$item['value']}}">{{ucfirst($item['name'])}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                             <div class="col-md-3">
+                                <div class="form-group">
+                                <label class="text-primary" for="address">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="Summit condominum" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-primary" for="name">Property Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="G+3 Living House..." required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="text-primary" for="price">Price</label>
                                     <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" placeholder="Birr" required>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="text-primary" for="area">Area</label>
                                     <input type="number" class="form-control @error('area') is-invalid @enderror" id="area" name="area" placeholder="sqm" required>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="text-primary" for="bedroom">Bedrooms</label>
-                                    <input class="form-control" type="number" value="1" id="bedroom" name="bedroom" required>
+                                    <input class="form-control" type="number" value="0" id="bedroom" name="bedroom" disabled required>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="text-primary" for="bathroom">Bathroom</label>
-                                    <input class="form-control" type="number" value="1" id="bedroom" name="bathroom" required>
+                                    <input class="form-control" type="number" value="0" id="bathroom" name="bathroom" disabled required>
 
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                            <div class="form-group">
-                               <label class="text-primary" for="address">Address</label>
-                                <input type="text" class="form-control" id="address" name="address" placeholder="Summit condominum" required>
-                            </div>
-                            </div>
-                            <div class="col-md-4">
-                            <div class="form-group">
-                                 <label class="text-primary" for="city">City</label>
-                                <input type="text" class="form-control" id="city" name="city" placeholder="Addis ababa" required>
-                            </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                <label for="owner" class="text-primary">Owner</label>
-                                <select class="form-control" name="owner_id" id="owner" placeholder="Abebe Kebede" required>
-                                @foreach ($ownersList as $owner )
-                                    <option value="{{$owner->id}}">{{ucfirst($owner->name).' - '.$owner->primary_phone}}</option>
-                                @endforeach
-                                </select>
-                            </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="is_rental" class="text-primary">Transaction Type</label>
-                                    <select class="form-control" name="is_rental" id="is_rental" required>
-                                            <option value="true">Rental</option>
-                                            <option value="false">Sale</option>
+                                    <label for="owner" class="text-primary">Owner</label>
+                                    <select class="form-control" name="owner_id" id="owner" placeholder="Abebe Kebede" required>
+                                    @foreach ($ownersList as $owner )
+                                        <option value="{{$owner->id}}">{{ucfirst($owner->name).' - '.$owner->primary_phone}}</option>
+                                    @endforeach
                                     </select>
                                 </div>
+
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="is_negotiable" class="text-primary">Price Type</label>
                                     <select class="form-control" name="is_negotiable" id="is_negotiable" required>
-                                            <option value="true">Negotiable</option>
-                                            <option value="false">Fixed</option>
+                                            <option value="1">Negotiable</option>
+                                            <option value="0">Fixed</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="description" class="text-primary">Detaild Information</label>
-                                <textarea class="form-control" id="description" name="description" rows="6" required></textarea>
-                            </div>
+                                <div class="form-group">
+                                    <label for="description" class="text-primary">Detaild Information</label>
+                                    <textarea class="form-control" id="description" name="description" rows="6" required></textarea>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                            <label for="images" class="text-primary">Property Images</label>
-                            <div class="needsclick dropzone form-control" id="dropzone">
+                                <label for="images" class="text-primary">Property Images</label>
+                                <div class="needsclick dropzone form-control" id="dropzone">
 
+                                </div>
                             </div>
-                            </div>
+                        </div>
+                        <label class="text-primary" id="property-images-label"></label>
+
+                        <div class=" d-flex justify-content-between mb-2" id="property-images">
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="property-status" value="true" name="status" checked="">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Change Status</label>
                         </div>
                         <div class="row">
                             <label class="text-primary">Features</label>
                             <div class="col-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" name="parking">
+                                    <input class="form-check-input" type="checkbox" value="parking" id="parking" name="amenities[]">
                                     <label class="custom-control-label" for="customCheck1">Parking</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" name="swimming-pool">
+                                    <input class="form-check-input" type="checkbox" value="swimming-pool" id="swimming-pool" name="amenities[]">
                                     <label class="custom-control-label" for="customCheck1">Swimming Pool</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" name="alarm">
+                                    <input class="form-check-input" type="checkbox" value="alarm" id="alarm" name="amenities[]">
                                     <label class="custom-control-label" for="customCheck1">Alarm</label>
                                 </div>
                             </div>
@@ -148,25 +163,25 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" name="laundary-room">
+                                    <input class="form-check-input" type="checkbox" value="laundary-room" id="laundary-room" name="amenities[]">
                                     <label class="custom-control-label" for="customCheck1">Laundary Room</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" name="garage">
+                                    <input class="form-check-input" type="checkbox" value="garage" id="garage" name="amenities[]">
                                     <label class="custom-control-label" for="customCheck1">Garage</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" name="patio">
+                                    <input class="form-check-input" type="checkbox" value="patio" id="patio" name="amenities[]">
                                     <label class="custom-control-label" for="customCheck1">Places to seat/Patio</label>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer text-center pt-0 px-lg-2 px-1 mt-4">
-                        <button type="button" class="btn bg-gradient-secondary mr-2">Cancel</button>
+                        <button type="button" class="btn bg-gradient-secondary mr-2" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn bg-gradient-primary ml-2">Submit</button>
                         </div>
                         </form>
@@ -186,13 +201,12 @@
                         <div class="card card-plain">
                             <div class="card-header pb-0 text-left">
                                 <h3 class="font-weight-bolder text-primary text-gradient">Feature Property</h3>
-                                <p class="mb-0">Enter Feature information.</p>
                             </div>
                             <div class="card-body">
                                 <form method="post" action="{{route('property.update')}}" id="featureProperty">
                                     @csrf
                                     <input type="hidden" name="featured_id" id="featured_id" value="">
-                                    <input type="hidden" name="is_featured" id="is_featured" value="true">
+                                    <input type="hidden" name="is_featured" id="is_featured" value="1">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -209,7 +223,46 @@
                                     </div>
                                 </div>
                                 <div class="card-footer text-center pt-0 px-lg-2 px-1 mt-4">
-                                    <button type="button" class="btn bg-gradient-secondary mr-2">Cancel</button>
+                                    <button type="button" class="btn bg-gradient-secondary mr-2" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn bg-gradient-primary ml-2">Submit</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="close-form" tabindex="-1" role="dialog" aria-labelledby="close-form" aria-hidden="true" >
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card card-plain">
+                            <div class="card-header pb-0 text-left">
+                                <h3 class="font-weight-bolder text-primary text-gradient">Close Property</h3>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" action="{{route('property.update')}}" id="closeProperty">
+                                    @csrf
+                                    <input type="hidden" name="closed_id" id="closed_id" value="">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-primary" for="closing_price">Closing Price</label>
+                                            <input class="form-control" type="text" value="0" id="closing_price" name="closing_price" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-primary" for="profit">Profit</label>
+                                            <input class="form-control" type="text" value="0" id="profit" name="profit" required>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-center pt-0 px-lg-2 px-1 mt-4">
+                                    <button type="button" class="btn bg-gradient-secondary mr-2" data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn bg-gradient-primary ml-2">Submit</button>
                                 </div>
                                 </form>
@@ -225,7 +278,7 @@
                 <td>
                     <div class="d-flex px-2 py-1">
                     <div>
-                        <img src="{{asset('admin-assets/img/team-2.jpg')}}" class="avatar avatar-sm me-3" alt="user1">
+                        <img src="{{asset(count($item->documents) > 0 ?'storage/img/properties/'. $item->documents->first()->filename:'storage/img/default.png')}}" class="avatar avatar-sm me-3" alt="user1">
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                         <h6 class="mb-0 text-sm" >{{$item->name}}</h6>
@@ -238,17 +291,16 @@
                     <p class="text-xs text-secondary mb-0">{{$item->owner->address}}</p>
                 </td>
                 <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{$item->bedroom}}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{$item->bedroom?? 0 }}</span>
                 </td>
                 <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{$item->bathroom}}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{$item->bathroom?? 0}}</span>
                 </td>
                 <td class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{$item->area}}sqm</span>
                 </td>
                 <td class="align-middle text-center text-sm">
-                    {{-- make this conditional  --}}
-                    <span class="badge badge-sm bg-gradient-success">Online</span>
+                    <span class="badge badge-sm {{$item->status?'bg-gradient-success':'bg-gradient-secondary'}}">{{$item->status?'Online':'Offline'}}</span>
                 </td>
                 <td class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{number_format($item->price)}} Birr</span>
@@ -264,9 +316,26 @@
                             <button class="btn bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px">
-                                <li><a class="dropdown-item" href="#">Edit</a></li>
-                                <li class="dropdown-item" onclick="featureProperty({{$item->id}})">{{$item->is_featured?'Stop Featuring':'Feature'}}</li>
-                                <li><a class="dropdown-item" href="#">Close Property</a></li>
+                                <li><a class="dropdown-item" onclick="editProperty({{$item}})">Edit</a></li>
+                                @if (!$item->is_brokered)
+                                    @if (!$item->is_featured)
+                                        <li class="dropdown-item" onclick="featureProperty({{$item->id}},true)">Feature</li>
+                                    @else
+                                    <form action="{{route('property.update')}}" method="post" id="{{'unfeature'.$item->id}}">
+                                        @csrf
+                                        <input type="hidden" name="featured_id" value="{{$item->id}}">
+                                        <input type="hidden" name="is_featured" value="0">
+                                        <li class="dropdown-item" onclick="document.getElementById('unfeature'+{{$item->id}}).submit()">Stop Featuring</li>
+                                    </form>
+                                    @endif
+                                    <li><a class="dropdown-item" onclick="closeProperty({{$item->id}})" href="#">Close Property</a></li>
+
+                                    <form action="{{route('property.delete',["property"=>$item->id])}}" method="post" id="{{'deleteProperty'.$item->id}}">
+                                        @csrf
+                                    <li><a class="dropdown-item" onclick="document.getElementById('deleteProperty'+{{$item->id}}).submit()" >Delete</a></li>
+                                    </form>
+                                @endif
+
                             </ul>
                         </div>
                     </td>
@@ -282,11 +351,11 @@
     <x-admin.table :headers="['Name','Address','Primary Phone','Secondary Phone','Email','Pending Properties']" :title="'Owners Table'" >
         <div class="row">
             <div class="col-md-3 m-2" style="padding: 0px 24px">
-                <x-admin.search :action="'property.search'" :key="isset($key)?$key:''"/>
+                <x-admin.search :action="'owner.search'" :key="isset($key) && $subject == 'owner'?$key:''"/>
             </div>
         </div>
         <x-slot name="form">
-            <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#owner-form">+</button>
+            <button type="button" class="btn btn-block bg-gradient-primary mb-3" style="{display: inline;}" data-bs-toggle="modal" data-bs-target="#owner-form" onclick="resetForm('create_owner','owner_id')">+</button>
                 <div class="modal fade" id="owner-form" tabindex="-1" role="dialog" aria-labelledby="owner-form" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
@@ -294,28 +363,28 @@
                         <div class="card card-plain">
                         <div class="card-header pb-0 text-left">
                             <h3 class="font-weight-bolder text-primary text-gradient">Add Owner</h3>
-                            <p class="mb-0">Enter owner information.</p>
                         </div>
                         <div class="card-body">
-                            <form role="form" method="post" action="{{route('owner.create')}}" id="createOwner"">
+                            <form role="form" method="post" onsubmit="setOwnerAction(this)" id="create_owner"">
                                @csrf
+                               <input type="hidden" name="id" id="owner_id">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="text-primary">Full Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="text-primary">Email</label>
-                                            <input type="email" class="form-control" placeholder="Email" name="email" aria-label="Email" aria-describedby="email-addon">
+                                            <input type="text" class="form-control" id="owner_name" name="name" placeholder="Full Name" required>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="text-primary">Primary Phone</label>
-                                            <input type="text" class="form-control" id="primary_phone" name="primary_phone" placeholder="09...">
+                                            <input required type="text" class="form-control" id="owner_primary_phone" name="primary_phone" placeholder="09...">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="text-primary">Email</label>
+                                            <input type="email" class="form-control" placeholder="Email" name="email" id="owner_email" aria-label="Email" aria-describedby="email-addon">
                                         </div>
                                     </div>
                                 </div>
@@ -323,18 +392,18 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="text-primary">Address</label>
-                                            <input type="text" class="form-control" id="address" name="address" placeholder="Bole...">
+                                            <input type="text" class="form-control" id="owner_address" name="address" placeholder="Bole...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="text-primary">Secondary Phone</label>
-                                            <input type="text" class="form-control" id="secondary_phone" name="secondary_phone" placeholder="09...">
+                                            <input type="text" class="form-control" id="owner_secondary_phone" name="secondary_phone" placeholder="09...">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                                    <button type="button" class="btn bg-gradient-secondary">Cancel</button>
+                                    <button type="button" class="btn bg-gradient-secondary"  data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn bg-gradient-primary">Submit</button>
                                 </div>
                             </form>
@@ -353,7 +422,7 @@
                     <td>
                         <div class="d-flex px-2 py-1">
                         <div>
-                            <img src="{{asset('admin-assets/img/team-2.jpg')}}" class="avatar avatar-sm me-3" alt="user1">
+                            <img src="{{asset('storage/img/avatar.png')}}" class="avatar avatar-sm me-3" alt="user1">
                         </div>
                         <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm">{{$item->name}}</h6>
@@ -380,9 +449,11 @@
                             <button class="btn bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" onclick="editOwner({{$item}})">Edit</a></li>
+                                <form action="{{route('owner.delete',["owner"=>$item->id])}}" method="post" id="{{'deleteOwner'.$item->id}}">
+                                        @csrf
+                                    <li><a class="dropdown-item" onclick="document.getElementById('deleteOwner'+{{$item->id}}).submit()" href="#">Delete</a></li>
+                                </form>
                             </ul>
                         </div>
                     </td>
@@ -400,7 +471,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
 <script>
-
   var uploadedDocumentMap = {}
   Dropzone.options.dropzone = {
     url: "{{ route('store.document') }}",
@@ -412,8 +482,8 @@
     method: "post",
     maxFiles:5,
     acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
-    parallelUploads: 2,
-    uploadMultiple: true,
+    parallelUploads: 1,
+    uploadMultiple: false,
     maxFilesize: 2, // MB
     addRemoveLinks: true,
     timeout: 10000,
@@ -450,13 +520,123 @@
     }
   }
 
-  function featureProperty(id) {
-    $('#feature-form').modal('show');
-    document.getElementById('featured_id').value = id
-    document.getElementById('is_featured').value = true
-    document.getElementById('feature_from').valueAsDate = new Date()
-    document.getElementById('feature_to').valueAsDate = new Date()
+  function featureProperty(id, feature) {
+    if(feature){
+        $('#feature-form').modal('show');
+        document.getElementById('featured_id').value = id
+        document.getElementById('is_featured').value = true
+        document.getElementById('feature_from').valueAsDate = new Date()
+        document.getElementById('feature_to').valueAsDate = new Date()
+    }
   }
+
+  function closeProperty(id){
+    $('#close-form').modal('show');
+    document.getElementById('closed_id').value = id
+  }
+
+  function editProperty(property){
+    $('#property-form').modal('show')
+    $('#property-id').val(property.id)
+    $('#is_rental').val(property.is_rental?'1':'0')
+    $('#type').val(property.type)
+    $('#city').val(property.city)
+    $('#subcity').val(property.subcity??'none')
+    $('#address').val(property.address)
+    $('#name').val(property.name)
+    $('#price').val(property.price)
+    $('#area').val(property.area)
+    $('#bedroom').val(property.bedroom)
+    $('#bathroom').val(property.bathroom)
+    $('#owner').val(property.owner.id)
+    $('#is_negotiable').val(property.is_negotiable?'1':'0')
+    $('#description').val(property.description)
+    $('#property-status').prop('checked',property.status)
+    if(property.amenities){
+        let amenties = property.amenities?.split(',')
+        if(amenties.length > 0){
+            amenties.forEach(amenity => {
+                $(`#${amenity}`).prop('checked',true)
+            });
+        }
+    }
+
+    if(property?.documents != null && property?.documents.length > 0){
+        document.getElementById("property-images-label").innerHTML = "Property Images"
+    }
+    let imageDiv = document.getElementById('property-images')
+        while (imageDiv.firstChild) {
+        imageDiv.removeChild(imageDiv.lastChild);
+    }
+    property?.documents.forEach(doc => {
+        var elem = document.createElement("img");
+        elem.setAttribute("src", "storage/img/properties/"+doc.filename);
+        elem.setAttribute("height", "150px");
+        elem.setAttribute("width", "150px");
+        elem.classList.add("border-radius-lg")
+        elem.classList.add("shadow-sm")
+        document.getElementById("property-images").appendChild(elem);
+    });
+
+  }
+
+  function editOwner(owner) {
+     $('#owner-form').modal('show')
+    $('#owner_id').val(owner.id)
+    $('#owner_name').val(owner.name)
+    $('#owner_email').val(owner.email??"")
+    $('#owner_primary_phone').val(owner.primary_phone??"")
+    $('#owner_address').val(owner.address??"")
+    $('#owner_secondary_phone').val(owner.secondary_phone??"")
+  }
+
+    function typeChoice(event) {
+        event.preventDefault();
+        let bedroomInput = document.getElementById('bedroom')
+        let bathroomInput = document.getElementById('bathroom')
+        if (event.target.value == 'land' || event.target.value == 'shop' || event.target.value == 'building' || event.target.value == 'warehouse') {
+            bedroomInput.setAttribute('disabled','')
+            bathroomInput.setAttribute('disabled','')
+        }else{
+            bedroomInput.removeAttribute('disabled')
+            bathroomInput.removeAttribute('disabled')
+        }
+    }
+
+    function setPropertyAction(form){
+        if(document.getElementById("property-id") && document.getElementById("property-id").value){
+            form.action="{{route('property.update')}}"
+        }else{
+            form.action="{{route('property.create')}}"
+        }
+        form.submit()
+    }
+
+    function setOwnerAction(form){
+        if(document.getElementById("owner_id") && document.getElementById("owner_id").value){
+            form.action="{{route('owner.update')}}"
+        }else{
+            form.action="{{route('owner.create')}}"
+        }
+        form.submit()
+    }
+
+
+
+    function resetPropertyForm(){
+        resetForm('createProperty','property-id')
+        let imageDiv = document.getElementById('property-images')
+         while (imageDiv.firstChild) {
+            imageDiv.removeChild(imageDiv.lastChild);
+        }
+        document.getElementById('property-images-label').innerHTML = ""
+    }
+
+    function resetForm(formName,idName){
+        let form = document.getElementById(formName)
+        form.reset()
+        document.getElementById(idName).value = null
+    }
 
 </script>
 

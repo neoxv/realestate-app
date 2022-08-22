@@ -68,7 +68,7 @@ class DashboardController extends Controller
 
     public function userIndex()
     {
-        return view('pages.admin.users',['users' => $this->userService->getAll()]);
+        return view('pages.admin.users',['users' => $this->userService->getAll(),'properties' => $this->propertyService->getAllFavourites()]);
     }
 
     public function advertisementIndex()

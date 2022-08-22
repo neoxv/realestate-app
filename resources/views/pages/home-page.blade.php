@@ -27,35 +27,36 @@
                     <form action="{{route('user.property.filter')}}" method="post">
                         @csrf
                         <div class="row">
-                            <x-home-page.filter-container :label="'Type'">
-                                    <x-common.client.select class="search-fields" :name="'is_rental'" :options="[['value'=>'1','name'=>'For Rent'],['value'=>'2','name'=>'For Sale']]" />
+                            <x-home-page.filter-container :label="'Type | ዓይነት'">
+                                    <x-common.client.select class="search-fields" :name="'is_rental'" :options="[['value'=>'1','name'=>'For Rent|ኪራይ'],['value'=>'2','name'=>'For Sale|ሽያጭ']]" />
                             </x-home-page.filter-container >
 
-                            <x-home-page.filter-container :label="'Category'">
-                                    <x-common.client.select class="search-fields" :name="'type'" :options="[['value'=>'house','name'=>'House'],['value'=>'land','name'=>'Land'],['value'=>'apartment','name'=>'Apartment'],['value'=>'warehouse','name'=>'Warehouse'],['value'=>'building','name'=>'Building'],['value'=>'shop','name'=>'Shop']]" />
+                            <x-home-page.filter-container :label="'Category | ምድብ'">
+                                    <x-common.client.select class="search-fields" :name="'type'" :options="[['value'=>'house','name'=>'House|ቤት'],['value'=>'land','name'=>'Land|
+መሬት'],['value'=>'apartment','name'=>'Apartment|አፓርታማ'],['value'=>'warehouse','name'=>'Warehouse|መጋዘን'],['value'=>'building','name'=>'Building|ህንፃ'],['value'=>'shop','name'=>'Shop|ሱቅ']]" />
                             </x-home-page.filter-container >
 
-                            <x-home-page.filter-container :label="'Location'" >
-                                    <x-common.client.select class="search-fields" :name="'city'" :options="[['value'=>'addis ababa','name'=>'Addis Ababa']]" />
+                            <x-home-page.filter-container :label="'Location | አካባቢ'" >
+                                    <x-common.client.select class="search-fields" :name="'city'" :options="[['value'=>'addis ababa','name'=>'Addis Ababa|አዲስ አበባ']]" />
                             </x-home-page.filter-container >
 
-                            <x-home-page.filter-container :label="'Sub City'" >
+                            <x-home-page.filter-container :label="'Sub City | ክፍለ ከተማ'" >
                                 @php
-                                    $subcity_list = array_map(function ($a) { return ['value'=>strtolower($a),'name'=>$a]; },['Addis Ketema','Akaky Kaliti','Arada', 'Bole', 'Gullele','Kirkos','Kolfe Keranio', 'Lideta','Nifas Silk-Lafto','Yeka']);
+                                    $subcity_list = array_map(function ($a) { return ['value'=>strtolower((explode('|',$a))[0]),'name'=>$a]; },['All|ሁሉም','Addis Ketema|አዲስ ከተማ ','Akaky Kaliti|አቃቂ ቃሊቲ','Arada|አራዳ', 'Bole|ቦሌ', 'Gullele|ጉሌሌ','Kirkos|ቂርቆስ','Kolfe Keranio|ኮልፌ ቀራንዮ', 'Lideta|ልደታ','Nifas Silk-Lafto|ንፋስ ስልክ ላፍቶ','Yeka|የካ']);
                                 @endphp
                                     <x-common.client.select class="search-fields" :name="'subcity'" :options="$subcity_list" />
                             </x-home-page.filter-container >
 
                         </div>
                         <div class="row">
-                            <x-home-page.filter-container  :label="'Bedroom'">
+                            <x-home-page.filter-container  :label="'Bedroom | መኝታ ቤት'">
                                     <x-common.client.select class="search-fields" :name="'bedroom'" :options="[['value'=>'1','name'=>'1'],['value'=>'2','name'=>'2'],['value'=>'3','name'=>'3'],['value'=>'4','name'=>'4']]" />
                             </x-home-page.filter-container >
-                            <x-home-page.filter-container :label="'Area'">
+                            <x-home-page.filter-container :label="'Area | ስፋት'">
                                 <x-common.client.range-slider  :max="100000" :minname="'min_area'" :maxname="'max_area'" :unit="'sqm'"/>
                             </x-home-page.filter-container >
 
-                            <x-home-page.filter-container :label="'Price'">
+                            <x-home-page.filter-container :label="'Price | ዋጋ'">
                                 <x-common.client.range-slider  :max="50000000" :minname="'min_price'" :maxname="'max_price'" :unit="'birr'"/>
                             </x-home-page.filter-container >
 
@@ -71,7 +72,7 @@
     <!-- Search area end -->
 
     <!-- Featured properties start -->
-    <div class="featured-properties content-area-2" id="featuredProperties">
+    <div class="featured-properties content-area-2 mb-2" id="featuredProperties">
         <div class="container">
             <div class="main-title">
                 <h1>Featured Properties</h1>
@@ -82,6 +83,11 @@
                     @foreach ($featured as $item)
                         <x-home-page.featured-card :property='$item'/>
                     @endforeach
+                    @if (count($recent) > 0)
+                        @foreach ($recent as $item)
+                            <x-home-page.featured-card :property='$item'/>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
@@ -113,10 +119,10 @@
     <!-- Recent Properties start -->
     <div class="recent-properties content-area-2">
         <div class="container">
-            <x-home-page.title :title="__('Recent Properties')" :subtitle="__('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.')" />
+            <x-home-page.title :title="__('Sale Properties')" :subtitle="__('')" />
             <div class="row">
-                @foreach ($recent as $item )
-                    <x-home-page.recent-card :property='$item'/>
+                @foreach ($sale as $item )
+                    <x-home-page.featured-card :property='$item'/>
                 @endforeach
             </div>
         </div>
@@ -126,37 +132,12 @@
     <!-- Most popular places start -->
     <div class="most-popular-places content-area-23 bg-white">
         <div class="container">
-
-            <x-home-page.title :title="__('Most Popular Places')" :subtitle="__('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.')" />
-
+            <x-home-page.title :title="__('Rental Properties')" :subtitle="__('')" />
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12 col-pad cp-3 wow fadeInLeft delay-04s d-none-992">
-                        <div class="most-popular-box-2">
-                            <div class="photo">
-                                <img src="{{asset('client-assets/img/popular-places/img-3.jpg')}}" alt="img" class="img-fluid">
-                                <div class="most-overlay">
-                                    <div class="job">
-                                        <p>256 Properties</p>
-                                        <h6><a href="properties-details.html">Tokyo City</a></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <x-home-page.popular-card-container>
-                        <x-home-page.popular-card/>
-
-                        <x-home-page.popular-card/>
-                    </x-home-page.popular-card-container>
-
-                    <x-home-page.popular-card-container>
-                        <x-home-page.popular-card/>
-
-                        <x-home-page.popular-card/>
-                    </x-home-page.popular-card-container>
-
+                    @foreach ($rent as $item )
+                        <x-home-page.featured-card :property='$item'/>
+                    @endforeach
                 </div>
             </div>
         </div>

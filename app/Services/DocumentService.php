@@ -29,10 +29,15 @@ class DocumentService implements DocumentServiceInterface
 
     public static function destroy($filename, $location = 'img')
     {
-        Document::where('filename', $filename)->delete();
-        if (Storage::exists($location .'/'. $filename)) {
-            Storage::delete($location . '/' . $filename);
+        try {
+            Document::where('filename', $filename)->delete();
+            if (Storage::disk('public')->exists($location . '/' . $filename)) {
+                Storage::disk('public')->delete($location . '/' . $filename);
+            }
+            return ['success' => true, 'message' => 'Client created successfully'];
+        } catch (Exception $e) {
+            return ['success' => false, 'message' =>  $e->getMessage()];
         }
-        return ['success' => true, 'message' => 'Client created successfully'];
+
     }
 }

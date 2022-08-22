@@ -39,10 +39,10 @@
                                             </li>
                                             @if($property->type == 'house' || $property->type == 'apartment')
                                                 <li>
-                                                    <i class="flaticon-bed"></i> {{$property->bedroom}} Beds
+                                                    <i class="flaticon-bed"></i> {{$property->bedroom??0}} Beds
                                                 </li>
                                                 <li>
-                                                    <i class="flaticon-bath"></i> {{$property->bathroom}} Baths
+                                                    <i class="flaticon-bath"></i> {{$property->bathroom??0}} Baths
                                                 </li>
                                             @endif
                                                <li><i class="flaticon-square-layouting-with-black-square-in-east-area"></i>{{number_format($property->area)}} sqm</li>
@@ -60,8 +60,8 @@
                     <div class="carousel-inner">
                         @if (count($property->documents) > 0)
                             @foreach ($property->documents as $document )
-                                <div class="{{$loop->first()?'active item carousel-item': 'item carousel-item'}}item carousel-item" data-slide-number="{{$loop->index}}">
-                                        <img src="{{asset( 'storage/img/property/'. $property->documents->filename)}}"  alt="properties-photo" style="width:100%; height:60vh;object-fit:cover">
+                                <div class="{{$loop->first?'active item carousel-item': 'item carousel-item'}}item carousel-item" data-slide-number="{{$loop->index}}">
+                                        <img src="{{asset( 'storage/img/properties/'. $document->filename)}}"  alt="properties-photo" style="width:100%; height:60vh;object-fit:cover">
                                 </div>
                             @endforeach
                         @else
@@ -74,9 +74,9 @@
                     <ul class="carousel-indicators sp-2 smail-properties list-inline nav nav-justified ">
                         @if (count($property->documents) > 0)
                             @foreach ($property->documents as $document )
-                                <li class="{{$loop->first()?'list-inline-item active':'list-inline-item'}}">
-                                    <a id="carousel-selector-0" class="{{$loop->first()?'selected':''}}" data-slide-to="{{$loop->index}}" data-target="#propertiesDetailsSlider">
-                                        <img src="{{asset( 'storage/img/property/'. $property->documents->filename)}}"  alt="properties-photo-smale" style="height: 90px; object-fit:cover">
+                                <li class="{{$loop->first?'list-inline-item active':'list-inline-item'}}">
+                                    <a id="carousel-selector-0" class="{{$loop->first?'selected':''}}" data-slide-to="{{$loop->index}}" data-target="#propertiesDetailsSlider">
+                                        <img src="{{asset( 'storage/img/properties/'. $document->filename)}}"  alt="properties-photo-smale" style="height: 90px; object-fit:cover">
                                     </a>
                                 </li>
                             @endforeach
@@ -150,78 +150,16 @@
                 <div class="features-opions af mb-45">
                     <h3 class="heading-3">Features</h3>
                     <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <ul>
-                                <li>
+                        <ul class="d-flex flex-wrap">
+                            @foreach (explode(",",$property->amenities) as $amenity )
+                            @if ($amenity)
+                                    <li class="col-md-4 col-sm-6">
                                     <i class="flaticon-draw-check-mark"></i>
-                                    Air conditioning
-                                </li>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Wifi
-                                </li>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Swimming Pool
-                                </li>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Double Bed
-                                </li>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Balcony
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <ul>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Telephone
-                                </li>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Garage
-                                </li>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Parking
-                                </li>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    TV
-                                </li>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Home Theater
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <ul>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Alarm
-                                </li>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Garage
-                                </li>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Gym
-                                </li>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Electric Range
-                                </li>
-                                <li>
-                                    <i class="flaticon-draw-check-mark"></i>
-                                    Private space
-                                </li>
-                            </ul>
-                        </div>
+                                       {{$amenity}}
+                                    </li>
+                            @endif
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
                 <!-- Property vedio start -->
@@ -250,13 +188,13 @@
                             @if ($recent->id != $property->id)
                                 <div class="media mb-4">
                                     <a href="{{route('detail',['property'=>$recent->id])}}">
-                                        <img src="{{asset(count($property->documents) > 0 ?'storage/img/properties/'. $property->documents->first()->filename:'storage/img/default.png')}}" alt="sub-property">
+                                        <img src="{{asset(count($recent->documents) > 0 ?'storage/img/properties/'. $recent->documents->first()->filename:'storage/img/default.png')}}" alt="sub-property">
                                     </a>
                                     <div class="media-body align-self-center">
                                         <h5>
                                             <a href="{{route('detail',['property'=>$recent->id])}}">{{$recent->name}} </a>
                                         </h5>
-                                        <p>{{$property->created_at}}| {{$recent->price}} Birr</p>
+                                        <p>{{$recent->created_at}}| {{$recent->price}} Birr</p>
                                     </div>
                                 </div>
                             @endif
@@ -284,17 +222,21 @@
             </div>
         </div>
         <div class="related-properties hedin-mb-30">
-                    <h3 class="heading-3">Related Properties</h3>
-                    <div class="container">
-                        <div class="row filter-portfolio wow fadeInUp delay-04s">
-                            <div class="cards d-flex ">
-                                @foreach ($related as $item)
+            <h3 class="heading-3">Related Properties</h3>
+            <div class="container">
+                <div class="row filter-portfolio wow fadeInUp delay-04s">
+                    <div class="cards d-flex ">
+                        @foreach ($related as $item)
+                            @if ($item->id != $property->id)
                                     <x-home-page.featured-card :property='$item'/>
-                                @endforeach
-                            </div>
-                        </div>
+                            @elseif (count($related) < 2 )
+                                <p>Not Found.</p>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Properties details page start -->

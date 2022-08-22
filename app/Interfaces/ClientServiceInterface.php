@@ -8,4 +8,5 @@ interface ClientServiceInterface
     public function getById($id);
     public function create($data);
     public function get($columns);
+    public function delete($data);
 }

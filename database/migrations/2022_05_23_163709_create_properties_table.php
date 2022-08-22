@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer('bathroom')->nullable();
             $table->integer('area');
             $table->integer('closing_price')->nullable();
+            $table->integer('profit')->nullable();
             $table->boolean('is_brokered')->default(false);
             $table->boolean('status')->default(true);
             $table->enum('type', ['house', 'land', 'apartment', 'warehouse', 'building', 'shop'])->default('house');
@@ -35,6 +36,7 @@ return new class extends Migration
             $table->dateTime('feature_to')->nullable();
             $table->boolean('is_rental')->default(false);
             $table->boolean('is_negotiable')->default(false);
+            $table->string('amenities')->nullable();
             $table->string('video')->nullable();
             $table->timestamps();
         });

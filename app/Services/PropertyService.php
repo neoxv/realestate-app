@@ -46,18 +46,10 @@ class PropertyService implements PropertyServiceInterface
     public function getFavourites($user)
     {
         return $user->properties()->paginate(6,['*'],'favouritesPage');
-        //or should we just use properties->with users
     }
 
     public function favourite($propertyId, $userId){
         $property = Property::with('users')->find($propertyId);
-
-        //check after having multiple users favorite a specfic property what
-        //these will return
-        //dd($property->users)
-        //if property users contain the specific user id then detach the user like
-        //    $property->users()->detach($user_id);
-        //the make favourite false and icon null
         if(count($property->users) > 0){
            $property->users()->detach($userId);
             return [
@@ -74,7 +66,11 @@ class PropertyService implements PropertyServiceInterface
                 'icon' => $propertyId . 'icon'
             ];
         }
+    }
 
+    public function getAllFavourites()
+    {
+        return Property::has('users','>','0')->with('users')->withCount('users')->orderBy('users_count','desc')->paginate(5, ['*'], 'favouritesPage');
     }
 
 
@@ -87,29 +83,33 @@ class PropertyService implements PropertyServiceInterface
                 $imageUpload->filename = $value;
                 $property->documents()->save($imageUpload);
             }
-            return ['success' => true, 'message' => 'Property created successfully'];
+            return (object) ['success' => true, 'message' => 'Property created successfully'];
+        }else if($property){
+            return (object) ['success' => true, 'message' => 'Property created successfully'];
         }
 
-        return ['success' => false, 'message' => 'Property creation failed'];
+        return (object) ['success' => false, 'message' => 'Property creation failed.'];
     }
 
     public function update($id, $data)
     {
         $property = Property::find($id);
-        $data['is_featured'] = true;
         $property->update($data);
-        if($property){
-            return (object) ['success' => true, 'message' => 'Property Updated Successfully!'];
+        if ($property && array_key_exists('document', $data)) {
+            foreach ($data['document'] as $key => $value) {
+                $imageUpload = new Document();
+                $imageUpload->filename = $value;
+                $property->documents()->save($imageUpload);
+            }
         }
+        return (object) ['success' => true, 'message' => 'Property updated successfully'];
 
-        return (object) ['success' => false, 'message' => 'Property creation failed'];
     }
 
-    public function delete($id)
+    public function delete($property)
     {
-        $property = Property::find($id);
         $property->delete();
-        return $property;
+        return (object) ['success' => true, 'message' => 'Property Deleted Successfully!'];
     }
 
     public function getPropertyReportForDashboard()
@@ -154,6 +154,35 @@ class PropertyService implements PropertyServiceInterface
         return $property;
     }
 
+    public function searchFavourite($key){
+        $property = Property::has('users', '>', '0')->with('users')->withCount('users')->where(function ($query) use ($key) {
+            $columns = ['name', 'city', 'address', 'type'];
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $key . '%');
+            }
+        })->paginate(5, ['*'], 'favouritesPage');
+        return $property;
+    }
+
+    public function searchFeatured($key){
+        $property = Property::with('owner')->where('is_featured','1')->where(function ($query) use ($key) {
+            $columns = ['name', 'city', 'address', 'type'];
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $key . '%');
+            }
+
+            $query->orWhereHas('owner', function ($q) use ($key) {
+                $q->where(function ($q) use ($key) {
+                    $q->orWhere('name', 'LIKE', '%' . $key . '%');
+                    $q->orWhere('email', 'LIKE', '%' . $key . '%');
+                    $q->orWhere('primary_phone', 'LIKE', '%' . $key . '%');
+                    $q->orWhere('secondary_phone', 'LIKE', '%' . $key . '%');
+                });
+            });
+        })->paginate(5, ['*'], 'featuredPage');
+        return $property;
+    }
+
     public function userSearch($key)
     {
         $property = Property::with(['documents','users'])->where(function ($query) use ($key) {
@@ -171,7 +200,7 @@ class PropertyService implements PropertyServiceInterface
     {
         $property = Property::where(function ($query) use ($keys) {
                 foreach ($keys as $key => $value) {
-                    if($key != 'min_price' && $key != 'max_price' && $key != 'min_area' && $key != 'max_area' && ($key != 'subcity' || ($key == 'subcity' && $keys['city'] == 'addis ababa'))){
+                    if($key != 'min_price' && $key != 'max_price' && $key != 'min_area' && $key != 'max_area' && ($key != 'subcity' || ($key == 'subcity' && $keys['city'] == 'addis ababa' && $keys['subcity'] != 'all' ))){
                         $query->where($key, '=', $value);
                     }
                 }

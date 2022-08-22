@@ -26,9 +26,12 @@ class UserService implements UserServiceInterface
 
     public function update($id, $data)
     {
+        // dd($data);
         $user = User::find($id);
-        $user->update($data);
-        return $user;
+        if($user->role == 0){
+            $user->update($data);
+        }
+        return (object) ['success' => true, 'message' => 'User updated successfully'];
     }
 
     public function delete($id)
@@ -46,5 +49,18 @@ class UserService implements UserServiceInterface
             ->where('created_at', '>=',$month)
             ->groupBy('month')
             ->get();
+    }
+
+    public function search($key)
+    {
+        $users = User::where(function ($query) use ($key) {
+
+            $columns = ['first_name', 'last_name', 'phone', 'email'];
+
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $key . '%');
+            }
+        })->paginate(5, ['*'], 'usersPage');
+        return $users;
     }
 }

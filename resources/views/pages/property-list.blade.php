@@ -50,32 +50,33 @@
                                 <form method="post" action="{{route('user.property.filter')}}">
                                     @csrf
                                     <div class="form-group">
-                                        <x-common.client.form-group :label="'Type'">
-                                                <x-common.client.select class="search-fields" :name="'is_rental'"  :options="[['value'=>'1','name'=>'For Rent'],['value'=>'2','name'=>'For Sale']]" />
+                                        <x-common.client.form-group :label="'Type | ዓይነት'">
+                                                <x-common.client.select class="search-fields" :name="'is_rental'"  :options="[['value'=>'1','name'=>'For Rent|ኪራይ'],['value'=>'2','name'=>'For Sale|ሽያጭ']]" />
                                         </x-common.client.form-group >
 
-                                        <x-common.client.form-group :label="'Category'">
-                                                <x-common.client.select class="search-fields" :name="'type'" :options="[['value'=>'house','name'=>'House'],['value'=>'land','name'=>'Land'],['value'=>'apartment','name'=>'Apartment'],['value'=>'warehouse','name'=>'Warehouse'],['value'=>'building','name'=>'Building'],['value'=>'shop','name'=>'Shop']]" />
+                                        <x-common.client.form-group :label="'Category | ምድብ'">
+                                                <x-common.client.select class="search-fields" :name="'type'" :options="[['value'=>'house','name'=>'House|ቤት'],['value'=>'land','name'=>'Land|
+መሬት'],['value'=>'apartment','name'=>'Apartment|አፓርታማ'],['value'=>'warehouse','name'=>'Warehouse|መጋዘን'],['value'=>'building','name'=>'Building|ህንፃ'],['value'=>'shop','name'=>'Shop|ሱቅ']]" />
                                         </x-common.client.form-group >
 
-                                        <x-common.client.form-group :label="'Location'" >
-                                                <x-common.client.select class="search-fields" :name="'city'" :options="[['value'=>'addis ababa','name'=>'Addis Ababa']]" />
+                                        <x-common.client.form-group :label="'Location | አካባቢ'" >
+                                                <x-common.client.select class="search-fields" :name="'city'" :options="[['value'=>'addis ababa','name'=>'Addis Ababa|አዲስ አበባ']]" />
                                         </x-common.client.form-group >
 
-                                        <x-common.client.form-group :label="'Sub City'" >
+                                        <x-common.client.form-group :label="'Sub City | ክፍለ ከተማ'" >
                                             @php
-                                                $subcity_list = array_map(function ($a) { return ['value'=>strtolower($a),'name'=>$a]; },['Addis Ketema','Akaky Kaliti','Arada', 'Bole', 'Gullele','Kirkos','Kolfe Keranio', 'Lideta','Nifas Silk-Lafto','Yeka']);
+                                                $subcity_list = array_map(function ($a) { return ['value'=>strtolower((explode('|',$a))[0]),'name'=>$a]; },['All|ሁሉም','Addis Ketema|አዲስ ከተማ ','Akaky Kaliti|አቃቂ ቃሊቲ','Arada|አራዳ', 'Bole|ቦሌ', 'Gullele|ጉሌሌ','Kirkos|ቂርቆስ','Kolfe Keranio|ኮልፌ ቀራንዮ', 'Lideta|ልደታ','Nifas Silk-Lafto|ንፋስ ስልክ ላፍቶ','Yeka|የካ']);
                                             @endphp
                                                 <x-common.client.select class="search-fields" :name="'subcity'" :options="$subcity_list" />
                                         </x-common.client.form-group >
-                                        <x-common.client.form-group  :label="'Bedroom'">
+                                        <x-common.client.form-group  :label="'Bedroom | መኝታ ቤት'">
                                                 <x-common.client.select class="search-fields" :name="'bedroom'" :options="[['value'=>'1','name'=>'1'],['value'=>'2','name'=>'2'],['value'=>'3','name'=>'3'],['value'=>'4','name'=>'4']]" />
                                         </x-common.client.form-group >
-                                        <x-common.client.form-group :label="'Area'">
+                                        <x-common.client.form-group :label="'Area | ስፋት'">
                                             <x-common.client.range-slider  :max="100000" :minname="'min_area'" :maxname="'max_area'" :unit="'sqm'"/>
                                         </x-common.client.form-group >
 
-                                        <x-common.client.form-group :label="'Price'">
+                                        <x-common.client.form-group :label="'Price | ዋጋ'">
                                             <x-common.client.range-slider  :max="50000000" :minname="'min_price'" :maxname="'max_price'" :unit="'birr'"/>
                                         </x-common.client.form-group >
                                     <button class="btn- btn-4 btn-block">Filter</button>

@@ -18,4 +18,7 @@ interface PropertyServiceInterface
     public function userSearch($key);
     public function filter($keys);
     public function getFavourites($user);
+    public function getAllFavourites();
+    public function searchFavourite($key);
+    public function searchFeatured($key);
 }

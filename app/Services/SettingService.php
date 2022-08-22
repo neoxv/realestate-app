@@ -48,13 +48,13 @@ class SettingService implements SettingServiceInterface
                     $storage->delete($file);
                 }
             }
-            return ['success' => true, 'message' => 'Property created successfully'];
+            return (object) ['success' => true, 'message' => 'Property created successfully'];
         }
 
         if ($setting) {
-            return ['success' => true, 'message' => 'Setting created successfully'];
+            return (object) ['success' => true, 'message' => 'Setting created successfully'];
         }
 
-        return ['success' => false, 'message' => 'Setting creation failed'];
+        return (object) ['success' => false, 'message' => 'Setting creation failed'];
     }
 }

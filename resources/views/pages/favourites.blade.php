@@ -8,6 +8,9 @@
     <div class="container">
        <div class="row filter-portfolio wow fadeInUp delay-04s">
                 <div class="cards">
+                    @if (count($favourites) == 0)
+                        <p>No favourites yet.</p>
+                    @endif
                     @foreach ($favourites as $favourite)
                         <x-home-page.featured-card :property='$favourite'/>
                     @endforeach

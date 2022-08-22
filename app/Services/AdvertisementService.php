@@ -40,9 +40,44 @@ class AdvertisementService implements AdvertisementServiceInterface
                     $imageUpload->filename = $value;
                     $advertisement->documents()->save($imageUpload);
                 }
-            return ['success' => true, 'message' => 'Advertisement created successfully'];
+            return (object) ['success' => true, 'message' => 'Advertisement created successfully'];
         }
 
-        return ['success' => false, 'message' => 'Advertisement creation failed'];
+        return (object) ['success' => false, 'message' => 'Advertisement creation failed'];
+    }
+
+    public function update($id, $data){
+        $advertisement = Advertisement::find($id);
+        if ($advertisement) {
+            $advertisement->update($data);
+            if(array_key_exists('document', $data)){
+                foreach ($data['document'] as $key => $value) {
+                    $imageUpload = new Document();
+                    $imageUpload->filename = $value;
+                    $advertisement->documents()->save($imageUpload);
+                }
+            return (object) ['success' => true, 'message' => 'Advertisement updated successfully'];
+            }
+            return (object) ['success' => true, 'message' => 'Advertisement updated successfully'];
+        }
+        return (object) ['success' => false, 'message' => 'Advertisement update failed'];
+    }
+
+    public function delete($advertisement){
+        $advertisement->delete();
+        return (object) ['success' => true, 'message' => 'Advertisement deleted successfully'];
+    }
+
+    public function search($key)
+    {
+        $advertisements = Advertisement::where(function ($query) use ($key) {
+
+            $columns = ['title', 'link'];
+
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $key . '%');
+            }
+        })->paginate(5, ['*'], 'advertisementsPage');
+        return $advertisements;
     }
 }

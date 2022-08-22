@@ -22,7 +22,7 @@
                             <i class="fa fa-star-o"></i>
                         </div>
                     </div>
-                    <img src="{{asset( $property != null && count($property->documents) > 0 ?'storage/img/property/'. $property->documents->first()->filename:'storage/img/default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="{{asset( $property != null && count($property->documents) > 0 ?'storage/img/properties/'. $property->documents->first()->filename:'storage/img/default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
 
                 </a>
             </div>
@@ -61,10 +61,10 @@
                     </li>
                     @if($property->type == 'house' || $property->type == 'apartment')
                         <li>
-                            <i class="flaticon-bed"></i> {{$property->bedroom}} Beds
+                            <i class="flaticon-bed"></i> {{$property->bedroom??0}} Beds
                         </li>
                         <li>
-                            <i class="flaticon-bath"></i> {{$property->bathroom}} Baths
+                            <i class="flaticon-bath"></i> {{$property->bathroom??0}} Baths
                         </li>
                     @endif
                     {{-- <li>
@@ -94,7 +94,7 @@
           user: "{{Auth::user()?Auth::user()->id:''}}"
         },
         success:function(response){
-            console.log(response);
+            // console.log(response);
           if(response.success) {
             let icon = document.getElementById(response.icon)
             if(!response.favourite){
@@ -105,7 +105,7 @@
           }
         },
         error:function(response){
-            console.log(response)
+            // console.log(response)
         }
        });
 }

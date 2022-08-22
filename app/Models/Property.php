@@ -45,6 +45,8 @@ class Property extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->where('user_id', auth()->user()->id ?? 0);
+        return $this->belongsToMany(User::class)->when(auth()->check() && !auth()->user()->isAdmin(), function ($query) {
+            $query->where('user_id', auth()->user()->id);
+        });
     }
 }

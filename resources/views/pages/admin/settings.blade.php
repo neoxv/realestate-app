@@ -5,7 +5,6 @@
     <div class="card ">
         <div class="card-header pb-0 text-left">
             <h3 class="font-weight-bolder text-primary text-gradient">Create Setting</h3>
-            <p class="mb-0">Enter setting information.</p>
         </div>
         <div class="card-body">
             <form method="post" action="{{route('setting.create')}}" id="createProperty">
@@ -150,14 +149,6 @@
       }
       $('form').find('input[name="document[]"][value="' + name + '"]').remove()
     }
-  }
-
-  function featureProperty(id) {
-    $('#feature-form').modal('show');
-    document.getElementById('featured_id').value = id
-    document.getElementById('is_featured').value = true
-    document.getElementById('feature_from').valueAsDate = new Date()
-    document.getElementById('feature_to').valueAsDate = new Date()
   }
 
 </script>

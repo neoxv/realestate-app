@@ -1,4 +1,4 @@
-@props(['title','subtitle','show'=>false,'buttonurl','buttontitle'])
+@props(['title','subtitle'=>'','show'=>false,'buttonurl','buttontitle'])
 <div {{$attributes->merge(['class'=>'main-title'])}}>
     <h1>{{$title}}</h1>
     <p>{{$subtitle}}</p>

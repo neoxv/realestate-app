@@ -1,15 +1,15 @@
 @props(['property'])
 
-<div class="col-lg-4 col-md-4 col-sm-12 filtr-item" data-category="3, 2">
+<div class="col-lg-4 col-md-4 col-sm-12 filtr-item mb-2" data-category="3, 2">
     <div class="property-box-7">
         <div class="property-thumbnail">
             <a href="{{route('detail',['property'=>$property->id])}}" class="property-img">
-                <div class="tag-2">{{$property->is_rental?'For Rent':'For Sale'}}</div>
+                <div class="tag-2" style="background-color: {{$property->is_rental?'#FF9F1C':'#47A8BD'}};">{{$property->is_rental?'For Rent':'For Sale'}}</div>
                 <div class="price-box"><span>{{number_format($property->price)}} Birr </span>{{$property->is_negotiable?'Negotioable':'Fixed'}} </div>
                 <img src="{{asset(count($property->documents) > 0 ?'storage/img/properties/'. $property->documents->first()->filename:'storage/img/default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 15vw; object-fit: cover;">
             </a>
         </div>
-        <div class="detail">
+        <div class="detail" >
             <h1 class="title">
                 <a href="{{route('detail',['property'=>$property->id])}}">{{$property->name}}</a>
             </h1>
@@ -19,23 +19,23 @@
                 </a>
             </div>
         </div>
-        <ul class="facilities-list clearfix">
+        <ul class="facilities-list clearfix" >
             <li>
                 <span>Area</span>{{$property->area}} Sqm
             </li>
             <li>
-                <span>Beds</span> {{$property->bedroom}}
+                <span>Beds</span> {{$property->bedroom??0}}
             </li>
             <li>
-                <span>Baths</span> {{$property->bathroom}}
+                <span>Baths</span> {{$property->bathroom??0}}
             </li>
             <li>
-                <span>Garage</span> 1
+                <span>Features</span> {{count(explode(",",$property->amenities))}}
             </li>
         </ul>
-        <div class="footer clearfix">
+        <div class="footer clearfix" style="background-color: {{$property->is_rental?'#FF9F1C':'#47A8BD'}};">
             <div class="pull-left days">
-                <p><i class="fa fa-home"></i> {{ucfirst($property->type)}}</p>
+                <p style="color: white"><i class="fa fa-home" style="color:white"></i> {{ucfirst($property->type)}}</p>
             </div>
             <ul class="pull-right">
             <li>
@@ -58,4 +58,37 @@
         </div>
     </div>
 </div>
+<script>
 
+  function favouriteProperty(event,property){
+      event.preventDefault();
+      let _token = $("input[name=_token]").val();
+         $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': _token
+                  }
+              });
+      $.ajax({
+        url: "{{route('favourite')}}",
+        type:"POST",
+        data:{
+          id:property,
+          user: "{{Auth::user()?Auth::user()->id:''}}"
+        },
+        success:function(response){
+            // console.log(response);
+          if(response.success) {
+            let icon = document.getElementById(response.icon)
+            if(!response.favourite){
+                icon.style.color = '#535353'
+            }else{
+                icon.style.color = 'red';
+            }
+          }
+        },
+        error:function(response){
+            // console.log(response)
+        }
+       });
+}
+</script>

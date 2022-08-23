@@ -277,8 +277,8 @@
             <tr>
                 <td>
                     <div class="d-flex px-2 py-1">
-                    <div>
-                        <img src="{{asset(count($item->documents) > 0 ?'storage/img/properties/'. $item->documents->first()->filename:'storage/img/default.png')}}" class="avatar avatar-sm me-3" alt="user1">
+                    <div class="mr-3">
+                    <span class="badge badge-pill bg-gradient-warning" style="margin-right: 4px;">{{$item->number}}</span>
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                         <h6 class="mb-0 text-sm" >{{$item->name}}</h6>

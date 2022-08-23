@@ -20,7 +20,17 @@ class SettingConfig
     {
         $setting = Setting::first()->with('documents')->first();
         if($setting){
-            config(['app.name' => strtoupper($setting->app_name),'app.logo' => $setting->documents->filename]);
+            config([
+                'app.name' => strtoupper($setting->app_name),
+                'app.logo' => $setting->documents->filename,
+                'app.facebook' => $setting->facebook,
+                'app.youtube' => $setting->youtube,
+                'app.tiktok' => $setting->tiktok,
+                'app.telegram' => $setting->telegram,
+                'app.email' => $setting->email,
+                'app.phone' => $setting->primary_phone,
+                'app.address' => $setting->address
+            ]);
         }
         return $next($request);
     }

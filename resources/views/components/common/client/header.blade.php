@@ -4,8 +4,8 @@
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-7">
                 <div class="list-inline">
-                    <a href="tel:1-7X0-555-8X22"><i class="fa fa-phone"></i>+0477 85X6 552</a>
-                    <a href="tel:info@themevessel.com"><i class="fa fa-envelope"></i>info@themevessel.com</a>
+                    <i class="fa fa-envelope" style="color:white; margin-right:4px"></i><a href="{{'mailto:'. config('app.email')}}">{{config('app.email')}}</a>
+                    <i class="fa fa-phone" style="color:white;margin-right:4px"></i><a href="{{'tel:'.config('app.phone')}}">{{config('app.phone')}}</a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-5 ">

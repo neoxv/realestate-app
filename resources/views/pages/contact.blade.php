@@ -46,9 +46,11 @@
                     <div class="contact-info mt-2 text-center">
                         <h3>Follow Us</h3>
                         <ul class="social-list clearfix">
-                            <li><a href="{{$setting->facebook}}" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="{{$setting->youtube}}" class="google-bg"><i class="fa fa-youtube-play"></i></a></li>
-                            <li><a href="{{$setting->telegram}}" class="linkedin-bg"><i class="fa fa-telegram"></i></a></li>
+                            <li><a href="{{url($setting->facebook)}}" target="_blank" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="{{url($setting->youtube)}}" target="_blank" class="google-bg"><i class="fa fa-youtube-play"></i></a></li>
+                            <li><a href="{{url($setting->telegram)}}" target="_blank" class="linkedin-bg"><i class="fa fa-telegram"></i></a></li>
+                            <li><a href="{{url($setting->tiktok)}}" target="_blank" class=""><img src="{{asset('storage/img/others/tik-tok.png')}}" style="width: 45px;" alt=""></a></li>
+
                         </ul>
                     </div>
                 </div>

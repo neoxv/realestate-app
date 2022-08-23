@@ -136,7 +136,7 @@ class PropertyService implements PropertyServiceInterface
     public function search($key){
         $property = Property::with('owner')->where(function ($query) use ($key) {
 
-            $columns = ['name', 'city','address','type'];
+            $columns = ['name', 'city','address','type','number'];
 
             foreach ($columns as $column) {
                 $query->orWhere($column, 'LIKE', '%' . $key . '%');

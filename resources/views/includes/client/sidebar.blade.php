@@ -11,23 +11,20 @@
         <div class="sidebar-navigation">
             <h3 class="heading">Pages</h3>
             <ul class="menu-list">
-                <li><a href="#" class="active pt0">Home </a>
+                <li><a href="{{route('home')}}" class="active pt0">Home </a>
                 </li>
                 <li>
-                    <a href="#">Properties </a>
+                    <a href="{{route('user.property.list')}}">Properties </a>
                 </li>
                 @auth
                 <li>
-                    <a href="#">Profile </a>
+                    <a href="{{route('profile')}}">Profile </a>
                 </li>
                 <li>
-                    <a href="#">Favourites </a>
+                    <a href="{{route('favourites',['user'=> Auth::user()->id])}}">Favourites </a>
                 </li>
                 @endauth
-                <li><a href="#">Contact </a>
-                </li>
-                <li>
-                    <a href="submit-property.html">Search Property</a>
+                <li><a href="{{route('contact')}}">Contact </a>
                 </li>
             </ul>
         </div>
@@ -36,23 +33,17 @@
             <div class="media">
                 <i class="fa fa-phone"></i>
                 <div class="media-body">
-                    <a href="tel:0477-0477-8556-552">0477 8556 552</a>
+                    <a href="{{'tel:'.config('app.phone')}}">{{config('app.phone')}}</a>
                 </div>
             </div>
             <div class="media">
                 <i class="fa fa-envelope"></i>
                 <div class="media-body">
-                    <a href="#">info@themevessel.com</a>
-                </div>
-            </div>
-            <div class="media mb-0">
-                <i class="fa fa-fax"></i>
-                <div class="media-body">
-                    <a href="#">info@themevessel.com</a>
+                   <a href="{{'mailto:'. config('app.email')}}">{{config('app.email')}}</a>
                 </div>
             </div>
         </div>
-        <div class="get-social">
+        {{-- <div class="get-social">
             <h3 class="heading">Get Social</h3>
             <a href="#" class="facebook-bg">
                 <i class="fa fa-facebook"></i>
@@ -66,7 +57,7 @@
             <a href="#" class="linkedin-bg">
                 <i class="fa fa-linkedin"></i>
             </a>
-        </div>
+        </div> --}}
     </div>
 </nav>
 <!-- Sidenav end -->

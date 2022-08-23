@@ -1193,6 +1193,15 @@ input[type=checkbox]:checked + label:before {
     background: #fb3958;
 }
 
+.tiktok-bg:hover{
+    background:#ff0050;
+}
+
+.tiktok-bg{
+    background: #fff;
+}
+
+
 .instagram-bg:hover{
     background: #ec2f4d;
 }

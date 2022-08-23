@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/user/search', [UserController::class, 'search'])->name('user.search');
         Route::post('/client/search', [ClientController::class, 'search'])->name('client.search');
         Route::post('/advertisement/search', [AdvertisementController::class, 'search'])->name('advertisement.search');
-        Route::get('/test',[PropertyController::class,'test'])->name('test');
+        // Route::get('/test',[PropertyController::class,'test'])->name('test');
 
     });
 

@@ -20,6 +20,9 @@
                                        <div class="float-left">
                                            <ul class="clearfix">
                                             <li>
+                                                <h1><span class="badge badge-primary" style="color: white">{{'ID: '.$property->number}}</span></h1>
+                                            </li>
+                                            <li>
                                                 @if(Auth::check())
                                                     <form  id="favouriteForm">
                                                         @csrf
@@ -204,15 +207,15 @@
                     <div class="social-list widget clearfix">
                         <h5 class="sidebar-title">Follow Us</h5>
                         <ul>
-                            <li><a href="{{config('app.facebook')}}" target="_blank" ><i class="fa fa-facebook" style="color:#4867aa" ></i></a></li>
-                            <li><a href="{{config('app.youtube')}}" target="_blank"><i class="fa fa-youtube-play" style="color:#fb3958"></i></a></li>
-                            <li><a href="{{config('app.telegram')}}" target="_blank" ><i class="fa fa-telegram" style="color:#1c82ca"></i></a></li>
-                            <li><a href="{{config('app.tiktok')}}" target="_blank" ><img src="{{asset('storage/img/others/tik-tok.png')}}" style="width: 20px;" alt=""></a></li>
+                            <li><a href="{{config('app.facebook')}}" target="_blank" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="{{config('app.youtube')}}" target="_blank" class="google-bg"><i class="fa fa-youtube-play"></i></a></li>
+                            <li><a href="{{config('app.telegram')}}" target="_blank" class="linkedin-bg"><i class="fa fa-telegram"></i></a></li>
+                            <li><a href="{{config('app.tiktok')}}" target="_blank" class=""><img src="{{asset('storage/img/others/tik-tok.png')}}" style="width: 45px;" alt=""></a></li>
 
                         </ul>
                     </div>
                     <!-- Sell Your Property -->
-                    <div class="sell-your-properties">
+                    <div class="sell-your-properties" style="background-image: url({{asset('storage/img/others/contact.jpg')}}); ">
                         <h3>Sell Your Property</h3>
                         <p>We will handle it for you.</p>
                         <p></p>

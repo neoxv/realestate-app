@@ -3,8 +3,8 @@
     <div class="footer-wrapper">
         <div class="row align-items-end">
             <div class="col-lg-6 col-pad">
-                <div class="footer-left">
-                    <div class="inner">
+                <div class="footer-left" >
+                    <div class="inner" >
                         <span>Ready To Do This</span>
                         <h2>Let's get <br> to work</h2>
                         <a href="{{route('contact')}}" class="btn btn-lg btn-white-lg-outline">Contact Us</a>
@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="col-lg-6 col-pad">
-                <div class="footer-right">
+                <div class="footer-right" >
                     <div class="row">
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="footer-link">

@@ -4,9 +4,9 @@
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
 
-                <x-home-page.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-3.jpg')" :link="'#featuredProperties'" class='t-right' :button-title="__('Get Started')" :active="true"/>
-                <x-home-page.banner-carousel-item :header="__('Best Place For Sell Properties')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-2.jpg')" :link="'#featuredProperties'" class='t-right' :button-title="__('Get Started')"/>
-                <x-home-page.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-4.jpg')" :link="'#featuredProperties'" class='t-left' :button-title="__('Get Started')"/>
+                <x-home-page.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('storage/img/banners/img-3.jpg')" :link="'#featuredProperties'" class='t-right' :button-title="__('Get Started')" :active="true"/>
+                <x-home-page.banner-carousel-item :header="__('Best Place For Sell Properties')" :subheader="__('The Best Real Estate Deals')" :image="asset('storage/img/banners/img-2.jpg')" :link="'#featuredProperties'" class='t-right' :button-title="__('Get Started')"/>
+                <x-home-page.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('storage/img/banners/img-4.jpg')" :link="'#featuredProperties'" class='t-left' :button-title="__('Get Started')"/>
             </div>
             <div class="btn-secton">
                 <ol class="carousel-indicators">
@@ -95,7 +95,7 @@
     <!-- Featured properties end -->
 
     <!-- Services 2 start -->
-    <div class="services-2 overview-bgi">
+    <div class="services-2 overview-bgi" style="background-image: url({{asset('storage/img/banners/img-6.jpg')}})">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 align-self-center wow fadeInLeft delay-04s">

@@ -28,7 +28,7 @@
                 @endguest
             </li>
 
-            <li class="nav-item px-3 dropdown pe-2 d-flex align-items-center">
+            {{-- <li class="nav-item px-3 dropdown pe-2 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" >
                 <i class="fa fa-bell cursor-pointer"></i>
               </a>
@@ -38,7 +38,7 @@
                     <a class="dropdown-item border-radius-md" href="javascript:;">
                         <div class="d-flex py-1">
                         <div class="my-auto">
-                            <img src="{{asset('admin-assets/img/team-2.jpg')}}" class="avatar avatar-sm  me-3 ">
+                            <img src="{{asset('storage/img/avatar.png')}}" class="avatar avatar-sm  me-3 ">
                         </div>
                         <div class="d-flex flex-column justify-content-center">
                             <h6 class="text-sm font-weight-normal mb-1">
@@ -54,7 +54,7 @@
                     </li>
                   @endfor
               </ul>
-            </li>
+            </li> --}}
                 <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                 <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
                     <div class="sidenav-toggler-inner">

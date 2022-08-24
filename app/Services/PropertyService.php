@@ -156,7 +156,7 @@ class PropertyService implements PropertyServiceInterface
 
     public function searchFavourite($key){
         $property = Property::has('users', '>', '0')->with('users')->withCount('users')->where(function ($query) use ($key) {
-            $columns = ['name', 'city', 'address', 'type'];
+            $columns = ['name', 'city', 'address', 'type','number'];
             foreach ($columns as $column) {
                 $query->orWhere($column, 'LIKE', '%' . $key . '%');
             }
@@ -166,7 +166,7 @@ class PropertyService implements PropertyServiceInterface
 
     public function searchFeatured($key){
         $property = Property::with('owner')->where('is_featured','1')->where(function ($query) use ($key) {
-            $columns = ['name', 'city', 'address', 'type'];
+            $columns = ['name', 'city', 'address', 'type','number'];
             foreach ($columns as $column) {
                 $query->orWhere($column, 'LIKE', '%' . $key . '%');
             }

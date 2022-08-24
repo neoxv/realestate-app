@@ -2,7 +2,7 @@
     <div class="row agent-4">
         <div class="col-lg-5 col-md-12 col-pad">
             <div class="photo">
-                <img src="{{asset('client-assets/img/avatar/avatar-5.jpg')}}" alt="avatar-4" class="img-fluid">
+                <img src="{{asset('storage/img/avatar.png')}}" alt="avatar-4" class="img-fluid">
                 <div class="overlay">
                     <div class="border">
                         <div class="icon-holder">
@@ -20,7 +20,7 @@
         </div>
         <div class="col-lg-7 col-md-12 col-pad align-self-center">
             <div class="details">
-                <h3><a href="agent-detail.html">Brandon Miller</a></h3>
+                <h3><a href="#">Brandon Miller</a></h3>
                 <h6>Office Manager</h6>
                 <div class="contact">
                     <p>

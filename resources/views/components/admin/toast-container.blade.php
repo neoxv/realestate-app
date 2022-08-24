@@ -1,4 +1,9 @@
-<div class="d-flex justify-content-end flex-column align-items-end" >
+<div class="d-flex justify-content-end flex-column align-items-end" style="
+    position: absolute;
+    width: 100%;
+    top: 120px;
+    right: 0;
+" >
     @if ($errors->any())
     {{-- <x-common.toast :title="'Error'" :message="$error"/> --}}
         @foreach ($errors->all() as $error)

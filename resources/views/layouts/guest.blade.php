@@ -23,7 +23,7 @@
         <link type="text/css" rel="stylesheet" href="{{asset('client-assets/fonts/flaticon/font/flaticon.css')}}">
 
         <!-- Favicon icon -->
-        <link rel="shortcut icon" href="{{asset('client-assets/img/favicon.ico')}}" type="image/x-icon" >
+        <link rel="shortcut icon" href="{{asset('storage/img/settings/'.config('app.logo'))}}" type="image/x-icon" >
 
         <!-- Google fonts -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800%7CPlayfair+Display:400,700%7CRoboto:100,300,400,400i,500,700">
@@ -34,7 +34,6 @@
 
     </head>
     <body id="top" class="index-body">
-        <div class="page_loader"></div>
         {{$slot}}
         @include('includes.client.scripts')
     </body>

@@ -79,20 +79,26 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="text-primary" for="area">Area</label>
-                                    <input type="number" class="form-control @error('area') is-invalid @enderror" id="area" name="area" placeholder="sqm" required>
+                                    <label class="text-primary" for="bathroom">Video Link</label>
+                                    <input class="form-control" type="text" value="" id="video" name="video" placeholder="http://" >
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="text-primary" for="area">Area</label>
+                                    <input type="number" min="0" class="form-control @error('area') is-invalid @enderror" id="area" name="area" placeholder="sqm" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="text-primary" for="bedroom">Bedrooms</label>
-                                    <input class="form-control" type="number" value="0" id="bedroom" name="bedroom" disabled required>
+                                    <input class="form-control" min="0" type="number" value="0" id="bedroom" name="bedroom" disabled required>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="text-primary" for="bathroom">Bathroom</label>
-                                    <input class="form-control" type="number" value="0" id="bathroom" name="bathroom" disabled required>
+                                    <input class="form-control" min="0" type="number" value="0" id="bathroom" name="bathroom" disabled required>
 
                                 </div>
                             </div>
@@ -545,6 +551,7 @@
     $('#address').val(property.address)
     $('#name').val(property.name)
     $('#price').val(property.price)
+    $('#video').val(property.video??"")
     $('#area').val(property.area)
     $('#bedroom').val(property.bedroom)
     $('#bathroom').val(property.bathroom)

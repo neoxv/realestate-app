@@ -20,6 +20,19 @@
                                 <ul class="links">
                                     <li><a href="{{route('user.property.list')}}">Properties</a></li>
                                     <li><a href="{{route('contact')}}">Contact Us</a></li>
+                                    @auth()
+                                    <form action="{{route('logout.admin')}}" method="POST">
+                                        @csrf
+                                        <button class="btn  btn-link p-0 m-0" type="submit" style="color: white" >
+                                            <i class="fa fa-sign-out me-sm-1 mr-2"></i> Sign Out
+                                        </button>
+                                    </form>
+                                    @endauth
+                                    @guest
+                                        <a href="{{route('login')}}" >
+                                            <i class="fa fa-user me-sm-1 mr-3"></i>Sign In
+                                        </a>
+                                    @endguest
                                 </ul>
                             </div>
                         </div>
@@ -27,10 +40,13 @@
                             <div class="footer-link"><h4>Say Hello</h4>
                                 <ul class="links mb-30">
                                     <li>
-                                        <a href="{{'mailto:'.config('app.email')}}">{{config('app.email')}}</a>
+                                        <i class="flaticon-facebook-placeholder-for-locate-places-on-maps mr-3" style="color: white"></i><a href="#">{{config('app.address')}}</a>
                                     </li>
                                     <li>
-                                    <a href="{{'tel:'.config('app.phone')}}">{{config('app.phone')}}</a>
+                                        <i class="fa fa-envelope mr-3" style="color: white"></i><a href="{{'mailto:'. config('app.email')}}">{{config('app.email')}}</a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-phone mr-3" style="color: white"></i><a href="{{'tel:'.config('app.phone')}}">{{config('app.phone')}}</a>
                                     </li>
                                 </ul>
                                 <ul class="social-share d-flex">

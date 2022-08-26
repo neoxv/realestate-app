@@ -15,17 +15,44 @@
                         <li>
                             <i class="fa fa-phone"></i><a href="{{'tel:'.config('app.phone')}}">{{config('app.phone')}}</a>
                         </li>
+                    </ul>
                 </div>
             </div>
-            {{-- <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                 <div class="footer-item">
                     <h4>
                         Useful Links
                     </h4>
-
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fa fa-home"></i><a href="{{route('home')}}" >Home
+                            </a>
+                        </li>
+                        <li>
+                            <i class="fa fa-building"></i><a href="{{route('user.property.list')}}" >Properties
+                            </a>
+                        </li>
+                        <li>
+                            <i class="fa fa-phone"></i><a href="{{route('contact')}}" >Contact Us
+                            </a>
+                        </li>
+                         @auth()
+                        <form action="{{route('logout.admin')}}" method="POST">
+                            @csrf
+                            <button class="btn  btn-link p-0 m-0" type="submit" style="color: white" >
+                                <i class="fa fa-sign-out me-sm-1 mr-2"></i> Sign Out
+                            </button>
+                        </form>
+                        @endauth
+                        @guest
+                            <a href="{{route('login')}}" >
+                                <i class="fa fa-user me-sm-1 mr-3"></i>Sign In
+                            </a>
+                        @endguest
+                    </ul>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+            {{-- <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                 <div class="footer-item recent-posts">
                     <h4>Heading</h4>
                 </div>

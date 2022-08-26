@@ -24,16 +24,16 @@
                 <h6>Office Manager</h6>
                 <div class="contact">
                     <p>
-                        <a href="mailto:info@themevessel.com"><i class="fa fa-envelope-o"></i>info@themevessel.com</a>
+                        <a href="mailto:"><i class="fa fa-envelope-o"></i>info@realesate.com</a>
                     </p>
                     <p>
-                        <a href="tel:+554XX-634-7071"> <i class="fa fa-phone"></i>+55 4XX-634-7071</a>
+                        <a href="tel:"> <i class="fa fa-phone"></i>+55 4XX-634-7071</a>
                     </p>
                     <p>
                         <a href="#"><i class="fa fa-skype"></i>sales.carshop</a>
                     </p>
                     <p>
-                        <a href="tel:+554XX-634-7071"><i class="fa fa-fax"></i>+00 417 634 7X22</a>
+                        <a href="tel:"><i class="fa fa-fax"></i>+00 417 634 7X22</a>
                     </p>
                 </div>
             </div>

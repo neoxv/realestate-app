@@ -30,7 +30,7 @@
                 <span>Baths</span> {{$property->bathroom??0}}
             </li>
             <li>
-                <span>Features</span> {{count(explode(",",$property->amenities))}}
+                <span>Date</span>{{ (new \Carbon\Carbon($property->created_at))->diffForHumans()}}
             </li>
         </ul>
         <div class="footer clearfix" style="background-color: {{$property->is_rental?'#FF9F1C':'#47A8BD'}};">

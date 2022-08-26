@@ -49,6 +49,7 @@
                                                 </li>
                                             @endif
                                                <li><i class="flaticon-square-layouting-with-black-square-in-east-area"></i>{{number_format($property->area)}} sqm</li>
+                                               <li><h6>Posted {{(new \Carbon\Carbon($property->created_at))->diffForHumans()}}</h6></li>
                                            </ul>
                                        </div>
                                        <div class="float-right">

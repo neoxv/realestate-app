@@ -79,7 +79,14 @@
                                         <x-common.client.form-group :label="'Price | ዋጋ'">
                                             <x-common.client.range-slider  :max="50000000" :minname="'min_price'" :maxname="'max_price'" :unit="'birr'"/>
                                         </x-common.client.form-group >
-                                    <button class="btn- btn-4 btn-block">Filter</button>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <a class="btn btn-4 btn-block" href="{{route('user.property.list')}}" style="color: white">Reset</a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button class="btn- btn-4 btn-block">Filter</button>
+                                            </div>
+                                        </div>
                                 </form>
                             </div>
                         </div>

@@ -74,6 +74,11 @@ class User extends Authenticatable
         return $this->role === 1;
     }
 
+    public function isActive(): bool
+    {
+        return $this->status === 1;
+    }
+
     public function properties()
     {
         return $this->belongsToMany(Property::class);

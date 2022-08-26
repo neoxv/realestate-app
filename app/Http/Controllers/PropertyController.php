@@ -48,6 +48,7 @@ class PropertyController extends Controller
         } else {
             $request['status'] = false;
         }
+        $request['city'] == strtolower($request['city']);
         if ($request->amenities != null) {
             $request['amenities'] = implode(',', $request->amenities);
             if ($request['subcity'] == 'none') {
@@ -103,11 +104,12 @@ class PropertyController extends Controller
             $request['profit'] = str_replace(',', '', $request['profit']);
             $response = $this->propertyService->update($request->closed_id, $request->all());
         } else if (isset($request->id)) {
-            if (isset($request['status']) && $request['status'] == 'true') {
+            if(isset($request['status']) && $request['status'] == 'true') {
                 $request['status'] = true;
             } else {
                 $request['status'] = false;
             }
+            $request['city'] == strtolower($request['city']);
             if (isset($request['document'])) {
                 $documents = (Property::with('documents')->where('id', $request->id)->first())->documents;
                 foreach ($documents as $document) {

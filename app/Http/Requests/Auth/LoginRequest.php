@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,11 @@ class LoginRequest extends FormRequest
         $validator->after(function ($validator) {
             if (strlen($this->input('phone')) > 10 || substr($this->input('phone'), 0, 2) != '09') {
                 $validator->errors()->add('phone', 'Invalid phone number or password.');
+            }
+
+            $user = User::where('phone','=',$this->input('phone'))->where('status','=',1)->first();
+            if(!$user){
+                $validator->errors()->add('phone', 'Account Deactivated!');
             }
         });
     }

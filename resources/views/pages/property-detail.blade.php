@@ -15,7 +15,7 @@
                        <div class="row">
                            <div class="col-lg-12 p-3" style="background-color: {{$property->is_rental?'#937666':'#47A8BD'}};border-radius:20px;">
                                <div class="informeson" >
-                                   <h1 style="color:white">{{$property->name}}<span style="color:white;">{{number_format($property->price)}} Birr - {{$property->is_rental?"Rental":"Sale"}}</span></h1>
+                                   <h1 style="color:white">{{$property->name}}<span style="color:white;">{{number_format($property->price)}} Birr Per Month - {{$property->is_rental?"Rental":"Sale"}}</span></h1>
                                    <div>
                                        <div class="float-left" >
                                            <ul class="clearfix" style="color:white;">
@@ -53,7 +53,7 @@
                                            </ul>
                                        </div>
                                        <div class="float-right">
-                                           <p style="color:white;">{{$property->address}}</p>
+                                           <p style="color:white;">{{$property->subcity == "none"?ucfirst($proprty->address).', '.ucfirst($property->city):ucfirst($property->subcity).", ".ucfirst($property->address)}}</p>
                                        </div>
                                    </div>
                                </div>
@@ -157,7 +157,7 @@
                         <ul class="d-flex flex-wrap">
                             @foreach (explode(",",$property->amenities) as $amenity )
                             @if ($amenity)
-                                    <li class="col-md-4 col-sm-6">
+                                    <li class="col-md-4 col-sm-6 m-2">
                                     <i class="flaticon-draw-check-mark"></i>
                                        {{$amenity}}
                                     </li>
@@ -198,7 +198,7 @@
                                         <h5>
                                             <a href="{{route('detail',['property'=>$recent->id])}}">{{$recent->name}} </a>
                                         </h5>
-                                        <p>{{(new \Carbon\Carbon($recent->created_at))->diffForHumans()}}| {{$recent->price}} Birr</p>
+                                        <p>{{$recent->is_rental?"For Rent":"For Sale"}} | {{number_format($recent->price)}} Birr | {{(new \Carbon\Carbon($recent->created_at))->diffForHumans()}} </p>
                                     </div>
                                 </div>
                             @endif

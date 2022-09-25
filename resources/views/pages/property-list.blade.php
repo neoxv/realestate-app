@@ -47,7 +47,7 @@
                         <h5 class="sidebar-title">Advanced Search</h5>
                         <div class="search-area-inner">
                             <div class="search-contents ">
-                                <form method="post" action="{{route('user.property.filter')}}">
+                                <form method="get" action="{{route('user.property.filter')}}">
                                     @csrf
                                     <div class="form-group">
                                         <x-common.client.form-group :label="'Type | ዓይነት'">
@@ -95,12 +95,15 @@
                     <div class="widget categories">
                         <h5 class="sidebar-title">Categories</h5>
                         <ul>
-                            <li><a href="#">Apartments<span>(12)</span></a></li>
-                            <li><a href="#">Houses<span>(8)</span></a></li>
-                            <li><a href="#">Family Houses<span>(23)</span></a></li>
-                            <li><a href="#">Offices<span>(5)</span></a></li>
-                            <li><a href="#">Villas<span>(63)</span></a></li>
-                            <li><a href="#">Other<span>(7)</span></a></li>
+                            @foreach ($count as $item => $value)
+                                <form class="form-inline my-2 my-lg-0" action="{{route('user.property.search')}}" method="get" id="{{'search'.$item}}">
+                                        @csrf
+                                        <input type="hidden" name="search" value="{{$item}}">
+                                    <li onclick="(function(){document.getElementById('search'+ '{{$item}}').submit()})()">
+                                    {{ucfirst($item)}}<span style="color:blue">({{$value}})</span>
+                                    </li>
+                                </form>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

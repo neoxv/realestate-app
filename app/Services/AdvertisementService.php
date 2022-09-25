@@ -13,7 +13,7 @@ class AdvertisementService implements AdvertisementServiceInterface
 {
     public function getAll()
     {
-        return Advertisement::with(['client'])->paginate(5, ['*'], 'advertisementPage');
+        return Advertisement::with(['client'])->paginate(5, ['*'], 'advertisementPage')->withQueryString();
     }
 
     public function getActiveAdvertisements()
@@ -77,7 +77,7 @@ class AdvertisementService implements AdvertisementServiceInterface
             foreach ($columns as $column) {
                 $query->orWhere($column, 'LIKE', '%' . $key . '%');
             }
-        })->paginate(5, ['*'], 'advertisementsPage');
+        })->paginate(5, ['*'], 'advertisementsPage')->withQueryString();
         return $advertisements;
     }
 }

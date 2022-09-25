@@ -48,11 +48,11 @@ class PropertyController extends Controller
         } else {
             $request['status'] = false;
         }
-        $request['city'] == strtolower($request['city']);
+        $request['city'] = strtolower($request['city']);
         if ($request->amenities != null) {
             $request['amenities'] = implode(',', $request->amenities);
-            if ($request['subcity'] == 'none') {
-                $request['subcity'] = null;
+            if ($request['subcity'] == 'none' || $request['city'] != "addis ababa") {
+                $request['subcity'] = 'none';
             }
             $response = $this->propertyService->create($request->all());
         }
@@ -78,7 +78,13 @@ class PropertyController extends Controller
     public function show(Property $property)
     {
         $response = $this->propertyService->get();
-        return view('pages.property-list', ['properties' => $response]);
+        $report = $this->propertyService->getPropertyReportForDashboard();
+        $count = [];
+        foreach ($report as $type => $value) {
+            $count[$value->type] = $value->stock_count;
+        }
+
+        return view('pages.property-list', ['properties' => $response,'count'=>$count]);
     }
 
 
@@ -109,18 +115,17 @@ class PropertyController extends Controller
             } else {
                 $request['status'] = false;
             }
-            $request['city'] == strtolower($request['city']);
-            if (isset($request['document'])) {
-                $documents = (Property::with('documents')->where('id', $request->id)->first())->documents;
-                foreach ($documents as $document) {
-                    $this->documentService->destroy($document->filename, 'img/properties');
+            $request['city'] = strtolower($request['city']);
+            if ($request->removedDocuments != null) {
+                foreach ($request->removedDocuments as $document) {
+                    $this->documentService->destroy($document, 'img/properties');
                 }
             }
             if ($request->amenities != null) {
                 $request['amenities'] = implode(',', $request->amenities);
             }
-            if ($request['subcity'] == 'none') {
-                $request['subcity'] = null;
+            if ($request['subcity'] == 'none'|| $request['city'] != "addis ababa") {
+                $request['subcity'] = 'none';
             }
             $response = $this->propertyService->update($request->id, $request->all());
         }
@@ -189,7 +194,13 @@ class PropertyController extends Controller
         unset($keys['_token']);
         if ($keys != null && count($keys) > 0) {
             $properties = $this->propertyService->filter($keys);
-            return view('pages.property-list', ['properties' => $properties]);
+            $report = $this->propertyService->getPropertyReportForDashboard();
+            $count = [];
+            foreach ($report as $type => $value) {
+                $count[$value->type] = $value->stock_count;
+            }
+
+            return view('pages.property-list', ['properties' => $properties,'count'=>$count]);
         }
         return redirect()->route('search');
     }
@@ -199,7 +210,13 @@ class PropertyController extends Controller
         $key = $request->input('search');
         if ($key != '' || $key != null) {
             $properties = $this->propertyService->userSearch($key);
-            return view('pages.property-list', ['properties' => $properties, 'key' => $key]);
+            $report = $this->propertyService->getPropertyReportForDashboard();
+            $count = [];
+            foreach ($report as $type => $value) {
+                $count[$value->type] = $value->stock_count;
+            }
+
+            return view('pages.property-list', ['properties' => $properties, 'key' => $key, 'count' => $count]);
         }
         return redirect()->route('user.property.list');
     }

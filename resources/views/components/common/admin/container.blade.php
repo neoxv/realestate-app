@@ -69,7 +69,7 @@
       </div>
     </nav>
     <!-- End Navbar -->
-    <div class="container-fluid py-4">
+    <div class="container-fluid py-4" style="overflow-x:hidden">
         {{$slot}}
     </div>
 

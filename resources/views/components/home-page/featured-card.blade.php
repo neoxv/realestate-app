@@ -15,7 +15,7 @@
             </h1>
             <div class="location">
                 <a href="{{route('detail',['property'=>$property->id])}}">
-                    <i class="flaticon-facebook-placeholder-for-locate-places-on-maps"></i>{{$property->address}},
+                    <i class="flaticon-facebook-placeholder-for-locate-places-on-maps"></i>{{$property->subcity == "none"?ucfirst($proprty->address).', '.ucfirst($property->city):ucfirst($property->subcity).", ".ucfirst($property->address)}}
                 </a>
             </div>
         </div>
@@ -30,7 +30,7 @@
                 <span>Baths</span> {{$property->bathroom??0}}
             </li>
             <li>
-                <span>Date</span>{{ (new \Carbon\Carbon($property->created_at))->diffForHumans()}}
+                <span>Date</span>{{ (new \Carbon\Carbon($property->created_at))->format('M d Y')}}
             </li>
         </ul>
         <div class="footer clearfix" style="background-color: {{$property->is_rental?'#937666':'#47A8BD'}};">
@@ -53,7 +53,7 @@
                  <a href="{{route('login')}}"><i class="fa fa-heart" style="color: white" ></i></a></li>
                 @endif
             </li>
-                <li><a href="#"><i class="fa fa-phone" style="color: white"></i></a></li>
+                <li><a href="tel:{{config('app.phone')}}"><i class="fa fa-phone" style="color: white"></i></a></li>
             </ul>
         </div>
     </div>

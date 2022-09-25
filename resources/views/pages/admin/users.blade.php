@@ -63,7 +63,7 @@
         {{$users->links()}}
     </div>
 
-    <x-admin.table :headers="['Property','Favourites','Bedroom','Bathroom','Area','price','type']" :title="'Favourites Table'" >
+    <x-admin.table :headers="['Property','Favourites','type','Bedroom','Bathroom','Area','price']" :title="'Favourites Table'" >
         <div class="row">
             <div class="col-md-3 m-2" style="padding: 0px 24px">
                 <x-admin.search :action="'property.favourite.search'" :key="isset($key) && $subject == 'favourite'?$key:''"/>
@@ -130,6 +130,9 @@
                         <span class="text-secondary text-xs font-weight-bold">{{count($item->users)}}</span>
                     </td>
                     <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{strtoupper($item->type)}}</span>
+                    </td>
+                    <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{$item->bedroom??0}}</span>
                     </td>
                     <td class="align-middle text-center">
@@ -141,10 +144,7 @@
                     <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{number_format($item->price)}} Birr</span>
                     </td>
-                    <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{strtoupper($item->type)}}</span>
-                    </td>
-                    <td class="align-middle text-center">
+                   <td class="align-middle text-center">
                             <div class="dropdown">
                                 <button class="btn bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                 </button>

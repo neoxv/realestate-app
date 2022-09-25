@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-end flex-column align-items-end" style="
     position: absolute;
-    width: 100%;
+    /* width: 100%; */
     top: 120px;
     right: 0;
 " >

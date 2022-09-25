@@ -77,7 +77,7 @@ class ProfileController extends Controller
     public function updatePassword(PasswordChangeRequest $request)
     {
         $user = User::find($request->id);
-        if (Hash::check($request->old_password, $user->password)) {
+        if (Hash::check($request->old_password, $user->password) && auth()->user()->id == $request->id) {
             $user->fill([
                 'password' => $request->password
             ])->save();

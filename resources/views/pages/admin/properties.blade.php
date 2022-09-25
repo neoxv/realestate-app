@@ -139,7 +139,7 @@
                         </div>
                         <label class="text-primary" id="property-images-label"></label>
 
-                        <div class=" d-flex justify-content-between mb-2" id="property-images">
+                        <div class=" d-flex justify-content-start mb-2" id="property-images">
                         </div>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="property-status" value="true" name="status" checked="">
@@ -253,17 +253,23 @@
                                     @csrf
                                     <input type="hidden" name="closed_id" id="closed_id" value="">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="text-primary" for="closing_price">Closing Price</label>
                                             <input class="form-control" type="text" value="0" id="closing_price" name="closing_price" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="text-primary" for="profit">Profit</label>
                                             <input class="form-control" type="text" value="0" id="profit" name="profit" required>
 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="text-primary" for="from">Date</label>
+                                            <input class="form-control" type="date" value="{{\Carbon\Carbon::now()->toDateString()}}" id="closing_date" name="closing_date" required>
                                         </div>
                                     </div>
                                 </div>
@@ -582,9 +588,34 @@
         elem.setAttribute("width", "150px");
         elem.classList.add("border-radius-lg")
         elem.classList.add("shadow-sm")
-        document.getElementById("property-images").appendChild(elem);
+        var removeElement = document.createElement("button");
+        removeElement.innerHTML = 'Delete';
+        removeElement.className += " btn btn-sm bg-gradient-primary m-2"
+        removeElement.onclick = function(e){
+            e.preventDefault()
+            removePropertyImage(doc)
+            return false
+        };
+        var container = document.createElement("div")
+        container.className = "d-flex flex-column m-2"
+        container.setAttribute("id",doc.filename)
+        container.appendChild(elem)
+        container.appendChild(removeElement)
+        document.getElementById("property-images").appendChild(container);
     });
 
+  }
+
+  function removePropertyImage(doc){
+    console.log(doc)
+    const containerDiv = document.getElementById(doc.filename)
+    containerDiv.innerHTML = ''
+    var elem = document.createElement("input");
+        elem.setAttribute("type", "hidden");
+        elem.setAttribute("value", doc.filename);
+        elem.setAttribute("name", "removedDocuments[]");
+    var form = document.getElementById('createProperty')
+    form.appendChild(elem)
   }
 
   function editOwner(owner) {

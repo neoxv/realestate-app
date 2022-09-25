@@ -48,7 +48,7 @@
                                 </a>
                             </li>
                             <li class="nav-item " style="padding:30px 17px 35px">
-                                    <form class="form-inline my-2 my-lg-0" action="{{route('user.property.search')}}" method="post">
+                                    <form class="form-inline my-2 my-lg-0" action="{{route('user.property.search')}}" method="get">
                                         @csrf
                                     <input class="form-control mr-2" type="search" placeholder="Search" name="search" aria-label="Search" value="{{$key}}">
                                     <button   class="btn my-2 my-sm-0" style="color: white; background-color:#3f56ff;padding:6px" type="submit"><i class="fa fa-search" ></i> Search</button>

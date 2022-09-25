@@ -148,11 +148,9 @@
     <div class="agent content-area-2">
         <div class="container">
 
-            <x-home-page.title :title="__('Meet Our Agents')" :subtitle="__('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.')" />
+            <x-home-page.title :title="__('Meet Our Agents')" :subtitle="__('Our agents wil be with you every step of the way.')" />
 
             <div class="row">
-                <x-home-page.agent-card/>
-
                 <x-home-page.agent-card/>
             </div>
         </div>

@@ -7,7 +7,7 @@
             <h3 class="font-weight-bolder text-primary text-gradient">Create Setting</h3>
         </div>
         <div class="card-body">
-            <form method="post" action="{{route('setting.create')}}" id="createProperty">
+            <form method="post" action="{{route('setting.create')}}" id="createSetting">
                 @csrf
                 <div class="row">
                     <div class="col-md-4">
@@ -131,7 +131,7 @@
         return 'logo.'+extension
     },
     success: function (file, response) {
-        let formContainer = document.querySelector('#createProperty');
+        let formContainer = document.querySelector('#createSetting');
         var input = document.createElement("input");
         input.setAttribute('type', 'hidden');
         input.setAttribute('name', 'document[]');

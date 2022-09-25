@@ -1,7 +1,7 @@
 <div class="testimonial-3 content-area-20 bg-white">
     <div class="container">
         <!-- Main title -->
-        <x-home-page.title :title="__('Our Testimonial')" :subtitle="__('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.')"/>
+        <x-home-page.title :title="__('Our Testimonial')" :subtitle="__('We provide excellent service and we have our clients testimonials to proof that.')"/>
         <div class="row">
             <div class="col-lg-12 col-md-12 wow fadeInUp delay-04s">
                 <div class="row testimonial-info">

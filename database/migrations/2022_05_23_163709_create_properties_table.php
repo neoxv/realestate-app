@@ -34,6 +34,7 @@ return new class extends Migration
             $table->boolean('is_featured')->default(false);
             $table->dateTime('feature_from')->nullable();
             $table->dateTime('feature_to')->nullable();
+            $table->dateTime('closing_date')->nullable();
             $table->boolean('is_rental')->default(false);
             $table->boolean('is_negotiable')->default(false);
             $table->string('amenities')->nullable();

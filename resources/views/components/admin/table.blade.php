@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="card-body px-0 pt-0 pb-2">
-        <div class="table-responsive p-0" style="overflow-x:hidden;overflow-y:hidden">
+        <div class="table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-xxl table-responsive-xxxl p-0" >
         <table class="table align-items-center" style="margin-bottom: 10px;" >
             <thead>
             <tr>

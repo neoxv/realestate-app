@@ -12,13 +12,13 @@ class PropertyService implements PropertyServiceInterface
 {
     public function getAll()
     {
-        return Property::with(['owner'])->paginate(5,['*'],'propertiesPage');
+        return Property::with(['owner','documents'])->paginate(5,['*'],'propertiesAllPage')->withQueryString();
     }
 
     public function getFeatured($page = null)
     {
         if($page != null){
-            return Property::where('is_featured', true)->with(['documents', 'owner','users'])->paginate($page, ['*'], 'featuredPage');
+            return Property::where('is_featured', true)->with(['documents', 'owner','users'])->paginate($page, ['*'], 'featuredClientPage')->withQueryString();
         }
 
         return Property::where('is_featured', true)->with(['documents', 'owner','users'])->get();
@@ -26,7 +26,7 @@ class PropertyService implements PropertyServiceInterface
 
     public  function get()
     {
-        return Property::where('is_brokered', false)->where('status',true)->with(['documents','users'])->paginate(5, ['*'], 'listPage');;
+        return Property::where('is_brokered', false)->where('status',true)->with(['documents','users'])->paginate(5, ['*'], 'listPage')->withQueryString();
     }
 
     public function getRecent($amount=5)
@@ -40,12 +40,12 @@ class PropertyService implements PropertyServiceInterface
     }
 
     public function getByAttribute($attribute, $value,$with=['documents','users'],$page=5){
-        return Property::where($attribute,$value)->with($with)->paginate($page,['*'],'byAttributePage');
+        return Property::where($attribute,$value)->with($with)->paginate($page,['*'],'byAttributePage')->withQueryString();
     }
 
     public function getFavourites($user)
     {
-        return $user->properties()->paginate(6,['*'],'favouritesPage');
+        return $user->properties()->paginate(6,['*'],'favouritesClientPage')->withQueryString();
     }
 
     public function favourite($propertyId, $userId){
@@ -70,7 +70,7 @@ class PropertyService implements PropertyServiceInterface
 
     public function getAllFavourites()
     {
-        return Property::has('users','>','0')->with('users')->withCount('users')->orderBy('users_count','desc')->paginate(5, ['*'], 'favouritesPage');
+        return Property::has('users','>','0')->with('users')->withCount('users')->orderBy('users_count','desc')->paginate(5, ['*'], 'favouritesAllPage')->withQueryString();
     }
 
 
@@ -121,9 +121,10 @@ class PropertyService implements PropertyServiceInterface
                     count((!is_rental and !is_brokered) or null) as sale_count,
                     count((is_rental and !is_brokered) or null) as rental_count,
                     sum(closing_price) as closing_price,
+                    sum(profit) as profit_price,
                     type, count(is_brokered or null) as sold_count'),
         )
-        ->where('status', '=', true)
+        // ->where('status', '=', true)
         ->groupBy('type')
         ->get();
         return $propertyCount;
@@ -150,7 +151,7 @@ class PropertyService implements PropertyServiceInterface
                     $q->orWhere('secondary_phone', 'LIKE', '%' . $key . '%');
                 });
             });
-        })->paginate(5, ['*'], 'propertiesPage');
+        })->paginate(5, ['*'], 'propertiesAdminPage')->withQueryString();
         return $property;
     }
 
@@ -160,7 +161,7 @@ class PropertyService implements PropertyServiceInterface
             foreach ($columns as $column) {
                 $query->orWhere($column, 'LIKE', '%' . $key . '%');
             }
-        })->paginate(5, ['*'], 'favouritesPage');
+        })->paginate(5, ['*'], 'favouritesSearchPage')->withQueryString();
         return $property;
     }
 
@@ -179,7 +180,7 @@ class PropertyService implements PropertyServiceInterface
                     $q->orWhere('secondary_phone', 'LIKE', '%' . $key . '%');
                 });
             });
-        })->paginate(5, ['*'], 'featuredPage');
+        })->paginate(5, ['*'], 'featuredSearchPage')->withQueryString();
         return $property;
     }
 
@@ -192,15 +193,16 @@ class PropertyService implements PropertyServiceInterface
             foreach ($columns as $column) {
                 $query->orWhere($column, 'LIKE', '%' . $key . '%');
             }
-        })->paginate(5, ['*'], 'propertiesPage');
+        })->paginate(5, ['*'], 'propertiesSearchPage')->withQueryString();
         return $property;
     }
 
     public function filter($keys)
     {
+        // dd($keys);
         $property = Property::where(function ($query) use ($keys) {
                 foreach ($keys as $key => $value) {
-                    if($key != 'min_price' && $key != 'max_price' && $key != 'min_area' && $key != 'max_area' && ($key != 'subcity' || ($key == 'subcity' && $keys['city'] == 'addis ababa' && $keys['subcity'] != 'all' ))){
+                    if($key != 'page' &&  $key != 'min_price' && $key != 'max_price' && $key != 'min_area' && $key != 'max_area' && ($key != 'subcity' || ($key == 'subcity' && $keys['city'] == 'addis ababa' && $keys['subcity'] != 'all' ))){
                         $query->where($key, '=', $value);
                     }
                 }
@@ -210,7 +212,7 @@ class PropertyService implements PropertyServiceInterface
                 $query->where('area', '>=', $keys['min_area']);
                 $query->where('area', '<=', $keys['max_area']);
                 $query->where('is_brokered', '=', 0);
-        })->paginate(5, ['*'], 'propertiesPage');
+        })->paginate(5)->withQueryString();
         return $property;
     }
 }

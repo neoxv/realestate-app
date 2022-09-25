@@ -1,8 +1,8 @@
 <div {{$attributes}}>
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text everLorem<span class="none-1200"> industry's standard dummy text everLorem Ipsum Lorem Ipsum is simply dummy text of the printing.</span></p>
+    <p>I recently sold a house and while this can be a very stressful process, I felt 110% confident by partnering with this broker. He was candid, provided great feedback, helped explain clearly all details and managed the actual sale negotiation brilliantly.</p>
     <div class="avatar">
         <img src="{{asset('storage/img/avatar.png')}}" alt="testimonial-user">
     </div>
-    <h4>Antony Roky</h4>
-    <P class="job">CEO, Brick Consulting</P>
+    <h4>Kibrom Yohannes</h4>
+    <P class="job">Business Man</P>
 </div>

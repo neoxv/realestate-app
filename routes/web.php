@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
@@ -40,13 +41,18 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/advertisement/update', [AdvertisementController::class, 'update'])->name('advertisement.update');
         Route::post('/client/update', [ClientController::class, 'update'])->name('client.update');
 
-        Route::post('/property/search', [PropertyController::class, 'search'])->name('property.search');
-        Route::post('/property/favourite/search', [PropertyController::class, 'searchFavourite'])->name('property.favourite.search');
-        Route::post('/property/featured/search', [PropertyController::class, 'searchFeatured'])->name('property.featured.search');
-        Route::post('/owner/search', [OwnerController::class, 'search'])->name('owner.search');
-        Route::post('/user/search', [UserController::class, 'search'])->name('user.search');
-        Route::post('/client/search', [ClientController::class, 'search'])->name('client.search');
-        Route::post('/advertisement/search', [AdvertisementController::class, 'search'])->name('advertisement.search');
+        Route::get('/property/search', [PropertyController::class, 'search'])->name('property.search');
+        Route::get('/property/favourite/search', [PropertyController::class, 'searchFavourite'])->name('property.favourite.search');
+        Route::get('/property/featured/search', [PropertyController::class, 'searchFeatured'])->name('property.featured.search');
+        Route::get('/owner/search', [OwnerController::class, 'search'])->name('owner.search');
+        Route::get('/user/search', [UserController::class, 'search'])->name('user.search');
+        Route::get('/client/search', [ClientController::class, 'search'])->name('client.search');
+        Route::get('/advertisement/search', [AdvertisementController::class, 'search'])->name('advertisement.search');
+
+        Route::get('/account',[AccountController::class,'index'])->name('admin.account');
+        Route::post('/account',[AccountController::class,'create'])->name('admin.account.create');
+        Route::post('/account/update', [AccountController::class, 'update'])->name('admin.account.update');
+        Route::post('/account/delete/', [AccountController::class, 'destroy'])->name('admin.account.delete');
         // Route::get('/test',[PropertyController::class,'test'])->name('test');
 
     });
@@ -66,8 +72,8 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::post('/property/filter', [PropertyController::class, 'filter'])->name('user.property.filter');
-Route::post('/property/list', [PropertyController::class, 'userSearch'])->name('user.property.search');
+Route::get('/property/filter', [PropertyController::class, 'filter'])->name('user.property.filter');
+Route::get('/property/list/', [PropertyController::class, 'userSearch'])->name('user.property.search');
 Route::get('/property', [PropertyController::class,'show'])->name('user.property.list');
 Route::get('/property/detail/{property}',[PropertyController::class,'getById'])->name('detail');
 

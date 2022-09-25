@@ -12,7 +12,7 @@ class ClientService implements ClientServiceInterface
 {
     public function getAll()
     {
-        return Client::withCount(['advertisements'])->paginate(5, ['*'], 'clientPage');
+        return Client::withCount(['advertisements'])->paginate(5, ['*'], 'clientPage')->withQueryString();
     }
 
     public function getById($id)
@@ -53,7 +53,7 @@ class ClientService implements ClientServiceInterface
             foreach ($columns as $column) {
                 $query->orWhere($column, 'LIKE', '%' . $key . '%');
             }
-        })->paginate(5, ['*'], 'clientsPage');
+        })->paginate(5, ['*'], 'clientsPage')->withQueryString();
         return $clients;
     }
 

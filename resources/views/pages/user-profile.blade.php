@@ -8,9 +8,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-12 col-sm-12">
-                <div class="user-profile-box mrb">
+                <div class="user-profile-box mrb" >
                         <!--header -->
-                        <div class="header clearfix">
+                        <div class="header clearfix" style="background-image: url({{asset('storage/img/banners/img-4.jpg')}})">
                             <h2>{{ucfirst(Auth::user()->first_name)}} {{ucfirst(Auth::user()->last_name)}}</h2>
                             <img src="{{asset('storage/img/avatar.png')}}" alt="avatar" class="img-fluid profile-img" style="background-color: white">
                         </div>

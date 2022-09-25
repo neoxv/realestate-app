@@ -35,7 +35,7 @@ class PropertyCreateRequest extends FormRequest
             'city' => 'required|string|max:255',
             'is_rental'=>'required|boolean',
             'owner_id'=>'required|string|max:255',
-            'is_negotiable'=>'required|boolean',
+            'is_negotiable'=>'required|boolean'
         ];
     }
 

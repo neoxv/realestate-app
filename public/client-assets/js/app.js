@@ -5,10 +5,10 @@ $(function () {
     // On window's load
     $(window).on('load', function () {
         // populateColorPlates();
-        setTimeout(function () {
-            $(".page_loader").fadeOut("fast");
+        // setTimeout(function () {
+        //     $(".page_loader").fadeOut("fast");
             // $('link[id="style_sheet"]').attr('href', 'client-assets/css/skins/default.css');
-        }, 1000);
+        // }, 1000);
         if ($('body .filter-portfolio').length > 0) {
             $(function () {
                 $('.filter-portfolio').filterizr(

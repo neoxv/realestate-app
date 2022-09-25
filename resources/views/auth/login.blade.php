@@ -12,7 +12,7 @@
             <x-common.client.checkbox :check-id="'rememberMe'"  class="checkbox-theme">
                     Remember me
             </x-common.client.checkbox>
-            <a href="forgot-password.html" class="forgot-password">Forgot Password</a>
+            {{-- <a href="forgot-password.html" class="forgot-password">Forgot Password</a> --}}
         </div>
         <div class="form-group">
             <x-common.client.button :title="__('Login')" type="submit" class="btn btn-4 btn-block" />

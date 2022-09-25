@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\AdminLoginRequest;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use App\Providers\RouteServiceProvider;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\AdminLoginRequest;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -43,7 +44,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('profile'));
+        return redirect()->route('profile')->withCookie(cookie()->forever('userType', 'user'));
     }
 
     /**
@@ -55,10 +56,8 @@ class AuthenticatedSessionController extends Controller
     public function storeAdmin(AdminLoginRequest $request)
     {
         $request->authenticate();
-
         $request->session()->regenerate();
-
-        return redirect()->intended(route('admin.dashboard'));
+        return redirect()->route('admin.dashboard')->withCookie(cookie()->forever('userType', 'admin'));
     }
 
     /**

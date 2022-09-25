@@ -13,12 +13,15 @@
                 <div id="propertiesDetailsSlider" class="carousel properties-details-sliders slide mb-60">
                     <div class="heading-properties-2">
                        <div class="row">
-                           <div class="col-lg-12">
-                               <div class="informeson">
-                                   <h1>{{$property->name}}<span>{{number_format($property->price)}} Birr</span></h1>
+                           <div class="col-lg-12 p-3" style="background-color: {{$property->is_rental?'#937666':'#47A8BD'}};border-radius:20px;">
+                               <div class="informeson" >
+                                   <h1 style="color:white">{{$property->name}}<span style="color:white;">{{number_format($property->price)}} Birr Per Month - {{$property->is_rental?"Rental":"Sale"}}</span></h1>
                                    <div>
-                                       <div class="float-left">
-                                           <ul class="clearfix">
+                                       <div class="float-left" >
+                                           <ul class="clearfix" style="color:white;">
+                                            <li>
+                                                <h1><span class="badge badge-primary" style="color: white">{{'ID: '.$property->number}}</span></h1>
+                                            </li>
                                             <li>
                                                 @if(Auth::check())
                                                     <form  id="favouriteForm">
@@ -27,29 +30,30 @@
                                                         @if(count($property->users) > 0)
                                                             <a onclick="favouriteProperty(event,{{$property->id}})"><i id="{{$property->id . 'icon'}}" class="fa fa-heart" style="color: red" ></i></a></li>
                                                         @else
-                                                            <a onclick="favouriteProperty(event,{{$property->id}})"><i id="{{$property->id . 'icon'}}" class="fa fa-heart" ></i></a></li>
+                                                            <a onclick="favouriteProperty(event,{{$property->id}})"><i id="{{$property->id . 'icon'}}" class="fa fa-heart" style="color: white"></i></a></li>
                                                         @endif
                                                     </form>
                                                     @else
-                                                    <a href="{{route('login')}}"><i class="fa fa-heart" ></i></a></li>
+                                                    <a href="{{route('login')}}"><i class="fa fa-heart" style="color: white" ></i></a></li>
                                                 @endif
                                             </li>
                                             <li>
-                                                 <p><i class="fa fa-home"></i> {{ucfirst($property->type)}}</p>
+                                                 <p style="color:white;"><i class="fa fa-home" style="color: white"></i> {{ucfirst($property->type)}}</p>
                                             </li>
                                             @if($property->type == 'house' || $property->type == 'apartment')
                                                 <li>
-                                                    <i class="flaticon-bed"></i> {{$property->bedroom??0}} Beds
+                                                    <i class="flaticon-bed" style="color: white"></i> {{$property->bedroom??0}} Beds
                                                 </li>
                                                 <li>
-                                                    <i class="flaticon-bath"></i> {{$property->bathroom??0}} Baths
+                                                    <i class="flaticon-bath" style="color: white"></i> {{$property->bathroom??0}} Baths
                                                 </li>
                                             @endif
-                                               <li><i class="flaticon-square-layouting-with-black-square-in-east-area"></i>{{number_format($property->area)}} sqm</li>
+                                               <li><i class="flaticon-square-layouting-with-black-square-in-east-area" style="color: white"></i> {{number_format($property->area)}} sqm</li>
+                                               <li><h6 style="color:white;padding: 0;margin: 0;padding-top: 3px;font-size: 15px;">Posted {{(new \Carbon\Carbon($property->created_at))->diffForHumans()}}</h6></li>
                                            </ul>
                                        </div>
                                        <div class="float-right">
-                                           <p>{{$property->address}}</p>
+                                           <p style="color:white;">{{$property->subcity == "none"?ucfirst($proprty->address).', '.ucfirst($property->city):ucfirst($property->subcity).", ".ucfirst($property->address)}}</p>
                                        </div>
                                    </div>
                                </div>
@@ -108,10 +112,13 @@
                                     <strong>Property Id:</strong>{{$property->number}}
                                 </li>
                                 <li>
-                                    <strong>Price:</strong>{{$property->price}} Birr
+                                    <strong>Price:</strong>{{number_format($property->price)}} Birr
                                 </li>
                                 <li>
-                                    <strong>Property Type:</strong>{{ucfirst($property->type)}}
+                                    <strong>Property Type:</strong>{{ucfirst($property->is_rental?"Rental":"Sale")}}
+                                </li>
+                                <li>
+                                    <strong>Type:</strong>{{ucfirst($property->type)}}
                                 </li>
                                 @if($property->type == 'house' || $property->type == 'apartment')
                                     <li>
@@ -130,9 +137,6 @@
                                 </li>
                                 <li>
                                     <strong>City:</strong>{{ucfirst($property->city)}}
-                                </li>
-                                <li>
-                                    <strong>Type:</strong>{{ucfirst($property->type)}}
                                 </li>
                                 @if ($property->city == 'addis ababa')
                                 <li>
@@ -153,7 +157,7 @@
                         <ul class="d-flex flex-wrap">
                             @foreach (explode(",",$property->amenities) as $amenity )
                             @if ($amenity)
-                                    <li class="col-md-4 col-sm-6">
+                                    <li class="col-md-4 col-sm-6 m-2">
                                     <i class="flaticon-draw-check-mark"></i>
                                        {{$amenity}}
                                     </li>
@@ -194,7 +198,7 @@
                                         <h5>
                                             <a href="{{route('detail',['property'=>$recent->id])}}">{{$recent->name}} </a>
                                         </h5>
-                                        <p>{{$recent->created_at}}| {{$recent->price}} Birr</p>
+                                        <p>{{$recent->is_rental?"For Rent":"For Sale"}} | {{number_format($recent->price)}} Birr | {{(new \Carbon\Carbon($recent->created_at))->diffForHumans()}} </p>
                                     </div>
                                 </div>
                             @endif
@@ -204,17 +208,17 @@
                     <div class="social-list widget clearfix">
                         <h5 class="sidebar-title">Follow Us</h5>
                         <ul>
-                            <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#" class="rss-bg"><i class="fa fa-rss"></i></a></li>
-                            <li><a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="{{config('app.facebook')}}" target="_blank" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="{{config('app.youtube')}}" target="_blank" class="google-bg"><i class="fa fa-youtube-play"></i></a></li>
+                            <li><a href="{{config('app.telegram')}}" target="_blank" class="linkedin-bg"><i class="fa fa-telegram"></i></a></li>
+                            <li><a href="{{config('app.tiktok')}}" target="_blank" class=""><img src="{{asset('storage/img/others/tik-tok.png')}}" style="width: 45px;" alt=""></a></li>
+
                         </ul>
                     </div>
                     <!-- Sell Your Property -->
-                    <div class="sell-your-properties">
+                    <div class="sell-your-properties" style="background-image: url({{asset('storage/img/others/contact.jpg')}}); ">
                         <h3>Sell Your Property</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tortor dui, scelerisque ac nisi</p>
+                        <p>We will handle it for you.</p>
                         <p></p>
                         <a href="{{route('contact')}}" class="btn btn-md btn-color">Contact Us Now</a>
                     </div>

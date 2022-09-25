@@ -11,16 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Property extends Model
 {
     use HasFactory;
-    protected $appends = ['profit'];
     protected $guarded = ['id'];
-
-    protected function getProfitAttribute()
-    {
-        if($this->is_brokered) {
-            return $this->closing_price * 0.2;
-        }
-        return 0.0;
-    }
 
     protected static function boot()
     {

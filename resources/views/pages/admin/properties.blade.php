@@ -79,20 +79,26 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="text-primary" for="area">Area</label>
-                                    <input type="number" class="form-control @error('area') is-invalid @enderror" id="area" name="area" placeholder="sqm" required>
+                                    <label class="text-primary" for="bathroom">Video Link</label>
+                                    <input class="form-control" type="text" value="" id="video" name="video" placeholder="http://" >
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="text-primary" for="area">Area</label>
+                                    <input type="number" min="0" class="form-control @error('area') is-invalid @enderror" id="area" name="area" placeholder="sqm" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="text-primary" for="bedroom">Bedrooms</label>
-                                    <input class="form-control" type="number" value="0" id="bedroom" name="bedroom" disabled required>
+                                    <input class="form-control" min="0" type="number" value="0" id="bedroom" name="bedroom" disabled required>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="text-primary" for="bathroom">Bathroom</label>
-                                    <input class="form-control" type="number" value="0" id="bathroom" name="bathroom" disabled required>
+                                    <input class="form-control" min="0" type="number" value="0" id="bathroom" name="bathroom" disabled required>
 
                                 </div>
                             </div>
@@ -133,7 +139,7 @@
                         </div>
                         <label class="text-primary" id="property-images-label"></label>
 
-                        <div class=" d-flex justify-content-between mb-2" id="property-images">
+                        <div class=" d-flex justify-content-start mb-2" id="property-images">
                         </div>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="property-status" value="true" name="status" checked="">
@@ -247,17 +253,23 @@
                                     @csrf
                                     <input type="hidden" name="closed_id" id="closed_id" value="">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="text-primary" for="closing_price">Closing Price</label>
                                             <input class="form-control" type="text" value="0" id="closing_price" name="closing_price" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="text-primary" for="profit">Profit</label>
                                             <input class="form-control" type="text" value="0" id="profit" name="profit" required>
 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="text-primary" for="from">Date</label>
+                                            <input class="form-control" type="date" value="{{\Carbon\Carbon::now()->toDateString()}}" id="closing_date" name="closing_date" required>
                                         </div>
                                     </div>
                                 </div>
@@ -277,8 +289,8 @@
             <tr>
                 <td>
                     <div class="d-flex px-2 py-1">
-                    <div>
-                        <img src="{{asset(count($item->documents) > 0 ?'storage/img/properties/'. $item->documents->first()->filename:'storage/img/default.png')}}" class="avatar avatar-sm me-3" alt="user1">
+                    <div class="mr-3">
+                    <span class="badge badge-pill bg-gradient-warning" style="margin-right: 4px;">{{$item->number}}</span>
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                         <h6 class="mb-0 text-sm" >{{$item->name}}</h6>
@@ -545,6 +557,7 @@
     $('#address').val(property.address)
     $('#name').val(property.name)
     $('#price').val(property.price)
+    $('#video').val(property.video??"")
     $('#area').val(property.area)
     $('#bedroom').val(property.bedroom)
     $('#bathroom').val(property.bathroom)
@@ -575,9 +588,34 @@
         elem.setAttribute("width", "150px");
         elem.classList.add("border-radius-lg")
         elem.classList.add("shadow-sm")
-        document.getElementById("property-images").appendChild(elem);
+        var removeElement = document.createElement("button");
+        removeElement.innerHTML = 'Delete';
+        removeElement.className += " btn btn-sm bg-gradient-primary m-2"
+        removeElement.onclick = function(e){
+            e.preventDefault()
+            removePropertyImage(doc)
+            return false
+        };
+        var container = document.createElement("div")
+        container.className = "d-flex flex-column m-2"
+        container.setAttribute("id",doc.filename)
+        container.appendChild(elem)
+        container.appendChild(removeElement)
+        document.getElementById("property-images").appendChild(container);
     });
 
+  }
+
+  function removePropertyImage(doc){
+    console.log(doc)
+    const containerDiv = document.getElementById(doc.filename)
+    containerDiv.innerHTML = ''
+    var elem = document.createElement("input");
+        elem.setAttribute("type", "hidden");
+        elem.setAttribute("value", doc.filename);
+        elem.setAttribute("name", "removedDocuments[]");
+    var form = document.getElementById('createProperty')
+    form.appendChild(elem)
   }
 
   function editOwner(owner) {

@@ -10,4 +10,5 @@ interface UserServiceInterface
     public function update($id, $data);
     public function delete($id);
     public function getUserCountByMonth($month);
+    public function getAdmins();
 }

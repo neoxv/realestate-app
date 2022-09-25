@@ -2,7 +2,7 @@
     <div class="row agent-4">
         <div class="col-lg-5 col-md-12 col-pad">
             <div class="photo">
-                <img src="{{asset('client-assets/img/avatar/avatar-5.jpg')}}" alt="avatar-4" class="img-fluid">
+                <img src="{{asset('storage/img/avatar.png')}}" alt="avatar-4" class="img-fluid">
                 <div class="overlay">
                     <div class="border">
                         <div class="icon-holder">
@@ -20,20 +20,20 @@
         </div>
         <div class="col-lg-7 col-md-12 col-pad align-self-center">
             <div class="details">
-                <h3><a href="agent-detail.html">Brandon Miller</a></h3>
+                <h3><a href="#">Brandon Miller</a></h3>
                 <h6>Office Manager</h6>
                 <div class="contact">
                     <p>
-                        <a href="mailto:info@themevessel.com"><i class="fa fa-envelope-o"></i>info@themevessel.com</a>
+                        <a href="mailto:"><i class="fa fa-envelope-o"></i>info@realesate.com</a>
                     </p>
                     <p>
-                        <a href="tel:+554XX-634-7071"> <i class="fa fa-phone"></i>+55 4XX-634-7071</a>
+                        <a href="tel:"> <i class="fa fa-phone"></i>+55 4XX-634-7071</a>
                     </p>
                     <p>
                         <a href="#"><i class="fa fa-skype"></i>sales.carshop</a>
                     </p>
                     <p>
-                        <a href="tel:+554XX-634-7071"><i class="fa fa-fax"></i>+00 417 634 7X22</a>
+                        <a href="tel:"><i class="fa fa-fax"></i>+00 417 634 7X22</a>
                     </p>
                 </div>
             </div>

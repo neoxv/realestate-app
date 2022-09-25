@@ -16,6 +16,7 @@
         <x-admin.nav-item :icon="'ni ni-single-02 text-success'" :title="'Users'" :link="'admin.users'" />
         <x-admin.nav-item :icon="'ni ni-notification-70 text-info'" :title="'Advertisements'" :link="'admin.advertisements'" />
         <x-admin.nav-item :icon="'ni ni ni-settings-gear-65 text-dark'" :title="'Settings'" :link="'admin.settings'" />
+        <x-admin.nav-item :icon="'ni ni-circle-08 text-primary'" :title="'Account'" :link="'admin.account'" />
 
       </ul>
     </div>

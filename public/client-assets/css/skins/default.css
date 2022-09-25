@@ -63,7 +63,7 @@
 }
 
 .tag-2:after {
-    border-left: 8px solid #3f56ff;
+    border-left: 8px solid white;
 }
 
 .property-box-4 h4{
@@ -763,7 +763,7 @@ blockquote footer{
 }
 
 .property-box-7:hover .tag-2 {
-    color: #3f56ff;
+    color: white;
 }
 
 .property-box-8:hover .tag-for{
@@ -795,7 +795,7 @@ blockquote footer{
 }
 
 .property-box-5:hover .tag-for {
-    color: #3f56ff;
+    color: white;
 }
 
 .property-box-5:hover .featured{

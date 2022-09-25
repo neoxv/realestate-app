@@ -21,7 +21,11 @@ class UserService implements UserServiceInterface
 
     public function create($data)
     {
-        return User::create($data);
+        if($data['role'] == 0){
+            return User::create($data);
+        }
+        return (object) ['success' => true, 'message' => 'User updated successfully'];
+
     }
 
     public function update($id, $data)
@@ -60,7 +64,12 @@ class UserService implements UserServiceInterface
             foreach ($columns as $column) {
                 $query->orWhere($column, 'LIKE', '%' . $key . '%');
             }
-        })->paginate(5, ['*'], 'usersPage');
+        })->paginate(5, ['*'], 'usersPage')->withQueryString();
+        return $users;
+    }
+
+    public function getAdmins(){
+        $users = User::where('role','!=',0)->paginate(5, ['*'], 'adminsPage');
         return $users;
     }
 }

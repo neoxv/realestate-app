@@ -14,7 +14,7 @@ class OwnerService implements OwnerServiceInterface
     {
         return Owner::withCount(['properties','properties as sold_properties' => function(Builder $query){
             $query->where('is_brokered', "=",1);
-        }])->paginate(5,['*'],'ownersPage');
+        }])->paginate(5,['*'],'ownersPage')->withQueryString();
     }
 
     public function getById($id)
@@ -66,7 +66,7 @@ class OwnerService implements OwnerServiceInterface
             foreach ($columns as $column) {
                 $query->orWhere($column, 'LIKE', '%' . $key . '%');
             }
-        })->paginate(5, ['*'], 'ownersPage');
+        })->paginate(5, ['*'], 'ownersPage')->withQueryString();
         return $owners;
     }
 }

@@ -22,7 +22,7 @@
                             <i class="fa fa-star-o"></i>
                         </div>
                     </div>
-                    <img src="{{asset( $property != null && count($property->documents) > 0 ?'storage/img/properties/'. $property->documents->first()->filename:'storage/img/default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="{{asset( $property != null && count($property->documents) > 0 ?'img/properties/'. $property->documents->first()->filename:'img/default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
 
                 </a>
             </div>

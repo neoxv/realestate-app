@@ -10,9 +10,9 @@
             <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="user-profile-box mrb" >
                         <!--header -->
-                        <div class="header clearfix" style="background-image: url({{asset('storage/img/banners/img-4.jpg')}})">
+                        <div class="header clearfix" style="background-image: url({{asset('img/banners/img-4.jpg')}})">
                             <h2>{{ucfirst(Auth::user()->first_name)}} {{ucfirst(Auth::user()->last_name)}}</h2>
-                            <img src="{{asset('storage/img/avatar.png')}}" alt="avatar" class="img-fluid profile-img" style="background-color: white">
+                            <img src="{{asset('img/avatar.png')}}" alt="avatar" class="img-fluid profile-img" style="background-color: white">
                         </div>
                         <!-- Detail -->
                         <div class="detail clearfix">

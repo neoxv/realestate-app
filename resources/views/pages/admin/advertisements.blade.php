@@ -227,7 +227,7 @@
                 <td class="align-middle text-center">
                     <div class="d-flex px-2 py-1">
                         <div>
-                            <img src="{{asset(count($item->documents) > 0 ?'storage/img/ads/'. $item->documents->first()->filename:'storage/img/default.png')}}" class="avatar avatar-sm me-3" alt="user1">
+                            <img src="{{asset(count($item->documents) > 0 ?'img/ads/'. $item->documents->first()->filename:'img/default.png')}}" class="avatar avatar-sm me-3" alt="user1">
                         </div>
                         {{-- <p class="text-xs font-weight-bold mb-0">{{$item->title}} </p> --}}
                         <div class="d-flex flex-column justify-content-center">
@@ -380,7 +380,7 @@ function editAdvertisement(advertisement) {
     }
     advertisement?.documents.forEach(doc => {
         var elem = document.createElement("img");
-        elem.setAttribute("src", "storage/img/ads/"+doc.filename);
+        elem.setAttribute("src", "img/ads/"+doc.filename);
         elem.setAttribute("height", "150px");
         elem.setAttribute("width", "150px");
         elem.classList.add("border-radius-lg")

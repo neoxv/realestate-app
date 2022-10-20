@@ -87,7 +87,7 @@
                     <div class="col-md-3">
                     <label for="images" class="text-primary">Current Logo</label>
                         <div class=" position-relative">
-                        <img src="{{asset(isset($setting->documents->filename) ?'storage/img/settings/'. $setting->documents->filename:'storage/img/default.png')}}" alt="Logo" class="w-100 border-radius-lg shadow-sm" style="height: 200px">
+                        <img src="{{asset(isset($setting->documents->filename) ?'img/settings/'. $setting->documents->filename:'img/default.png')}}" alt="Logo" class="w-100 border-radius-lg shadow-sm" style="height: 200px">
                         </div>
                     </div>
                 </div>

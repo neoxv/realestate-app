@@ -2,7 +2,7 @@
     <div class="row agent-4">
         <div class="col-lg-5 col-md-12 col-pad">
             <div class="photo">
-                <img src="{{asset('storage/img/avatar.png')}}" alt="avatar-4" class="img-fluid">
+                <img src="{{asset('img/avatar.png')}}" alt="avatar-4" class="img-fluid">
                 <div class="overlay">
                     <div class="border">
                         <div class="icon-holder">

@@ -38,7 +38,7 @@
                     <a class="dropdown-item border-radius-md" href="javascript:;">
                         <div class="d-flex py-1">
                         <div class="my-auto">
-                            <img src="{{asset('storage/img/avatar.png')}}" class="avatar avatar-sm  me-3 ">
+                            <img src="{{asset('img/avatar.png')}}" class="avatar avatar-sm  me-3 ">
                         </div>
                         <div class="d-flex flex-column justify-content-center">
                             <h6 class="text-sm font-weight-normal mb-1">

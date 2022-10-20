@@ -3,7 +3,7 @@
     <div class="property-box-8">
         <div class="photo-thumbnail">
             <div class="photo">
-                <img src="{{asset(count($property->documents) > 0 ?'storage/img/properties/'. $property->documents->first()->filename:'storage/img/default.png')}}" alt="property-box-8" class="img-fluid" style="width: 100%; height: 10vw; object-fit: cover;">
+                <img src="{{asset(count($property->documents) > 0 ?'img/properties/'. $property->documents->first()->filename:'img/default.png')}}" alt="property-box-8" class="img-fluid" style="width: 100%; height: 10vw; object-fit: cover;">
                 <a href="#">
                     <span class="blog-one__plus"></span>
                 </a>

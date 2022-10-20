@@ -17,7 +17,7 @@
                         {{$slot}}
                 </div>
             </div>
-            <div class="col-lg-6 bg-color-15 pad-0 none-992 bg-img" style="background: rgba(0, 0, 0, 0.04) url('storage/img/banners/img-7.jpg') no-repeat;background-size:cover">
+            <div class="col-lg-6 bg-color-15 pad-0 none-992 bg-img" style="background: rgba(0, 0, 0, 0.04) url('img/banners/img-7.jpg') no-repeat;background-size:cover">
                 <div class="info clearfix">
                     <h1>Welcome to <a href="{{route('home')}}">{{config('app.name')}}</a></h1>
                     <p>{{config('app.description')}}</p>

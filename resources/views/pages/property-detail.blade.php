@@ -65,12 +65,12 @@
                         @if (count($property->documents) > 0)
                             @foreach ($property->documents as $document )
                                 <div class="{{$loop->first?'active item carousel-item': 'item carousel-item'}}item carousel-item" data-slide-number="{{$loop->index}}">
-                                        <img src="{{asset( 'storage/img/properties/'. $document->filename)}}"  alt="properties-photo" style="width:100%; height:60vh;object-fit:cover">
+                                        <img src="{{asset( 'img/properties/'. $document->filename)}}"  alt="properties-photo" style="width:100%; height:60vh;object-fit:cover">
                                 </div>
                             @endforeach
                         @else
                             <div class="active item carousel-item" data-slide-number="0">
-                                <img src="{{asset( 'storage/img/default.png')}}"  alt="properties-photo"  style="width:100%; height:60vh;object-fit:cover" >
+                                <img src="{{asset( 'img/default.png')}}"  alt="properties-photo"  style="width:100%; height:60vh;object-fit:cover" >
                             </div>
                         @endif
                     </div>
@@ -80,14 +80,14 @@
                             @foreach ($property->documents as $document )
                                 <li class="{{$loop->first?'list-inline-item active':'list-inline-item'}}">
                                     <a id="carousel-selector-0" class="{{$loop->first?'selected':''}}" data-slide-to="{{$loop->index}}" data-target="#propertiesDetailsSlider">
-                                        <img src="{{asset( 'storage/img/properties/'. $document->filename)}}"  alt="properties-photo-smale" style="height: 90px; object-fit:cover">
+                                        <img src="{{asset( 'img/properties/'. $document->filename)}}"  alt="properties-photo-smale" style="height: 90px; object-fit:cover">
                                     </a>
                                 </li>
                             @endforeach
                         @else
                             <li class="list-inline-item active">
                                     <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#propertiesDetailsSlider">
-                                        <img src="{{asset('storage/img/default.png')}}" class="img-fluid" alt="properties-photo-smale"  style="height: 90px; object-fit:cover">
+                                        <img src="{{asset('img/default.png')}}" class="img-fluid" alt="properties-photo-smale"  style="height: 90px; object-fit:cover">
                                     </a>
                             </li>
                         @endif
@@ -192,7 +192,7 @@
                             @if ($recent->id != $property->id)
                                 <div class="media mb-4">
                                     <a href="{{route('detail',['property'=>$recent->id])}}">
-                                        <img src="{{asset(count($recent->documents) > 0 ?'storage/img/properties/'. $recent->documents->first()->filename:'storage/img/default.png')}}" alt="sub-property">
+                                        <img src="{{asset(count($recent->documents) > 0 ?'img/properties/'. $recent->documents->first()->filename:'img/default.png')}}" alt="sub-property">
                                     </a>
                                     <div class="media-body align-self-center">
                                         <h5>
@@ -211,12 +211,12 @@
                             <li><a href="{{config('app.facebook')}}" target="_blank" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="{{config('app.youtube')}}" target="_blank" class="google-bg"><i class="fa fa-youtube-play"></i></a></li>
                             <li><a href="{{config('app.telegram')}}" target="_blank" class="linkedin-bg"><i class="fa fa-telegram"></i></a></li>
-                            <li><a href="{{config('app.tiktok')}}" target="_blank" class=""><img src="{{asset('storage/img/others/tik-tok.png')}}" style="width: 45px;" alt=""></a></li>
+                            <li><a href="{{config('app.tiktok')}}" target="_blank" class=""><img src="{{asset('img/others/tik-tok.png')}}" style="width: 45px;" alt=""></a></li>
 
                         </ul>
                     </div>
                     <!-- Sell Your Property -->
-                    <div class="sell-your-properties" style="background-image: url({{asset('storage/img/others/contact.jpg')}}); ">
+                    <div class="sell-your-properties" style="background-image: url({{asset('img/others/contact.jpg')}}); ">
                         <h3>Sell Your Property</h3>
                         <p>We will handle it for you.</p>
                         <p></p>

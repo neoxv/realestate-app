@@ -7,7 +7,7 @@
             <div class="col-12">
                 <nav class="navbar navbar-expand-lg navbar-light rounded">
                     <a class="navbar-brand logo" href="{{route('home')}}">
-                        <img src="{{asset('storage/img/settings/' . config('app.logo'))}}" alt="logo" style="border-radius: 10px">
+                        <img src="{{asset('img/settings/' . config('app.logo'))}}" alt="logo" style="border-radius: 10px">
                     </a>
                     <button class="navbar-toggler" type="button" id="drawer">
                         <span class="fa fa-bars"></span>

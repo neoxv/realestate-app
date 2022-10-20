@@ -434,7 +434,7 @@
                     <td>
                         <div class="d-flex px-2 py-1">
                         <div>
-                            <img src="{{asset('storage/img/avatar.png')}}" class="avatar avatar-sm me-3" alt="user1">
+                            <img src="{{asset('img/avatar.png')}}" class="avatar avatar-sm me-3" alt="user1">
                         </div>
                         <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm">{{$item->name}}</h6>
@@ -583,7 +583,7 @@
     }
     property?.documents.forEach(doc => {
         var elem = document.createElement("img");
-        elem.setAttribute("src", "storage/img/properties/"+doc.filename);
+        elem.setAttribute("src", "img/properties/"+doc.filename);
         elem.setAttribute("height", "150px");
         elem.setAttribute("width", "150px");
         elem.classList.add("border-radius-lg")

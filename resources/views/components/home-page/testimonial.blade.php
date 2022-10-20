@@ -7,7 +7,7 @@
                 <div class="row testimonial-info">
                     <div class="col-lg-6 col-md-12 col-pad none-992">
                         <div class="photo">
-                            <img src="{{asset('storage/img/others/testimonial.jpg')}}" alt="testimonia3" class="img-fluid">
+                            <img src="{{asset('img/others/testimonial.jpg')}}" alt="testimonia3" class="img-fluid">
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-pad align-self-center">

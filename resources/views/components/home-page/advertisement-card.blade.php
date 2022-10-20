@@ -6,9 +6,9 @@
                             <div class="thumbnail">
                                 <a href="#">
                                     @if($ad != null)
-                                        <img src="{{asset(count($ad->documents) > 0 ?'storage/img/ads/'. $ad->documents->first()->filename:'storage/img/default.png')}}" alt="property-box-4" class="img-fluid" style="width: 300px; height: 300px; object-fit: cover;">
+                                        <img src="{{asset(count($ad->documents) > 0 ?'img/ads/'. $ad->documents->first()->filename:'img/default.png')}}" alt="property-box-4" class="img-fluid" style="width: 300px; height: 300px; object-fit: cover;">
                                     @else
-                                        <img src="{{asset('storage/img/ads/default.png')}}" alt="property-box-4" class="img-fluid" style="width: 300px; height: 300px; object-fit: cover;">
+                                        <img src="{{asset('img/ads/default.png')}}" alt="property-box-4" class="img-fluid" style="width: 300px; height: 300px; object-fit: cover;">
                                     @endif
                                 </a>
                             </div>

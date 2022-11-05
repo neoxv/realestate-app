@@ -17,10 +17,12 @@ class PropertySeeder extends Seeder
     {
         Property::factory()->count(4)->create([
             'owner_id' => 1,
+            'city' =>"addis ababa",
         ]);
 
         Property::factory()->count(6)->featured()->create([
             'owner_id' => 1,
+            'city' => "addis ababa",
         ]);
     }
 }

@@ -1,3 +1,4 @@
+@props(['key'=>''])
 <x-guest-layout>
     @include('includes.client.navbar')
     @include('includes.client.sidebar')

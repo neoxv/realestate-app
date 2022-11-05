@@ -1,28 +1,19 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserController;
+use App\Models\Property;
 use Illuminate\Support\Facades\Route;
-
-
-Route::get('/', [HomeController::class,'show'])->name('home');
-Route::get('/property-list', function () {
-    return view('pages.property-list');
-})->name('search');
-
-Route::get('/property-detail', function () {
-    return view('pages.property-detail');
-})->name('detail');
-
-Route::get('/contact', function () {
-    return view('pages.contact');
-})->name('contact');
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['auth.admin'])->group(function () {
@@ -39,27 +30,56 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/advertisements/create', [AdvertisementController::class, 'create'])->name('advertisement.create');
         Route::post('/settings/create', [SettingController::class, 'create'])->name('setting.create');
 
+        Route::post('/property/delete/{property}', [PropertyController::class, 'destroy'])->name('property.delete');
+        Route::post('/owner/delete/{owner}', [OwnerController::class, 'destroy'])->name('owner.delete');
+        Route::post('/advertisement/delete/{advertisement}', [AdvertisementController::class, 'destroy'])->name('advertisement.delete');
+        Route::post('/client/delete/{client}', [ClientController::class,'destroy'])->name('client.delete');
+
         Route::post('/property/update', [PropertyController::class, 'update'])->name('property.update');
+        Route::post('/owner/update', [OwnerController::class, 'update'])->name('owner.update');
+        Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
+        Route::post('/advertisement/update', [AdvertisementController::class, 'update'])->name('advertisement.update');
+        Route::post('/client/update', [ClientController::class, 'update'])->name('client.update');
+
+        Route::get('/property/search', [PropertyController::class, 'search'])->name('property.search');
+        Route::get('/property/favourite/search', [PropertyController::class, 'searchFavourite'])->name('property.favourite.search');
+        Route::get('/property/featured/search', [PropertyController::class, 'searchFeatured'])->name('property.featured.search');
+        Route::get('/owner/search', [OwnerController::class, 'search'])->name('owner.search');
+        Route::get('/user/search', [UserController::class, 'search'])->name('user.search');
+        Route::get('/client/search', [ClientController::class, 'search'])->name('client.search');
+        Route::get('/advertisement/search', [AdvertisementController::class, 'search'])->name('advertisement.search');
+
+        Route::get('/account',[AccountController::class,'index'])->name('admin.account');
+        Route::post('/account',[AccountController::class,'create'])->name('admin.account.create');
+        Route::post('/account/update', [AccountController::class, 'update'])->name('admin.account.update');
+        Route::post('/account/delete/', [AccountController::class, 'destroy'])->name('admin.account.delete');
+        // Route::get('/test',[PropertyController::class,'test'])->name('test');
 
     });
 
     Route::middleware(['auth.user'])->group(function () {
-        Route::get('/profile', function () {
-            return view('pages.user-profile');
-        })->name('profile');
-
-        Route::get('/favourites', function () {
-            return view('pages.favourites');
-        })->name('favourites');
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        Route::post('/profile', [ProfileController::class,'store']);
+        Route::get('/profile/password', [ProfileController::class, 'edit'])->name('profile.password');
+        Route::post('/profile/password', [ProfileController::class, 'updatePassword']);
+        Route::get('/property/favourite/{user}', [PropertyController::class, 'getFavourites'])->name('favourites');
+        Route::post('/property/favourite', [PropertyController::class, 'favourite'])->name('favourite');
+// must have a morphmany relationship between properties and users
 
     });
 
     Route::post('/store-document', [DocumentController::class,'store'])->name('store.document');
-    Route::post('/property/search',[PropertyController::class, 'search'])->name('property.search');
-
 
 });
 
+Route::get('/property/filter', [PropertyController::class, 'filter'])->name('user.property.filter');
+Route::get('/property/list/', [PropertyController::class, 'userSearch'])->name('user.property.search');
+Route::get('/property', [PropertyController::class,'show'])->name('user.property.list');
+Route::get('/property/detail/{property}',[PropertyController::class,'getById'])->name('detail');
+
+
+Route::get('/contact', [ContactController::class,'index'])->name('contact');
+Route::get('/', [HomeController::class, 'show'])->name('home');
 
 require __DIR__.'/auth.php';
 

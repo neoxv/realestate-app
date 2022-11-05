@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\AdvertisementServiceInterface;
 use App\Interfaces\ClientServiceInterface;
+use App\Interfaces\PropertyServiceInterface;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
     private ClientServiceInterface $clientService;
+    private AdvertisementServiceInterface $advertisementService;
+    private PropertyServiceInterface $propertyService;
 
-    public function __construct(ClientServiceInterface $clientService)
+    public function __construct(ClientServiceInterface $clientService, AdvertisementServiceInterface $advertisementService, PropertyServiceInterface $propertyService)
     {
         $this->clientService = $clientService;
+        $this->advertisementService = $advertisementService;
+        $this->propertyService = $propertyService;
     }
 
     /**
@@ -23,10 +29,10 @@ class ClientController extends Controller
     public function create(Request $request)
     {
         $response = $this->clientService->create($request->all());
-        if ($response['success']) {
-            return redirect()->route('admin.advertisements')->with('success', $response['message']);
+        if ($response->success) {
+            return redirect()->route('admin.advertisements')->with('success', $response->message);
         }
-        return redirect()->route('admin.advertisements')->with('error', $response['message']);
+        return redirect()->route('admin.advertisements')->with('error', $response->message);
     }
 
     /**
@@ -40,27 +46,27 @@ class ClientController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Client $client)
+
+    public function search(Request $request)
     {
-        //
+        $key = $request->input('search');
+        if ($key != '' || $key != null) {
+            $clients = $this->clientService->search($key);
+            return view('pages.admin.advertisements', ['clients' => $clients, 'key' => $key, 'subject' => 'client','featured' => $this->propertyService->getFeatured(5), 'advertisements' => $this->advertisementService->getAll()]);
+        }
+        return redirect()->route('admin.advertisements');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Client $client)
     {
-        //
+        if (isset($request['id']) && $request['id'] != '') {
+            $response = $this->clientService->update($request->id, $request->all());
+            if ($response->success) {
+                return redirect()->route('admin.advertisements')->with('success', $response->message);
+            }
+            return redirect()->route('admin.advertisements')->with('error', $response->message);
+        }
+            return redirect()->route('admin.advertisements');
     }
 
     /**
@@ -71,6 +77,11 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $response = $this->clientService->delete($client);
+        if ($response->success) {
+            return redirect()->route('admin.advertisements')->with('success', $response->message);
+        } else {
+            return redirect()->route('admin.advertisements')->with('error', $response->message);
+        }
     }
 }

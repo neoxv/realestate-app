@@ -6,17 +6,22 @@ use Illuminate\Http\Request;
 use App\Models\Advertisement;
 use App\Interfaces\ClientServiceInterface;
 use App\Interfaces\AdvertisementServiceInterface;
-
+use App\Interfaces\DocumentServiceInterface;
+use App\Interfaces\PropertyServiceInterface;
 
 class AdvertisementController extends Controller
 {
     private AdvertisementServiceInterface $advertisementService;
     private ClientServiceInterface $clientService;
+    private PropertyServiceInterface $propertyService;
+    private DocumentServiceInterface $documentService;
 
-    public function __construct(AdvertisementServiceInterface $advertisementService, ClientServiceInterface $clientService)
+    public function __construct(AdvertisementServiceInterface $advertisementService, ClientServiceInterface $clientService, DocumentServiceInterface $documentService, PropertyServiceInterface $propertyService)
     {
         $this->advertisementService = $advertisementService;
         $this->clientService = $clientService;
+        $this->documentService = $documentService;
+        $this->propertyService = $propertyService;
     }
     /**
      * Display a listing of the resource.
@@ -36,10 +41,10 @@ class AdvertisementController extends Controller
     public function create(Request $request)
     {
         $response = $this->advertisementService->create($request->all());
-        if ($response['success']) {
-            return redirect()->route('admin.advertisements')->with('success', $response['message']);
+        if ($response->success) {
+            return redirect()->route('admin.advertisements')->with('success', $response->message);
         }
-        return redirect()->route('admin.advertisements')->with('error', $response['message']);
+        return redirect()->route('admin.advertisements')->with('error', $response->message);
     }
 
     /**
@@ -64,15 +69,14 @@ class AdvertisementController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Advertisement  $advertisement
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Advertisement $advertisement)
+    public function search(Request $request)
     {
-        //
+        $key = $request->input('search');
+        if ($key != '' || $key != null) {
+            $advertisements = $this->advertisementService->search($key);
+            return view('pages.admin.advertisements', ['advertisements' => $advertisements, 'key' => $key, 'subject' => 'advertisement', 'featured' => $this->propertyService->getFeatured(5), 'clients' => $this->clientService->getAll()]);
+        }
+        return redirect()->route('admin.advertisements');
     }
 
     /**
@@ -82,9 +86,22 @@ class AdvertisementController extends Controller
      * @param  \App\Models\Advertisement  $advertisement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Advertisement $advertisement)
+    public function update(Request $request)
     {
-        //
+        if (isset($request->id)) {
+            if (isset($request['document'])) {
+                $documents = (Advertisement::with('documents')->where('id', $request->id)->first())->documents;
+                foreach ($documents as $document) {
+                    $this->documentService->destroy($document->filename, 'img/ads');
+                }
+            }
+            $response = $this->advertisementService->update($request->id, $request->all());
+            if ($response->success) {
+                return redirect()->route('admin.advertisements')->with('success', $response->message);
+            }
+        }
+
+        return redirect()->route('admin.advertisements')->with('error','Error updating advertisement');
     }
 
     /**
@@ -95,6 +112,15 @@ class AdvertisementController extends Controller
      */
     public function destroy(Advertisement $advertisement)
     {
-        //
+        $documents = $advertisement->documents;
+        foreach ($documents as $document) {
+            $this->documentService->destroy($document->filename, 'img/ads');
+        }
+        $response = $this->advertisementService->delete($advertisement);
+        if ($response->success) {
+            return redirect()->route('admin.advertisements')->with('success', $response->message);
+        } else {
+            return redirect()->route('admin.advertisements')->with('error', $response->message);
+        }
     }
 }

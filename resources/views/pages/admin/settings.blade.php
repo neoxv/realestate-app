@@ -5,10 +5,9 @@
     <div class="card ">
         <div class="card-header pb-0 text-left">
             <h3 class="font-weight-bolder text-primary text-gradient">Create Setting</h3>
-            <p class="mb-0">Enter setting information.</p>
         </div>
         <div class="card-body">
-            <form method="post" action="{{route('setting.create')}}" id="createProperty">
+            <form method="post" action="{{route('setting.create')}}" id="createSetting">
                 @csrf
                 <div class="row">
                     <div class="col-md-4">
@@ -132,7 +131,7 @@
         return 'logo.'+extension
     },
     success: function (file, response) {
-        let formContainer = document.querySelector('#createProperty');
+        let formContainer = document.querySelector('#createSetting');
         var input = document.createElement("input");
         input.setAttribute('type', 'hidden');
         input.setAttribute('name', 'document[]');
@@ -150,14 +149,6 @@
       }
       $('form').find('input[name="document[]"][value="' + name + '"]').remove()
     }
-  }
-
-  function featureProperty(id) {
-    $('#feature-form').modal('show');
-    document.getElementById('featured_id').value = id
-    document.getElementById('is_featured').value = true
-    document.getElementById('feature_from').valueAsDate = new Date()
-    document.getElementById('feature_to').valueAsDate = new Date()
   }
 
 </script>

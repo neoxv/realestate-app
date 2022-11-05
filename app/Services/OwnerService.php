@@ -14,7 +14,7 @@ class OwnerService implements OwnerServiceInterface
     {
         return Owner::withCount(['properties','properties as sold_properties' => function(Builder $query){
             $query->where('is_brokered', "=",1);
-        }])->paginate(5,['*'],'ownersPage');
+        }])->paginate(5,['*'],'ownersPage')->withQueryString();
     }
 
     public function getById($id)
@@ -38,9 +38,35 @@ class OwnerService implements OwnerServiceInterface
 
         $owner = Owner::create($data);
         if ($owner) {
-            return ['success' => true, 'message' => 'Owner created successfully'];
+            return (object) ['success' => true, 'message' => 'Owner created successfully'];
         }
 
-        return ['success' => false, 'message' => 'Owner creation failed'];
+        return  (object) ['success' => false, 'message' => 'Owner creation failed'];
+    }
+
+    public function update($id, $data)
+    {
+        $owner = Owner::find($id);
+        $owner->update($data);
+
+        return (object) ['success' => true, 'message' => 'Owner created successfully'];
+    }
+
+    public function delete($owner){
+        $owner->delete();
+        return (object) ['success' => true, 'message' => 'Owner Deleted Successfully!'];
+    }
+
+    public function search($key)
+    {
+        $owners = Owner::where(function ($query) use ($key) {
+
+            $columns = ['name', 'primary_phone', 'address', 'email', 'secondary_phone'];
+
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $key . '%');
+            }
+        })->paginate(5, ['*'], 'ownersPage')->withQueryString();
+        return $owners;
     }
 }

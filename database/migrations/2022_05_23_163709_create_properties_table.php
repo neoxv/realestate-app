@@ -15,16 +15,18 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
+            $table->integer('number')->unique();
             $table->string('name');
             $table->string('price');
             $table->string('address');
             $table->string('city');
-            $table->string('subCity')->nullable();
+            $table->string('subcity')->nullable();
             $table->string('description');
-            $table->integer('bedroom');
-            $table->integer('bathroom');
+            $table->integer('bedroom')->nullable();
+            $table->integer('bathroom')->nullable();
             $table->integer('area');
             $table->integer('closing_price')->nullable();
+            $table->integer('profit')->nullable();
             $table->boolean('is_brokered')->default(false);
             $table->boolean('status')->default(true);
             $table->enum('type', ['house', 'land', 'apartment', 'warehouse', 'building', 'shop'])->default('house');
@@ -32,8 +34,11 @@ return new class extends Migration
             $table->boolean('is_featured')->default(false);
             $table->dateTime('feature_from')->nullable();
             $table->dateTime('feature_to')->nullable();
+            $table->dateTime('closing_date')->nullable();
             $table->boolean('is_rental')->default(false);
             $table->boolean('is_negotiable')->default(false);
+            $table->string('amenities')->nullable();
+            $table->string('video')->nullable();
             $table->timestamps();
         });
     }

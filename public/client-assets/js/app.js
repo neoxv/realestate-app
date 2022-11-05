@@ -5,10 +5,10 @@ $(function () {
     // On window's load
     $(window).on('load', function () {
         // populateColorPlates();
-        setTimeout(function () {
-            $(".page_loader").fadeOut("fast");
-            $('link[id="style_sheet"]').attr('href', 'client-assets/css/skins/default.css');
-        }, 1000);
+        // setTimeout(function () {
+        //     $(".page_loader").fadeOut("fast");
+            // $('link[id="style_sheet"]').attr('href', 'client-assets/css/skins/default.css');
+        // }, 1000);
         if ($('body .filter-portfolio').length > 0) {
             $(function () {
                 $('.filter-portfolio').filterizr(
@@ -41,17 +41,9 @@ $(function () {
                 if($('.header-shrink').length < 1) {
                     $('.sticky-header').addClass('header-shrink');
                 }
-                if($('.do-sticky').length < 1) {
-                    $('.logo img').attr('src', 'storage/img/settings/logo.jpg');
-                }
             }
             else {
                 $('.sticky-header').removeClass('header-shrink');
-                if($('.do-sticky').length < 1 && $('.fixed-header').length == 0 && $('.fixed-header2').length == 0) {
-                    $('.logo img').attr('src', 'storage/img/settings/logo.jpg');
-                } else {
-                    $('.logo img').attr('src', 'storage/img/settings/logo.jpg');
-                }
             }
         } else {
             $('.logo img').attr('src', 'storage/img/settings/logo.jpg');
@@ -389,7 +381,7 @@ $(function () {
                     "<ul class='map-properties-list'> " +
                     "<li><i class='fa fa-phone'></i>  +XXXX XXXX XXX</li> " +
                     "<li><i class='fa fa-envelope'></i>  info@themevessel.com</li> " +
-                    "<li><a href='index.html'><i class='fa fa-globe'></i>  http://http://themevessel.com</li></a> " +
+                    "<li><a href='{{route('home')}}'><i class='fa fa-globe'></i>  http://http://themevessel.com</li></a> " +
                     "</ul>" +
                     "</div>" +
                     "</div>");
@@ -755,37 +747,6 @@ $(function () {
         });
     }
 
-
-    // Switching Color schema
-    function populateColorPlates() {
-        var plateStings = '<div class="option-panel option-panel-collased">\n' +
-            '    <h2>Change Color</h2>\n' +
-            '    <div class="color-plate default-plate" data-color="default"></div>\n' +
-            '    <div class="color-plate blue-plate" data-color="blue"></div>\n' +
-            '    <div class="color-plate yellow-plate" data-color="yellow"></div>\n' +
-            '    <div class="color-plate red-plate" data-color="red"></div>\n' +
-            '    <div class="color-plate green-light-plate" data-color="green-light"></div>\n' +
-            '    <div class="color-plate orange-plate" data-color="orange"></div>\n' +
-            '    <div class="color-plate yellow-light-plate" data-color="yellow-light"></div>\n' +
-            '    <div class="color-plate green-light-2-plate" data-color="green-light-2"></div>\n' +
-            '    <div class="color-plate olive-plate" data-color="olive"></div>\n' +
-            '    <div class="color-plate purple-plate" data-color="purple"></div>\n' +
-            '    <div class="color-plate blue-light-plate" data-color="blue-light"></div>\n' +
-            '    <div class="color-plate brown-plate" data-color="brown"></div>\n' +
-            '    <div class="setting-button">\n' +
-            '        <i class="fa fa-gear"></i>\n' +
-            '    </div>\n' +
-            '</div>';
-        $('body').append(plateStings);
-    }
-    $(document).on('click', '.color-plate', function () {
-        var name = $(this).attr('data-color');
-        $('link[id="style_sheet"]').attr('href', 'client-assets/css/skins/' + name + '.css');
-    });
-
-    $(document).on('click', '.setting-button', function () {
-        $('.option-panel').toggleClass('option-panel-collased');
-    });
 });
 
 // mCustomScrollbar initialization

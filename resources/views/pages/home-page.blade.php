@@ -4,9 +4,9 @@
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
 
-                <x-home-page.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-3.jpg')" :link="'#'" class='t-right' :button-title="__('Get Started')" :active="true"/>
-                <x-home-page.banner-carousel-item :header="__('Best Place For Sell Properties')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-2.jpg')" :link="'#'" class='t-right' :button-title="__('Get Started')"/>
-                <x-home-page.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('client-assets/img/banner/img-4.jpg')" :link="'#'" class='t-left' :button-title="__('Get Started')"/>
+                <x-home-page.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('storage/img/banners/img-3.jpg')" :link="'#featuredProperties'" class='t-right' :button-title="__('Get Started')" :active="true"/>
+                <x-home-page.banner-carousel-item :header="__('Best Place For Sell Properties')" :subheader="__('The Best Real Estate Deals')" :image="asset('storage/img/banners/img-2.jpg')" :link="'#featuredProperties'" class='t-right' :button-title="__('Get Started')"/>
+                <x-home-page.banner-carousel-item :header="__('Discover Modern Villa')" :subheader="__('The Best Real Estate Deals')" :image="asset('storage/img/banners/img-4.jpg')" :link="'#featuredProperties'" class='t-left' :button-title="__('Get Started')"/>
             </div>
             <div class="btn-secton">
                 <ol class="carousel-indicators">
@@ -24,44 +24,44 @@
         <div class="container">
             <div class="search-area-inner">
                 <div class="search-contents ">
-                    <form action="https://storage.googleapis.com/theme-vessel-items/checking-sites/xero-2-html/HTML/main/index.html" method="GET">
+                    <form action="{{route('user.property.filter')}}" method="post">
+                        @csrf
                         <div class="row">
-                            {{-- change these components in to for loop --}}
-                                     @php
-                                        $list =[['id'=>'1','name'=>'option 1'],['id'=>'2','name'=>'option 2']];
-                                    @endphp
-                            <x-home-page.filter-container >
-                                    <x-common.client.select class="search-fields" name="area" :options="$list" />
+                            <x-home-page.filter-container :label="'Type | ዓይነት'">
+                                    <x-common.client.select class="search-fields" :name="'is_rental'" :options="[['value'=>'1','name'=>'For Rent|ኪራይ'],['value'=>'2','name'=>'For Sale|ሽያጭ']]" />
                             </x-home-page.filter-container >
 
-                            <x-home-page.filter-container >
-                                    <x-common.client.select class="search-fields" name="property-status" :options="$list" />
+                            <x-home-page.filter-container :label="'Category | ምድብ'">
+                                    <x-common.client.select class="search-fields" :name="'type'" :options="[['value'=>'house','name'=>'House|ቤት'],['value'=>'land','name'=>'Land|
+መሬት'],['value'=>'apartment','name'=>'Apartment|አፓርታማ'],['value'=>'warehouse','name'=>'Warehouse|መጋዘን'],['value'=>'building','name'=>'Building|ህንፃ'],['value'=>'shop','name'=>'Shop|ሱቅ']]" />
                             </x-home-page.filter-container >
 
-                            <x-home-page.filter-container >
-                                    <x-common.client.select class="search-fields" name="location" :options="$list" />
+                            <x-home-page.filter-container :label="'Location | አካባቢ'" >
+                                    <x-common.client.select class="search-fields" :name="'city'" :options="[['value'=>'addis ababa','name'=>'Addis Ababa|አዲስ አበባ']]" />
                             </x-home-page.filter-container >
 
-                            <x-home-page.filter-container >
-                                    <x-common.client.select class="search-fields" name="category" :options="$list" />
+                            <x-home-page.filter-container :label="'Sub City | ክፍለ ከተማ'" >
+                                @php
+                                    $subcity_list = array_map(function ($a) { return ['value'=>strtolower((explode('|',$a))[0]),'name'=>$a]; },['All|ሁሉም','Addis Ketema|አዲስ ከተማ ','Akaky Kaliti|አቃቂ ቃሊቲ','Arada|አራዳ', 'Bole|ቦሌ', 'Gullele|ጉሌሌ','Kirkos|ቂርቆስ','Kolfe Keranio|ኮልፌ ቀራንዮ', 'Lideta|ልደታ','Nifas Silk-Lafto|ንፋስ ስልክ ላፍቶ','Yeka|የካ']);
+                                @endphp
+                                    <x-common.client.select class="search-fields" :name="'subcity'" :options="$subcity_list" />
                             </x-home-page.filter-container >
 
                         </div>
                         <div class="row">
-                            <x-home-page.filter-container >
-                                    <x-common.client.select class="search-fields" name="bedrooms" :options="$list" />
+                            <x-home-page.filter-container  :label="'Bedroom | መኝታ ቤት'">
+                                    <x-common.client.select class="search-fields" :name="'bedroom'" :options="[['value'=>'1','name'=>'1'],['value'=>'2','name'=>'2'],['value'=>'3','name'=>'3'],['value'=>'4','name'=>'4']]" />
+                            </x-home-page.filter-container >
+                            <x-home-page.filter-container :label="'Area | ስፋት'">
+                                <x-common.client.range-slider  :max="100000" :minname="'min_area'" :maxname="'max_area'" :unit="'sqm'"/>
+                            </x-home-page.filter-container >
+
+                            <x-home-page.filter-container :label="'Price | ዋጋ'">
+                                <x-common.client.range-slider  :max="50000000" :minname="'min_price'" :maxname="'max_price'" :unit="'birr'"/>
                             </x-home-page.filter-container >
 
                             <x-home-page.filter-container >
-                                    <x-common.client.select class="search-fields" name="bathrooms" :options="$list" />
-                            </x-home-page.filter-container >
-
-                            <x-home-page.filter-container >
-                                <x-common.client.range-slider />
-                            </x-home-page.filter-container >
-
-                            <x-home-page.filter-container >
-                                <button class="btn btn-4 btn-block" type="submit">Search</button>
+                                <button class="btn btn-4 btn-block" type="submit">Filter</button>
                             </x-home-page.filter-container >
                         </div>
                     </form>
@@ -72,7 +72,7 @@
     <!-- Search area end -->
 
     <!-- Featured properties start -->
-    <div class="featured-properties content-area-2">
+    <div class="featured-properties content-area-2 mb-2" id="featuredProperties">
         <div class="container">
             <div class="main-title">
                 <h1>Featured Properties</h1>
@@ -83,6 +83,11 @@
                     @foreach ($featured as $item)
                         <x-home-page.featured-card :property='$item'/>
                     @endforeach
+                    @if (count($recent) > 0)
+                        @foreach ($recent as $item)
+                            <x-home-page.featured-card :property='$item'/>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
@@ -90,7 +95,7 @@
     <!-- Featured properties end -->
 
     <!-- Services 2 start -->
-    <div class="services-2 overview-bgi">
+    <div class="services-2 overview-bgi" style="background-image: url({{asset('storage/img/banners/img-6.jpg')}})">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 align-self-center wow fadeInLeft delay-04s">
@@ -114,10 +119,10 @@
     <!-- Recent Properties start -->
     <div class="recent-properties content-area-2">
         <div class="container">
-            <x-home-page.title :title="__('Recent Properties')" :subtitle="__('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.')" />
+            <x-home-page.title :title="__('Sale Properties')" :subtitle="__('')" />
             <div class="row">
-                @foreach ($recent as $item )
-                    <x-home-page.recent-card :property='$item'/>
+                @foreach ($sale as $item )
+                    <x-home-page.featured-card :property='$item'/>
                 @endforeach
             </div>
         </div>
@@ -127,37 +132,12 @@
     <!-- Most popular places start -->
     <div class="most-popular-places content-area-23 bg-white">
         <div class="container">
-
-            <x-home-page.title :title="__('Most Popular Places')" :subtitle="__('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.')" />
-
+            <x-home-page.title :title="__('Rental Properties')" :subtitle="__('')" />
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12 col-pad cp-3 wow fadeInLeft delay-04s d-none-992">
-                        <div class="most-popular-box-2">
-                            <div class="photo">
-                                <img src="{{asset('client-assets/img/popular-places/img-3.jpg')}}" alt="img" class="img-fluid">
-                                <div class="most-overlay">
-                                    <div class="job">
-                                        <p>256 Properties</p>
-                                        <h6><a href="properties-details.html">Tokyo City</a></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <x-home-page.popular-card-container>
-                        <x-home-page.popular-card/>
-
-                        <x-home-page.popular-card/>
-                    </x-home-page.popular-card-container>
-
-                    <x-home-page.popular-card-container>
-                        <x-home-page.popular-card/>
-
-                        <x-home-page.popular-card/>
-                    </x-home-page.popular-card-container>
-
+                    @foreach ($rent as $item )
+                        <x-home-page.featured-card :property='$item'/>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -168,11 +148,9 @@
     <div class="agent content-area-2">
         <div class="container">
 
-            <x-home-page.title :title="__('Meet Our Agents')" :subtitle="__('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.')" />
+            <x-home-page.title :title="__('Meet Our Agents')" :subtitle="__('Our agents wil be with you every step of the way.')" />
 
             <div class="row">
-                <x-home-page.agent-card/>
-
                 <x-home-page.agent-card/>
             </div>
         </div>

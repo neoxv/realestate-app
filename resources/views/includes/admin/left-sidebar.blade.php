@@ -14,8 +14,9 @@
         <x-admin.nav-item :icon="'ni ni-tv-2 text-primary'" :title="'Dashboard'" :link="'admin.dashboard'" />
         <x-admin.nav-item :icon="'ni ni-calendar-grid-58 text-warning'" :title="'Properties'" :link="'admin.properties'" />
         <x-admin.nav-item :icon="'ni ni-single-02 text-success'" :title="'Users'" :link="'admin.users'" />
-        <x-admin.nav-item :icon="'ni ni-notification-70 text-info'" :title="'Advertisments'" :link="'admin.advertisements'" />
+        <x-admin.nav-item :icon="'ni ni-notification-70 text-info'" :title="'Advertisements'" :link="'admin.advertisements'" />
         <x-admin.nav-item :icon="'ni ni ni-settings-gear-65 text-dark'" :title="'Settings'" :link="'admin.settings'" />
+        <x-admin.nav-item :icon="'ni ni-circle-08 text-primary'" :title="'Account'" :link="'admin.account'" />
 
       </ul>
     </div>

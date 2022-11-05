@@ -11,6 +11,10 @@
 </div>
 <div class="d-flex">
     {{-- button will route as to another page --}}
-<button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" aria-hidden="true"></i></button>
+    <form action="{{route('property.search')}}" method="get" id="{{'search' . $title}}">
+        @csrf
+        <input type="hidden" name="search" value="{{$title}}">
+    </form>
+<button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" onclick="(function(){document.getElementById('search'+'{{$title}}').submit()})()"><i class="ni ni-bold-right" aria-hidden="true"></i></button>
 </div>
 </li>

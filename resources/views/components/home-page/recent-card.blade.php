@@ -4,7 +4,7 @@
         <div class="photo-thumbnail">
             <div class="photo">
                 <img src="{{asset(count($property->documents) > 0 ?'storage/img/properties/'. $property->documents->first()->filename:'storage/img/default.png')}}" alt="property-box-8" class="img-fluid" style="width: 100%; height: 10vw; object-fit: cover;">
-                <a href="properties-details.html">
+                <a href="#">
                     <span class="blog-one__plus"></span>
                 </a>
             </div>
@@ -25,17 +25,17 @@
         <div class="detail">
             <div class="heading">
                 <h3>
-                    <a href="properties-details.html">{{$property->name}}</a>
+                    <a href="#">{{$property->name}}</a>
                 </h3>
                 <div class="location">
-                    <a href="properties-details.html">
-                        <i class="flaticon-facebook-placeholder-for-locate-places-on-maps"></i>{{$property->address}},
+                    <a href="#">
+                        <i class="flaticon-facebook-placeholder-for-locate-places-on-maps"></i>{{$property->subcity == "none"?ucfirst($proprty->address).', '.ucfirst($property->city):ucfirst($property->subcity).", ".ucfirst($property->address)}},
                     </a>
                 </div>
             </div>
             <div class="properties-listing">
-                <span>{{$property->bedroom}} Beds</span>
-                <span>{{$property->bathroom}} Baths</span>
+                <span>{{$property->bedroom??0}} Beds</span>
+                <span>{{$property->bathroom??0}} Baths</span>
                 <span>{{$property->area}} sqmt</span>
             </div>
         </div>

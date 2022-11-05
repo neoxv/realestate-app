@@ -12,7 +12,7 @@
             <x-common.client.checkbox :check-id="'rememberMe'"  class="checkbox-theme">
                     Remember me
             </x-common.client.checkbox>
-            <a href="forgot-password.html" class="forgot-password">Forgot Password</a>
+            {{-- <a href="forgot-password.html" class="forgot-password">Forgot Password</a> --}}
         </div>
         <div class="form-group">
             <x-common.client.button :title="__('Login')" type="submit" class="btn btn-4 btn-block" />
@@ -24,5 +24,5 @@
         <div class="clearfix"></div>
     </form>
     <div class="clearfix"></div>
-    <p>Don't have an account? <a href="{{route('register')}}" class="thembo"> Register here</a></p>
+    <p>Don't have an account? <a href="{{route('register')}}" class="thembo" style="color:rgb(78 92 193 )"> Register here</a></p>
 </x-auth.form>

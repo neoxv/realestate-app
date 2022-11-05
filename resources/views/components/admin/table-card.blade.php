@@ -9,7 +9,7 @@
     <table class="table align-items-center ">
     <tbody>
         @foreach ( $detail as $item )
-        <x-admin.table-card-row :type="ucfirst($item->type)" :sales="$item->sold_count" :value="$item->closing_price" :profit="0.2 * $item->closing_price"
+        <x-admin.table-card-row :type="ucfirst($item->type)" :sales="$item->sold_count" :value="$item->closing_price" :profit="$item->profit_price"
         :icon="
         $item->type =='house'?'fa fa-home':(
         $item->type == 'apartment'?'fa fa-building':(

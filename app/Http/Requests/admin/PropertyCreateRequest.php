@@ -28,15 +28,14 @@ class PropertyCreateRequest extends FormRequest
             'description' => 'required|string|max:255',
             'price' => 'required|numeric',
             'area' => 'required|numeric',
-            'bathroom' => 'required|numeric',
-            'bedroom' => 'required|numeric',
-            'type' => 'required|string|in:land,house,shop,building',
+            'bathroom' => 'numeric',
+            'bedroom' => 'numeric',
+            'type' => 'required|string|in:land,house,shop,building,apartment,warehouse',
             'address' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'is_rental'=>'required|boolean',
             'owner_id'=>'required|string|max:255',
-            'is_negotiable'=>'required|boolean',
-            'document'=>'required'
+            'is_negotiable'=>'required|boolean'
         ];
     }
 

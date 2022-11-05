@@ -87,7 +87,7 @@ body {
     height: auto;
 }
 
-.page_loader {
+/* .page_loader {
     position: fixed;
     left: 0;
     top: 0;
@@ -95,7 +95,7 @@ body {
     height: 100%;
     z-index: 999999;
     background: url(../img/loader.gif) center no-repeat #fff;
-}
+} */
 
 ul {
     list-style: none;
@@ -1193,6 +1193,15 @@ input[type=checkbox]:checked + label:before {
     background: #fb3958;
 }
 
+.tiktok-bg:hover{
+    background:#ff0050;
+}
+
+.tiktok-bg{
+    background: #fff;
+}
+
+
 .instagram-bg:hover{
     background: #ec2f4d;
 }
@@ -1863,7 +1872,16 @@ a {
 
 /** SUB BANNER **/
 .sub-banner {
-    background: rgba(0, 0, 0, 0.04) url(../img/img-2.jpg) top left repeat;
+    /* background: rgba(0, 0, 0, 0.04) url(../img/img-2.jpg) top left repeat; */
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat-x: no-repeat;
+    background-repeat-y: no-repeat;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgba(36, 42, 53, 0.7);
     background-size: cover;
     height: 400px;
     background-position: center center;
@@ -3212,7 +3230,15 @@ a {
     position: relative;
     border: none;
     margin: 0;
-    background: rgba(0, 0, 0, 0.04) url(../img/banner/img-4.jpg) top left repeat;
+    /* background: rgba(0, 0, 0, 0.04) url(../img/banner/img-4.jpg) top left repeat; */
+    background-position-x: left;
+    background-position-y: top;
+    background-repeat-x: repeat;
+    background-repeat-y: repeat;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgba(0, 0, 0, 0.04);
     background-size: cover;
     color: #efefef;
 }
@@ -3640,7 +3666,7 @@ a {
 
 .services-2{
     padding: 100px 0 70px;
-    background: url(../img/img-3.jpg);
+    /* background: url(../img/img-3.jpg); */
     z-index: 0;
     background-position: center center;
     background-repeat: no-repeat;
@@ -7514,7 +7540,7 @@ a {
     height: 100%;
     left: 0;
     top: 0;
-    background: url(../img/footer-left.png);
+    /* background: url(../img/footer-left.png); */
     content: "";
     z-index: 1;
 }
@@ -7612,7 +7638,7 @@ a {
 
 /** footer-5 start **/
 .footer-5 {
-    background: url(../img/footer-2.jpg);
+    /* background: url(../img/footer-2.jpg); */
     z-index: 0;
     background-position: center center;
     background-repeat: no-repeat;
@@ -8126,7 +8152,7 @@ a {
     align-items: center;
     padding: 15px;
     background: #fff;
-    background: rgba(0, 0, 0, 0.04) url(../img/img-3.jpg) top left repeat;
+    /* background: rgba(0, 0, 0, 0.04) url(../img/img-3.jpg) top left repeat; */
     z-index: 999;
     background-position: center center;
     background-repeat: no-repeat;
@@ -10780,7 +10806,7 @@ table {
 /** SELL YOUR PROPERTIES **/
 .sell-your-properties {
     text-align: center;
-    background: rgba(0, 0, 0, 0.04) url(../img/contact.jpg) top left repeat;
+    /* background: rgba(0, 0, 0, 0.04) url(../img/contact.jpg) top left repeat; */
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;

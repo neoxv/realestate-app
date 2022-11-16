@@ -15,7 +15,7 @@
                        <div class="row">
                            <div class="col-lg-12 p-3" style="background-color: {{$property->is_rental?'#937666':'#47A8BD'}};border-radius:20px;">
                                <div class="informeson" >
-                                   <h1 style="color:white">{{$property->name}}<span style="color:white;">{{number_format($property->price)}} Birr Per Month - {{$property->is_rental?"Rental":"Sale"}}</span></h1>
+                                   <h1 style="color:white">{{$property->name}}<span style="color:white;">{{number_format($property->price)}} {{$property->is_rental?" Birr Per Month -Rental":" Birr - Sale"}}</span></h1>
                                    <div>
                                        <div class="float-left" >
                                            <ul class="clearfix" style="color:white;">
@@ -64,13 +64,15 @@
                     <div class="carousel-inner">
                         @if (count($property->documents) > 0)
                             @foreach ($property->documents as $document )
-                                <div class="{{$loop->first?'active item carousel-item': 'item carousel-item'}}item carousel-item" data-slide-number="{{$loop->index}}">
-                                        <img src="{{asset( 'storage/img/properties/'. $document->filename)}}"  alt="properties-photo" style="width:100%; height:60vh;object-fit:cover">
+                                <div class="{{$loop->first?'active item carousel-item ': 'item carousel-item'}}item carousel-item " data-slide-number="{{$loop->index}}">
+                                    <div class="d-flex justify-content-center">
+                                        <img src="{{asset( 'storage/img/properties/'. $document->filename)}}" class="mx-auto" alt="properties-photo" style="width:auto; height:60vh;object-fit:cover">
+                                    </div>
                                 </div>
                             @endforeach
                         @else
                             <div class="active item carousel-item" data-slide-number="0">
-                                <img src="{{asset( 'storage/img/default.png')}}"  alt="properties-photo"  style="width:100%; height:60vh;object-fit:cover" >
+                                <img src="{{asset( 'storage/img/default.png')}}"  alt="properties-photo"  style="width:auto; height:100%;object-fit:cover" >
                             </div>
                         @endif
                     </div>

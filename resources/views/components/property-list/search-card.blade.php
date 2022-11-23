@@ -34,7 +34,7 @@
                     {{$property->name}}
                 </h1>
                 <div class="location" style="color:white !important">
-                        <i class="fa fa-map-marker" style="color:white !important"></i> {{$property->subcity == "none"?ucfirst($proprty->address).', '.ucfirst($property->city):ucfirst($property->subcity).", ".ucfirst($property->address)}}
+                        <i class="fa fa-map-marker" style="color:white !important"></i> {{$property->subcity == "none"?ucfirst($property->address).', '.ucfirst($property->city):ucfirst($property->subcity).", ".ucfirst($property->address)}}
                 </div>
                 <p style="color:white !important">{{$property->description}}</p>
                 <ul class="facilities-list clearfix" style="color:white !important">

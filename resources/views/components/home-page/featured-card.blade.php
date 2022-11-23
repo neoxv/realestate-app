@@ -15,7 +15,7 @@
             </h1>
             <div class="location">
                 <a href="{{route('detail',['property'=>$property->id])}}">
-                    <i class="flaticon-facebook-placeholder-for-locate-places-on-maps"></i>{{$property->subcity == "none"?ucfirst($proprty->address).', '.ucfirst($property->city):ucfirst($property->subcity).", ".ucfirst($property->address)}}
+                    <i class="flaticon-facebook-placeholder-for-locate-places-on-maps"></i>{{$property->subcity == "none"?ucfirst($property->address).', '.ucfirst($property->city):ucfirst($property->subcity).", ".ucfirst($property->address)}}
                 </a>
             </div>
         </div>

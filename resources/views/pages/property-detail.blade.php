@@ -53,7 +53,7 @@
                                            </ul>
                                        </div>
                                        <div class="float-right">
-                                           <p style="color:white;">{{$property->subcity == "none"?ucfirst($proprty->address).', '.ucfirst($property->city):ucfirst($property->subcity).", ".ucfirst($property->address)}}</p>
+                                           <p style="color:white;">{{$property->subcity == "none"?ucfirst($property->address).', '.ucfirst($property->city):ucfirst($property->subcity).", ".ucfirst($property->address)}}</p>
                                        </div>
                                    </div>
                                </div>

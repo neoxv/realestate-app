@@ -24,7 +24,16 @@
                     <a href="{{route('favourites',['user'=> Auth::user()->id])}}">Favourites </a>
                 </li>
                 @endauth
+
                 <li><a href="{{route('contact')}}">Contact </a>
+                @guest()
+                    <li>
+                        <a href="{{route('login')}}" > Login </a>
+                    </li>
+                    <li>
+                        <a href="{{route('register')}}" > Register</a>
+                    </li>
+                @endguest
                 </li>
             </ul>
         </div>

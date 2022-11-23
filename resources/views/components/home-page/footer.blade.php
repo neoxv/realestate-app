@@ -23,15 +23,17 @@
                                     @auth()
                                     <form action="{{route('logout.admin')}}" method="POST">
                                         @csrf
-                                        <button class="btn  btn-link p-0 m-0" type="submit" style="color: white" >
-                                            <i class="fa fa-sign-out me-sm-1 mr-2"></i> Sign Out
+                                        <button class="btn  btn-link p-0 m-0" type="submit" >
+                                         Sign Out
                                         </button>
                                     </form>
                                     @endauth
                                     @guest
+                                    <li>
                                         <a href="{{route('login')}}" >
-                                            <i class="fa fa-user me-sm-1 mr-3"></i>Sign In
+                                        Sign In
                                         </a>
+                                    </li>
                                     @endguest
                                 </ul>
                             </div>

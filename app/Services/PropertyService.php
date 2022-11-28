@@ -18,7 +18,7 @@ class PropertyService implements PropertyServiceInterface
     public function getFeatured($page = null)
     {
         if($page != null){
-            return Property::where('is_featured', true)->with(['documents', 'owner','users'])->paginate($page, ['*'], 'featuredClientPage')->withQueryString();
+            return Property::where('is_featured', true)->orderBy('updated_at','desc')->with(['documents', 'owner','users'])->paginate($page, ['*'], 'featuredClientPage')->withQueryString();
         }
 
         return Property::where('is_featured', true)->with(['documents', 'owner','users'])->get();
@@ -40,7 +40,7 @@ class PropertyService implements PropertyServiceInterface
     }
 
     public function getByAttribute($attribute, $value,$with=['documents','users'],$page=5){
-        return Property::where($attribute,$value)->with($with)->paginate($page,['*'],'byAttributePage')->withQueryString();
+        return Property::where($attribute,$value)->orderBy('updated_at', 'desc')->with($with)->paginate($page,['*'],'byAttributePage')->withQueryString();
     }
 
     public function getFavourites($user)

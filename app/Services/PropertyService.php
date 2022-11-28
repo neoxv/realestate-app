@@ -21,7 +21,7 @@ class PropertyService implements PropertyServiceInterface
             return Property::where('is_featured', true)->orderBy('updated_at','desc')->with(['documents', 'owner','users'])->paginate($page, ['*'], 'featuredClientPage')->withQueryString();
         }
 
-        return Property::where('is_featured', true)->with(['documents', 'owner','users'])->get();
+        return Property::where('is_featured', true)->orderBy('updated_at', 'desc')->with(['documents', 'owner','users'])->get();
     }
 
     public  function get()

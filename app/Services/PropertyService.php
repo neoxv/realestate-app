@@ -26,7 +26,7 @@ class PropertyService implements PropertyServiceInterface
 
     public  function get()
     {
-        return Property::where('is_brokered', false)->where('status',true)->with(['documents','users'])->paginate(5, ['*'], 'listPage')->withQueryString();
+        return Property::where('is_brokered', false)->where('status',true)->orderBy('updated_at', 'desc')->with(['documents','users'])->paginate(5, ['*'], 'listPage')->withQueryString();
     }
 
     public function getRecent($amount=5)

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('city');
             $table->string('subcity')->nullable();
-            $table->string('description');
+            $table->text('description',1500);
             $table->integer('bedroom')->nullable();
             $table->integer('bathroom')->nullable();
             $table->integer('area');

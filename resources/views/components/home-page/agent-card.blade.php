@@ -6,13 +6,13 @@
                 <div class="overlay">
                     <div class="border">
                         <div class="icon-holder">
-                            <a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a>
+                            <a href="{{config('app.facebook')}}" class="facebook-bg"><i class="fa fa-facebook"></i></a>
                         </div>
                         <div class="icon-holder">
-                            <a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a>
+                            <a href="{{config('app.telegram')}}" class="twitter-bg"><i class="fa fa-telegram"></i></a>
                         </div>
                         <div class="icon-holder">
-                            <a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a>
+                            <a href="{{'mailto:'.config('app.email')}}" class="google-bg"><i class="fa fa-envelope-o"></i></a>
                         </div>
                     </div>
                 </div>
@@ -20,20 +20,14 @@
         </div>
         <div class="col-lg-7 col-md-12 col-pad align-self-center">
             <div class="details">
-                <h3><a href="#">Brandon Miller</a></h3>
+                <h3><a href="#">Zerubabel Getachew</a></h3>
                 <h6>Office Manager</h6>
                 <div class="contact">
                     <p>
-                        <a href="mailto:"><i class="fa fa-envelope-o"></i>info@realesate.com</a>
+                        <a href="{{'mailto:'.config('app.email')}}"><i class="fa fa-envelope-o"></i>{{config('app.email')}}</a>
                     </p>
                     <p>
-                        <a href="tel:"> <i class="fa fa-phone"></i>+55 4XX-634-7071</a>
-                    </p>
-                    <p>
-                        <a href="#"><i class="fa fa-skype"></i>sales.carshop</a>
-                    </p>
-                    <p>
-                        <a href="tel:"><i class="fa fa-fax"></i>+00 417 634 7X22</a>
+                        <a href="{{'tel:'.config('app.phone')}}"> <i class="fa fa-phone"></i>{{config('app.phone')}}</a>
                     </p>
                 </div>
             </div>

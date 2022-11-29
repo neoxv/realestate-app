@@ -25,10 +25,10 @@ class OwnerCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:owners,email',
+            'email' => 'email|unique:owners,email',
             'primary_phone' => 'required|numeric|unique:owners,primary_phone|min:10',
-            'secondary_phone' => 'required|numeric|unique:owners,secondary_phone|min:10',
-            'address' => 'required|string|max:255',
+            'secondary_phone' => 'numeric|unique:owners,secondary_phone|min:10',
+            'address' => 'string|max:255',
         ];
     }
 

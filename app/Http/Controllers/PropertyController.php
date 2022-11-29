@@ -16,6 +16,7 @@ use App\Interfaces\DocumentServiceInterface;
 use App\Interfaces\PropertyServiceInterface;
 use App\Interfaces\AdvertisementServiceInterface;
 use App\Http\Requests\admin\PropertyCreateRequest;
+use Illuminate\Support\Arr;
 
 class PropertyController extends Controller
 {
@@ -39,13 +40,42 @@ class PropertyController extends Controller
     public function getById(Property $property)
     {
         $related = [];
-        $data = $this->propertyService->getByAttribute('type', $property->type, ['documents'], 2);
+        $data = $this->propertyService->getByAttribute('type', $property->type, ['documents'], 10);
+        $unrelated = [];
         foreach ($data as $value) {
-            if(sizeof($related) < 2 && $value->is_rental == $property->is_rental){
+            if(sizeof($related) <= 2 && $value->is_rental == $property->is_rental){
                 array_push($related, $value);
+            }else{
+                array_push($unrelated,$value);
             }
         }
-        return view('pages.property-detail', ['property' => $property, 'recents' => $this->propertyService->getRecent(3), 'related' => $related]);
+        if(sizeof($related) < 2){
+            foreach ($unrelated as $value) {
+                if (sizeof($related) <= 2) {
+                    array_push($related, $value);
+                }
+            }
+        }
+
+        $recent = [];
+        $recentData = $this->propertyService->getRecent(10);
+        $late = [];
+        foreach ($recentData as $value) {
+            if (sizeof($recent) <= 3 && $value->is_rental == $property->is_rental && $value->type == $property->type) {
+                array_push($recent, $value);
+            }else{
+                array_push($late,$value);
+            }
+        }
+
+        if (sizeof($recent) < 3) {
+            foreach ($late as $value) {
+                if (sizeof($recent) < 3) {
+                    array_push($recent, $value);
+                }
+            }
+        }
+        return view('pages.property-detail', ['property' => $property, 'recents' => $recent, 'related' => $related]);
     }
 
     public function create(PropertyCreateRequest $request)

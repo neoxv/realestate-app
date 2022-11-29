@@ -38,7 +38,14 @@ class PropertyController extends Controller
 
     public function getById(Property $property)
     {
-        return view('pages.property-detail', ['property' => $property, 'recents' => $this->propertyService->getRecent(3), 'related' => $this->propertyService->getByAttribute('type', $property->type, ['documents'], 2)]);
+        $related = [];
+        $data = $this->propertyService->getByAttribute('type', $property->type, ['documents'], 2);
+        foreach ($data as $value) {
+            if(sizeof($related) < 2 && $value->is_rental == $property->is_rental){
+                array_push($related, $value);
+            }
+        }
+        return view('pages.property-detail', ['property' => $property, 'recents' => $this->propertyService->getRecent(3), 'related' => $related]);
     }
 
     public function create(PropertyCreateRequest $request)
@@ -54,8 +61,8 @@ class PropertyController extends Controller
             if ($request['subcity'] == 'none' || $request['city'] != "addis ababa") {
                 $request['subcity'] = 'none';
             }
-            $response = $this->propertyService->create($request->all());
         }
+        $response = $this->propertyService->create($request->all());
         if ($response->success) {
             return redirect()->route('admin.properties')->with('success', $response->message);
         }

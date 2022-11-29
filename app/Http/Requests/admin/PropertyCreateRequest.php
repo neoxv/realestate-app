@@ -25,7 +25,7 @@ class PropertyCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string',
             'price' => 'required|numeric',
             'area' => 'required|numeric',
             'bathroom' => 'numeric',

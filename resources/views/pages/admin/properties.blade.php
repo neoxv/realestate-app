@@ -50,7 +50,7 @@
                                 <div class="form-group">
                                     <label class="text-primary" for="city">Sub-City</label>
                                     @php
-                                        $subcity_list = array_map(function ($a) { return ['value'=>strtolower((explode('|',$a))[0]),'name'=>$a]; },['None','Addis Ketema|አዲስ ከተማ ','Akaky Kaliti|አቃቂ ቃሊቲ','Arada|አራዳ', 'Bole|ቦሌ', 'Gullele|ጉሌሌ','Kirkos|ቂርቆስ','Kolfe Keranio|ኮልፌ ቀራንዮ', 'Lideta|ልደታ','Nifas Silk-Lafto|ንፋስ ስልክ ላፍቶ','Yeka|የካ']);
+                                        $subcity_list = array_map(function ($a) { return ['value'=>strtolower((explode('|',$a))[0]),'name'=>$a]; },['None','Addis Ketema|አዲስ ከተማ ','Akaky Kaliti|አቃቂ ቃሊቲ','Arada|አራዳ', 'Bole|ቦሌ', 'Gullele|ጉሌሌ','Kirkos|ቂርቆስ','Kolfe Keranio|ኮልፌ ቀራንዮ','Lemi Kura|ለሚ ኩራ', 'Lideta|ልደታ','Nifas Silk-Lafto|ንፋስ ስልክ ላፍቶ','Yeka|የካ']);
                                     @endphp
                                     <select class="form-control @error('subcity') is-invalid @enderror"  name="subcity" id="subcity" placeholder="Subcity" >
                                         @foreach ($subcity_list as $item)
@@ -492,7 +492,7 @@
                 });
             },
     method: "post",
-    maxFiles:5,
+    maxFiles:10,
     acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
     parallelUploads: 1,
     uploadMultiple: false,
@@ -561,6 +561,10 @@
     $('#area').val(property.area)
     $('#bedroom').val(property.bedroom)
     $('#bathroom').val(property.bathroom)
+    if(property.type != 'land' &&  property.type != 'shop' && property.type != 'building' && property.type != 'warehouse'){
+        $('#bedroom').removeAttr('disabled')
+        $('#bathroom').removeAttr('disabled')
+    }
     $('#owner').val(property.owner.id)
     $('#is_negotiable').val(property.is_negotiable?'1':'0')
     $('#description').val(property.description)

@@ -6,7 +6,7 @@
             <a href="{{route('detail',['property'=>$property->id])}}" class="property-img">
                 <div class="tag-2" style="background-color: {{$property->is_rental?'#937666':'#47A8BD'}};">{{$property->is_rental?'For Rent':'For Sale'}}</div>
                 <div class="price-box"><span>{{number_format($property->price)}} Birr </span>{{$property->is_negotiable?'Negotioable':'Fixed'}} </div>
-                <img src="{{asset(count($property->documents) > 0 ?'storage/img/properties/'. $property->documents->first()->filename:'storage/img/default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 15vw; object-fit: cover;">
+                <img src="{{asset(count($property->documents) > 0 ?'storage/img/properties/'. $property->documents->first()->filename:'storage/img/default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 288px; object-fit: cover;">
             </a>
         </div>
         <div class="detail" >
@@ -21,16 +21,16 @@
         </div>
         <ul class="facilities-list clearfix" >
             <li>
-                <span>Area</span>{{$property->area}} Sqm
+                {{$property->area}} Sqm
             </li>
             <li>
-                <span>Beds</span> {{$property->bedroom??0}}
+                 {{$property->bedroom??0}} Beds
             </li>
             <li>
-                <span>Baths</span> {{$property->bathroom??0}}
+               {{$property->bathroom??0}} Bathrooms
             </li>
             <li>
-                <span>Date</span>{{ (new \Carbon\Carbon($property->created_at))->format('M d Y')}}
+                 <i class="fa fa-calendar" aria-hidden="true"></i> {{ (new \Carbon\Carbon($property->created_at))->format('M d Y')}}
             </li>
         </ul>
         <div class="footer clearfix" style="background-color: {{$property->is_rental?'#937666':'#47A8BD'}};">

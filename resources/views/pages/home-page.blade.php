@@ -24,7 +24,7 @@
         <div class="container">
             <div class="search-area-inner">
                 <div class="search-contents ">
-                    <form action="{{route('user.property.filter')}}" method="post">
+                    <form action="{{route('user.property.filter')}}" method="get">
                         @csrf
                         <div class="row">
                             <x-home-page.filter-container :label="'Type | ዓይነት'">
@@ -42,7 +42,7 @@
 
                             <x-home-page.filter-container :label="'Sub City | ክፍለ ከተማ'" >
                                 @php
-                                    $subcity_list = array_map(function ($a) { return ['value'=>strtolower((explode('|',$a))[0]),'name'=>$a]; },['All|ሁሉም','Addis Ketema|አዲስ ከተማ ','Akaky Kaliti|አቃቂ ቃሊቲ','Arada|አራዳ', 'Bole|ቦሌ', 'Gullele|ጉሌሌ','Kirkos|ቂርቆስ','Kolfe Keranio|ኮልፌ ቀራንዮ', 'Lideta|ልደታ','Nifas Silk-Lafto|ንፋስ ስልክ ላፍቶ','Yeka|የካ']);
+                                    $subcity_list = array_map(function ($a) { return ['value'=>strtolower((explode('|',$a))[0]),'name'=>$a]; },['All|ሁሉም','Addis Ketema|አዲስ ከተማ ','Akaky Kaliti|አቃቂ ቃሊቲ','Arada|አራዳ', 'Bole|ቦሌ', 'Gullele|ጉሌሌ','Kirkos|ቂርቆስ','Kolfe Keranio|ኮልፌ ቀራንዮ', 'Lemi Kura|ለሚ ኩራ', 'Lideta|ልደታ', 'Nifas Silk-Lafto|ንፋስ ስልክ ላፍቶ','Yeka|የካ']);
                                 @endphp
                                     <x-common.client.select class="search-fields" :name="'subcity'" :options="$subcity_list" />
                             </x-home-page.filter-container >
@@ -106,7 +106,7 @@
                     @foreach ($ads as $ad )
                         <x-home-page.advertisement-card :ad='$ad'/>
                     @endforeach
-                    @for ($i = 0; $i < (4- count($ads)); $i++)
+                    @for ($i = 0; $i < (2- count($ads)); $i++)
                         <x-home-page.advertisement-card/>
                     @endfor
                     </div>
@@ -148,7 +148,7 @@
     <div class="agent content-area-2">
         <div class="container">
 
-            <x-home-page.title :title="__('Meet Our Agents')" :subtitle="__('Our agents wil be with you every step of the way.')" />
+            <x-home-page.title :title="__('Meet Your Broker')" :subtitle="__('We wil be with you every step of the way.')" />
 
             <div class="row">
                 <x-home-page.agent-card/>

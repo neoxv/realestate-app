@@ -7250,10 +7250,11 @@ a {
 .footer-2 .footer-left {
     background: linear-gradient(145deg,#3f56ff,#ff433e);
     background: linear-gradient(145deg,#f81f01,#ee076e);
-    padding: 140px 120px;
+    /* padding: 140px 120px; */
+    padding: 82px 70px 150px 120px;
     z-index: 2;
     margin-right: 0;
-    border-top-right-radius: 6px;
+    /* border-top-right-radius: 6px; */
 }
 
 .footer-2 .footer-left:before {

@@ -64,8 +64,13 @@ class AccountController extends Controller
                     return redirect()->route('admin.account')->with('error', 'Admin update failed.');
                 }
             } else {
-                $data['first_name'] = explode(' ', $data['name'])[0];
-                $data['last_name'] = explode(' ', $data['name'])[1];
+                $nameArray = explode(' ', $data['name']);
+                $data['first_name'] = $nameArray[0];
+                if (sizeof($nameArray) > 1) {
+                    $data['last_name'] = $nameArray[1];
+                } else {
+                    $data['last_name'] = " ";
+                }
             }
 
             try {

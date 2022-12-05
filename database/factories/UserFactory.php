@@ -47,6 +47,7 @@ class UserFactory extends Factory
             return [
                 'role' => 1,
                 'password'=>'1q2w3e4r',
+                'email'=>"admin@gmail.com"
             ];
         });
     }

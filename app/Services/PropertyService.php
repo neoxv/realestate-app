@@ -131,7 +131,7 @@ class PropertyService implements PropertyServiceInterface
     }
 
     public function getAllTypes(){
-        return ['land','shop','house','building', 'apartment', 'warehouse'];
+        return ['land','shop','house','building', 'apartment', 'warehouse','hotel/resort'];
     }
 
     public function search($key){

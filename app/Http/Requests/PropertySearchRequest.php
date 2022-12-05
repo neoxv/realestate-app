@@ -30,7 +30,7 @@ class PropertySearchRequest extends FormRequest
             'area' => 'numeric',
             'bathroom' => 'numeric',
             'bedroom' => 'numeric',
-            'type' => 'string|in:land,house,shop,building',
+            'type' => 'string|in:land,house,shop,building,apartment,warehouse,hotel/resort',
             'address' => 'string|max:255',
             'city' => 'string|max:255',
             'is_rental' => 'boolean',

@@ -561,7 +561,7 @@
     $('#area').val(property.area)
     $('#bedroom').val(property.bedroom)
     $('#bathroom').val(property.bathroom)
-    if(property.type != 'land' &&  property.type != 'shop' && property.type != 'building' && property.type != 'warehouse'){
+    if(property.type != 'land' &&  property.type != 'shop' && property.type != 'building' && property.type != 'warehouse' && property.type != 'hotel/resort'){
         $('#bedroom').removeAttr('disabled')
         $('#bathroom').removeAttr('disabled')
     }

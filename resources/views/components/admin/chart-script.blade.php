@@ -105,7 +105,7 @@
     });
   </script>
   <script>
-var doughnutLabels = ['House', 'Land', 'Apartment', 'Building', 'Shop','Warehouse','Hotel/Resort'];
+var doughnutLabels = ['House', 'Land', 'Apartment', 'Building', 'Shop','Warehouse','Hotel/resort'];
 var salesData=[];
 var stockData=[];
 

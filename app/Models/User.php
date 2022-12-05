@@ -72,17 +72,17 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return $this->role === 1 || $this->role === 2;
+        return $this->role == 1 || $this->role == 2;
     }
 
     public function isSuperAdmin(): bool
     {
-        return $this->role === 1;
+        return $this->role == 1;
     }
 
     public function isActive(): bool
     {
-        return $this->status === 1;
+        return $this->status == 1;
     }
 
     public function properties()

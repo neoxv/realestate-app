@@ -12,9 +12,9 @@
                 $item->type == 'apartment'?'fa fa-building':(
                 $item->type == 'shop'?'ni ni-shop':(
                 $item->type == 'building'?'ni ni-building':(
-                $item->type === 'warehouse'?'fas fa-warehouse':(
-                $item->type = 'land'?'fa fa-globe':(
-                $item->type = 'hotel / resort'? 'fa fa-bed'
+                $item->type == 'warehouse'?'fas fa-warehouse':(
+                $item->type == 'land'?'fa fa-globe':(
+                $item->type == 'hotel/resort'? 'fa fa-bed'
                 :null))))))"/>
         @endforeach
     </ul>

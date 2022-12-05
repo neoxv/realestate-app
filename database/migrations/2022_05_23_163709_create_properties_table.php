@@ -29,7 +29,7 @@ return new class extends Migration
             $table->integer('profit')->nullable();
             $table->boolean('is_brokered')->default(false);
             $table->boolean('status')->default(true);
-            $table->enum('type', ['house', 'land', 'apartment', 'warehouse', 'building', 'shop'])->default('house');
+            $table->enum('type', ['house', 'land', 'apartment', 'warehouse', 'building', 'shop','hotel/resort'])->default('house');
             $table->foreignId('owner_id')->constrained();
             $table->boolean('is_featured')->default(false);
             $table->dateTime('feature_from')->nullable();

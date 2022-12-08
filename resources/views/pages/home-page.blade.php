@@ -23,48 +23,24 @@
     <div class="search-area" id="search-area-1">
         <div class="container">
             <div class="search-area-inner">
-                <div class="search-contents ">
-                    <form action="{{route('user.property.filter')}}" method="get">
-                        @csrf
-                        <div class="row">
-                            <x-home-page.filter-container :label="'Type | ዓይነት'">
-                                    <x-common.client.select class="search-fields" :name="'is_rental'" :options="[['value'=>'1','name'=>'For Rent|ኪራይ'],['value'=>'2','name'=>'For Sale|ሽያጭ']]" />
-                            </x-home-page.filter-container >
-
-                            <x-home-page.filter-container :label="'Category | ምድብ'">
-                                    <x-common.client.select class="search-fields" :name="'type'" :options="[['value'=>'house','name'=>'House|ቤት'],['value'=>'land','name'=>'Land|
-መሬት'],['value'=>'apartment','name'=>'Apartment|አፓርታማ'],['value'=>'warehouse','name'=>'Warehouse|መጋዘን'],['value'=>'building','name'=>'Building|ህንፃ'],['value'=>'shop','name'=>'Shop|ሱቅ'],['value' => 'hotel/resort', 'name'=>'Hotel/resort|ሆቴል/ሪዞርት']]" />
-                            </x-home-page.filter-container >
-
-                            <x-home-page.filter-container :label="'Location | አካባቢ'" >
-                                    <x-common.client.select class="search-fields" :name="'city'" :options="[['value'=>'addis ababa','name'=>'Addis Ababa|አዲስ አበባ']]" />
-                            </x-home-page.filter-container >
-
-                            <x-home-page.filter-container :label="'Sub City | ክፍለ ከተማ'" >
-                                @php
-                                    $subcity_list = array_map(function ($a) { return ['value'=>strtolower((explode('|',$a))[0]),'name'=>$a]; },['All|ሁሉም','Addis Ketema|አዲስ ከተማ ','Akaky Kaliti|አቃቂ ቃሊቲ','Arada|አራዳ', 'Bole|ቦሌ', 'Gullele|ጉሌሌ','Kirkos|ቂርቆስ','Kolfe Keranio|ኮልፌ ቀራንዮ', 'Lemi Kura|ለሚ ኩራ', 'Lideta|ልደታ', 'Nifas Silk-Lafto|ንፋስ ስልክ ላፍቶ','Yeka|የካ']);
-                                @endphp
-                                    <x-common.client.select class="search-fields" :name="'subcity'" :options="$subcity_list" />
-                            </x-home-page.filter-container >
-
+                <div class="search-contents">
+                    <div class="d-flex   justify-content-center " >
+                        <div class="" >
+                            <form action="{{route('user.property.filter')}}" method="get">
+                                @csrf
+                               <input type="hidden" name="is_rental" value="0">
+                                    <button class="btn btn-4 btn-block " style="background-color:#47A8BD">For Sale Properties </i></button>
+                            </form>
                         </div>
-                        <div class="row">
-                            <x-home-page.filter-container  :label="'Bedroom | መኝታ ቤት'">
-                                    <x-common.client.select class="search-fields" :name="'bedroom'" :options="[['value'=>'1','name'=>'1'],['value'=>'2','name'=>'2'],['value'=>'3','name'=>'3'],['value'=>'4','name'=>'4']]" />
-                            </x-home-page.filter-container >
-                            <x-home-page.filter-container :label="'Area | ስፋት'">
-                                <x-common.client.range-slider  :max="100000" :minname="'min_area'" :maxname="'max_area'" :unit="'sqm'"/>
-                            </x-home-page.filter-container >
-
-                            <x-home-page.filter-container :label="'Price | ዋጋ'">
-                                <x-common.client.range-slider  :max="50000000" :minname="'min_price'" :maxname="'max_price'" :unit="'birr'"/>
-                            </x-home-page.filter-container >
-
-                            <x-home-page.filter-container >
-                                <button class="btn btn-4 btn-block" type="submit">Filter</button>
-                            </x-home-page.filter-container >
+                        <div class="" style=" margin:0 10px 0">
+                            <form action="{{route('user.property.filter')}}"  method="get">
+                                    @csrf
+                                <input type="hidden"  name="is_rental" value="1">
+                                    <button class="btn btn-4 btn-block " style="background-color:#937666">For Rental Properties </button>
+                            </form>
                         </div>
-                    </form>
+                    </div>
+
                 </div>
             </div>
         </div>

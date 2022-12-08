@@ -207,10 +207,10 @@ class PropertyService implements PropertyServiceInterface
                     }
                 }
 
-                $query->where('price', '>=', $keys['min_price']);
-                $query->where('price', '<=', $keys['max_price']);
-                $query->where('area', '>=', $keys['min_area']);
-                $query->where('area', '<=', $keys['max_area']);
+                $query->where('price', '>=', $keys['min_price']??0);
+                $query->where('price', '<=', $keys['max_price']??100000);
+                $query->where('area', '>=', $keys['min_area']??0);
+                $query->where('area', '<=', $keys['max_area']??100000);
                 $query->where('is_brokered', '=', 0);
         })->paginate(5)->withQueryString();
         return $property;

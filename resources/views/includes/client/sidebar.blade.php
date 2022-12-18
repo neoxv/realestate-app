@@ -14,7 +14,7 @@
                 <li><a href="{{route('home')}}" class="active pt0">Home </a>
                 </li>
                 <li>
-                    <a href="{{route('user.property.list')}}">Properties </a>
+                    <a href="{{route('user.property.filter',['is_rental'=>'0'])}}">Properties </a>
                 </li>
                 @auth
                 <li>
@@ -34,6 +34,13 @@
                         <a href="{{route('register')}}" > Register</a>
                     </li>
                 @endguest
+                </li>
+                <li class="nav-item " >
+                    <form class="form-inline my-2 my-lg-0" action="{{route('user.property.search')}}" method="get">
+                        @csrf
+                        <input class="form-control mr-2" type="search" placeholder="Search" name="search" aria-label="Search" value="{{$key}}">
+                        <button   class="btn my-2 my-sm-0" style="color: white; background-color:#3f56ff;padding:6px" type="submit"><i class="fa fa-search" ></i> Search</button>
+                    </form>
                 </li>
             </ul>
         </div>

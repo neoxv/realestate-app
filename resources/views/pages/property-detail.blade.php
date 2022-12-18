@@ -152,6 +152,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="property-details mb-45 row">
+                    <h3 class="heading-3"> <i class="fa fa-phone" ></i> Call Broker : </h3>
+                     <a href="tel:{{isset($property->agent_phonenumber)? $property->agent_phonenumber != ""? $property->agent_phonenumber:config('app.phone'):null}}">
+                                   {{isset($property->agent_phonenumber)? $property->agent_phonenumber != ""? $property->agent_phonenumber:config('app.phone'):null}}
+                                </a>
+
+                </div>
                 <!-- Features opions start -->
                 <div class="features-opions af mb-45">
                     <h3 class="heading-3">Features</h3>

@@ -53,7 +53,7 @@
                  <a href="{{route('login')}}"><i class="fa fa-heart" style="color: white" ></i></a></li>
                 @endif
             </li>
-                <li><a href="tel:{{config('app.phone')}}"><i class="fa fa-phone" style="color: white"></i></a></li>
+                <li><a href="tel:{{isset($property->agent_phonenumber)? $property->agent_phonenumber != ""? $property->agent_phonenumber:config('app.phone'):null}}"><i class="fa fa-phone" style="color: white"></i></a></li>
             </ul>
         </div>
     </div>

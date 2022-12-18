@@ -29,7 +29,7 @@
                             </a>
                         </li>
                         <li>
-                            <i class="fa fa-building"></i><a href="{{route('user.property.list')}}" >Properties
+                            <i class="fa fa-building"></i><a href="{{route('user.property.filter',['is_rental'=>'0'])}}" >Properties
                             </a>
                         </li>
                         <li>

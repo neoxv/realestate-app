@@ -127,7 +127,7 @@
                                         <strong>Bathrooms:</strong>{{$property->bathroom}}
                                     </li>
                                     <li>
-                                        <strong>Bathrooms:</strong>{{$property->bedroom}}
+                                        <strong>Bedrooms:</strong>{{$property->bedroom}}
                                     </li>
                                 @endif
                             </ul>

@@ -141,10 +141,20 @@
 
                         <div class=" d-flex justify-content-start mb-2" id="property-images">
                         </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                               <div class="form-group">
+                                    <label class="text-primary" for="bathroom">Agent Phonenumber</label>
+                                    <input class="form-control" type="text"  id="agent_phonenumber" name="agent_phonenumber" >
+
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="property-status" value="true" name="status" checked="">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Change Status</label>
                         </div>
+
                         <div class="row">
                             <label class="text-primary">Features</label>
                             <div class="col-md-4">
@@ -568,6 +578,7 @@
     $('#owner').val(property.owner.id)
     $('#is_negotiable').val(property.is_negotiable?'1':'0')
     $('#description').val(property.description)
+    $('#agent_phonenumber').val(property.agent_phonenumber)
     $('#property-status').prop('checked',property.status)
     if(property.amenities){
         let amenties = property.amenities?.split(',')

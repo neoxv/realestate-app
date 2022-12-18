@@ -231,13 +231,24 @@ class PropertyController extends Controller
         unset($keys['_token']);
         if ($keys != null && count($keys) > 0) {
             $properties = $this->propertyService->filter($keys);
+            // $additionalProperties = [];
+            if(sizeof($properties) < 1 ){
+                unset($keys['price']);
+                unset($keys['area']);
+                unset($keys['bedroom']);
+                $keys['subcity']="all";
+                $properties = $this->propertyService->filter($keys);
+            }
             $report = $this->propertyService->getPropertyReportForDashboard();
             $count = [];
             foreach ($report as $type => $value) {
                 $count[$value->type] = $value->stock_count;
             }
-
-            return view('pages.property-list', ['properties' => $properties,'count'=>$count]);
+            $switchStatus=false;
+            if(isset($keys['is_rental']) && ($keys['is_rental'] == true || $keys['is_rental'] == '1')){
+                $switchStatus = true;
+            }
+            return view('pages.property-list', ['properties' => $properties,'count'=>$count, 'category_switch'=>$switchStatus]);
         }
         return redirect()->route('search');
     }
@@ -253,9 +264,9 @@ class PropertyController extends Controller
                 $count[$value->type] = $value->stock_count;
             }
 
-            return view('pages.property-list', ['properties' => $properties, 'key' => $key, 'count' => $count]);
+            return view('pages.property-list', ['properties' => $properties, 'key' => $key, 'count' => $count, 'category_switch' => false]);
         }
-        return redirect()->route('user.property.list');
+        return redirect()->route('user.property.filter',['is_rental'=>'0', 'category_switch' => false]);
     }
 
     public function createFeature(Request $request)

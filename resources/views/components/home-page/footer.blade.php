@@ -18,7 +18,7 @@
                             <div class="footer-link">
                                 <h4>Useful Links</h4>
                                 <ul class="links">
-                                    <li><a href="{{route('user.property.list')}}">Properties</a></li>
+                                    <li><a href="{{route('user.property.filter',['is_rental'=>'0'])}}">Properties</a></li>
                                     <li><a href="{{route('contact')}}">Contact Us</a></li>
                                     @auth()
                                     <form action="{{route('logout.admin')}}" method="POST">

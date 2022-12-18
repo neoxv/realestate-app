@@ -202,16 +202,25 @@ class PropertyService implements PropertyServiceInterface
         // dd($keys);
         $property = Property::where(function ($query) use ($keys) {
                 foreach ($keys as $key => $value) {
-                    if($key != 'page' &&  $key != 'min_price' && $key != 'max_price' && $key != 'min_area' && $key != 'max_area' && ($key != 'subcity' || ($key == 'subcity' && $keys['city'] == 'addis ababa' && $keys['subcity'] != 'all' ))){
-                        $query->where($key, '=', $value);
+                    if($key != 'page' &&  $key != 'price' && $key != 'area' && ($key != 'subcity' || ($key == 'subcity' && $keys['city'] == 'addis ababa' && $keys['subcity'] != 'all' ))){
+                        if($key == 'is_rental'){
+                            if($value == "0"){
+                                $query->where($key, '=', false);
+                            }else{
+                                $query->where($key,'=',true);
+                            }
+                        } else if ($key == 'price' && $value != 0) {
+                            $query->where('price', '<=', $value);
+                        }else if ($key == 'area'&& $value != 0) {
+                            $query->where('area', '<=', $value);
+                        }else{
+                            $query->where($key, '=', $value);
+                        }
                     }
                 }
 
-                $query->where('price', '>=', $keys['min_price']??0);
-                $query->where('price', '<=', $keys['max_price']??100000);
-                $query->where('area', '>=', $keys['min_area']??0);
-                $query->where('area', '<=', $keys['max_area']??100000);
                 $query->where('is_brokered', '=', 0);
+
         })->paginate(5)->withQueryString();
         return $property;
     }

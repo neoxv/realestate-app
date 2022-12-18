@@ -2,7 +2,6 @@
 <!-- Sub banner start -->
 <x-common.client.sub-banner :title="'Properties List'"/>
 <!-- Sub banner end -->
-
 <!-- properties list rightside start -->
 <div class="properties-list-rightside content-area-2 pb-0">
     <div class="container">
@@ -43,16 +42,33 @@
             <div class="col-lg-4 col-md-12">
                 <div class="sidebar mbl">
                     <!-- Search area start -->
+                    <div class="d-flex   justify-content-center mb-3" >
+                        <div class="" style=" margin:0 10px 0">
+                            <form action="{{route('user.property.filter')}}"  method="get">
+                                    @csrf
+                                        <input type="hidden" name="is_rental" value={{$category_switch?"0":"1"}}>
+                                    <div class="d-flex justify-content-between mt-3 mb-0 pb-0 align-items-end">
+                                            <label for="" class="sidebar-title mb-0">SALE</label>
+                                            <label for="" class="sidebar-title mb-0">RENTAL</label>
+                                        </div>
+                                    <div class="switch_container">
+                                        <input type="checkbox" id="category_switch" name="is_rental" onchange="this.form.submit()" {{$category_switch?"checked":null}}  /><label id="category_switch_label" for="category_switch">.</label>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
                     <div class="widget search-area">
                         <h5 class="sidebar-title">Advanced Search</h5>
                         <div class="search-area-inner">
                             <div class="search-contents ">
+
                                 <form method="get" action="{{route('user.property.filter')}}">
                                     @csrf
                                     <div class="form-group">
-                                        <x-common.client.form-group :label="'Type | ዓይነት'">
+                                        {{-- <x-common.client.form-group :label="'Type | ዓይነት'">
                                                 <x-common.client.select class="search-fields" :name="'is_rental'"  :options="[['value'=>'1','name'=>'For Rent|ኪራይ'],['value'=>'2','name'=>'For Sale|ሽያጭ']]" />
-                                        </x-common.client.form-group >
+                                        </x-common.client.form-group > --}}
+                                        <input type="hidden" name="is_rental" value={{$category_switch?"1":"0"}}>
 
                                         <x-common.client.form-group :label="'Category | ምድብ'">
                                                 <x-common.client.select class="search-fields" :name="'type'" :options="[['value'=>'house','name'=>'House|ቤት'],['value'=>'land','name'=>'Land|
@@ -73,15 +89,15 @@
                                                 <x-common.client.select class="search-fields" :name="'bedroom'" :options="[['value'=>'1','name'=>'1'],['value'=>'2','name'=>'2'],['value'=>'3','name'=>'3'],['value'=>'4','name'=>'4']]" />
                                         </x-common.client.form-group >
                                         <x-common.client.form-group :label="'Area | ስፋት'">
-                                            <x-common.client.range-slider  :max="100000" :minname="'min_area'" :maxname="'max_area'" :unit="'sqm'"/>
+                                            <input type='number' name="area" class="form-control"  placeholder='0 sqm' />
                                         </x-common.client.form-group >
 
                                         <x-common.client.form-group :label="'Price | ዋጋ'">
-                                            <x-common.client.range-slider  :max="50000000" :minname="'min_price'" :maxname="'max_price'" :unit="'birr'"/>
+                                             <input type='number' name="price" class="form-control"   placeholder='0 Birr' />
                                         </x-common.client.form-group >
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <a class="btn btn-4 btn-block" href="{{route('user.property.list')}}" style="color: white">Reset</a>
+                                                <a class="btn btn-4 btn-block" href="{{route('user.property.filter',['is_rental'=>'0'])}}" style="color: white">Reset</a>
                                             </div>
                                             <div class="col-md-6">
                                                 <button class="btn- btn-4 btn-block">Filter</button>

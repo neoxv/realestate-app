@@ -21,7 +21,7 @@
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{{route('user.property.list')}}" id="navbarDropdownMenuLink2"
+                                <a class="nav-link dropdown-toggle" href="{{route('user.property.filter',['is_rental'=>'0'])}}" id="navbarDropdownMenuLink2"
                                      aria-haspopup="true" aria-expanded="false">
                                     Properties
                                 </a>

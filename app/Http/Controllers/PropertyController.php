@@ -192,6 +192,7 @@ class PropertyController extends Controller
     public function search(Request $request)
     {
         $key = $request->input('search');
+        $key = str_replace(',', '', $key);
         if ($key != '' || $key != null) {
             $properties = $this->propertyService->search($key);
             return view('pages.admin.properties', ['properties' => $properties, 'key' => $key, 'subject' => 'property', 'ownersList' => $this->ownerService->get(['id', 'name']), 'owners' => $this->ownerService->getAll(), 'types' => $this->propertyService->getAllTypes()]);

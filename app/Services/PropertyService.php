@@ -12,7 +12,7 @@ class PropertyService implements PropertyServiceInterface
 {
     public function getAll()
     {
-        return Property::with(['owner','documents'])->paginate(5,['*'],'propertiesAllPage')->withQueryString();
+        return Property::with(['owner','documents'])->paginate(10,['*'],'propertiesAllPage')->withQueryString();
     }
 
     public function getFeatured($page = null)
@@ -131,13 +131,13 @@ class PropertyService implements PropertyServiceInterface
     }
 
     public function getAllTypes(){
-        return ['land','shop','house','building', 'apartment', 'warehouse','hotel/resort'];
+        return ['land','shop','house','building', 'apartment', 'warehouse/factory','hotel/resort'];
     }
 
     public function search($key){
         $property = Property::with('owner')->where(function ($query) use ($key) {
 
-            $columns = ['name', 'city','address','type','number'];
+            $columns = ['name', 'city','address','type','number','area','price'];
 
             foreach ($columns as $column) {
                 $query->orWhere($column, 'LIKE', '%' . $key . '%');
@@ -151,7 +151,7 @@ class PropertyService implements PropertyServiceInterface
                     $q->orWhere('secondary_phone', 'LIKE', '%' . $key . '%');
                 });
             });
-        })->paginate(5, ['*'], 'propertiesAdminPage')->withQueryString();
+        })->paginate(10, ['*'], 'propertiesAdminPage')->withQueryString();
         return $property;
     }
 

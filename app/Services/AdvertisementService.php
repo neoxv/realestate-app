@@ -6,6 +6,7 @@ use App\Interfaces\AdvertisementServiceInterface;
 use App\Models\Advertisement;
 use Illuminate\Support\Facades\DB;
 use App\Models\Document;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
 
@@ -18,7 +19,10 @@ class AdvertisementService implements AdvertisementServiceInterface
 
     public function getActiveAdvertisements()
     {
-        return Advertisement::where('status', true)->with(['documents'])->get();
+
+        $today =  Carbon::now()->subDay()->format('Y-m-d H:i:s');
+
+        return Advertisement::where('status', true)->whereDate('to', '>', $today)->with(['documents'])->get();
     }
 
     public function getById($id)

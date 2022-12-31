@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('properties', function (Blueprint $table) {
-            $table->string('agent_phonenumber')->default("");
+            $table->string('agent_phonenumber')->default("")->nullable();
         });
     }
 

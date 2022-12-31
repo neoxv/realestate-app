@@ -30,4 +30,5 @@
         </div>
     </div>
     <x-admin.chart-script :user-data="$user_count" :data='$report'/>
+
 </x-common.admin.container>

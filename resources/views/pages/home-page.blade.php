@@ -29,14 +29,14 @@
                             <form action="{{route('user.property.filter')}}" method="get">
                                 @csrf
                                <input type="hidden" name="is_rental" value="0">
-                                    <button class="btn btn-4 btn-block " style="background-color:#47A8BD">For Sale Properties </i></button>
+                                    <button class="btn btn-4 btn-block " style="background-color:#47A8BD">Properties For Sale</i></button>
                             </form>
                         </div>
                         <div class="" style=" margin:0 10px 0">
                             <form action="{{route('user.property.filter')}}"  method="get">
                                     @csrf
                                 <input type="hidden"  name="is_rental" value="1">
-                                    <button class="btn btn-4 btn-block " style="background-color:#937666">For Rental Properties </button>
+                                    <button class="btn btn-4 btn-block " style="background-color:#937666">Properties For Rental</button>
                             </form>
                         </div>
                     </div>

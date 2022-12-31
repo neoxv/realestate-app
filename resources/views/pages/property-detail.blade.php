@@ -153,7 +153,7 @@
                     </div>
                 </div>
                 <div class="property-details mb-45 row">
-                    <h3 class="heading-3"> <i class="fa fa-phone" ></i> Call Broker : </h3>
+                    <h3 class="heading-3" style="color: {{$property->is_rental?'#937666':'#47A8BD'}}"> <i class="fa fa-phone" ></i> Call Broker : </h3>
                      <a href="tel:{{isset($property->agent_phonenumber)? $property->agent_phonenumber != ""? $property->agent_phonenumber:config('app.phone'):null}}">
                                    {{isset($property->agent_phonenumber)? $property->agent_phonenumber != ""? $property->agent_phonenumber:config('app.phone'):null}}
                                 </a>

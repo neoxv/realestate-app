@@ -16,3 +16,5 @@
         <link href="{{asset('admin-assets/css/nucleo-svg.css')}}" rel="stylesheet" />
         <!-- CSS Files -->
         <link id="pagestyle" href="{{asset('admin-assets/css/argon-dashboard.css?v=2.0.2')}}" rel="stylesheet" />
+        <link type='text/css' refl='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >
+

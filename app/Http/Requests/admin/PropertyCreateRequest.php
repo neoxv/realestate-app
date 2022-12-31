@@ -30,7 +30,7 @@ class PropertyCreateRequest extends FormRequest
             'area' => 'required|numeric',
             'bathroom' => 'numeric',
             'bedroom' => 'numeric',
-            'type' => 'required|string|in:land,house,shop,building,apartment,warehouse,hotel/resort',
+            'type' => 'required|string|in:land,house,shop,building,apartment,warehouse/factory,hotel/resort',
             'address' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'is_rental'=>'required|boolean',

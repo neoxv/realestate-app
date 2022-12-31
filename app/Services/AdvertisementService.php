@@ -21,7 +21,6 @@ class AdvertisementService implements AdvertisementServiceInterface
     {
 
         $today =  Carbon::now()->subDay()->format('Y-m-d H:i:s');
-        // dd($today);
 
         return Advertisement::where('status', true)->whereDate('to', '>', $today)->with(['documents'])->get();
     }

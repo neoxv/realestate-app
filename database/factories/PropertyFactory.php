@@ -34,7 +34,7 @@ class PropertyFactory extends Factory
             'feature_from'=>$this->faker->dateTime,
             'feature_to' => $this->faker->dateTime,
             'is_negotiable'=>$this->faker->boolean,
-            'type'=>$this->faker->randomElement(['house', 'land', 'apartment', 'warehouse', 'building', 'shop','hotel/resort']),
+            'type'=>$this->faker->randomElement(['house', 'land', 'apartment', 'warehouse/factory', 'building', 'shop','hotel/resort']),
         ];
     }
 

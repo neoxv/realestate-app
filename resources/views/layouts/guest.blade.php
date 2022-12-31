@@ -21,6 +21,7 @@
         <link type="text/css" rel="stylesheet" href="{{asset('client-assets/css/jquery.mCustomScrollbar.css')}}">
         <link type="text/css" rel="stylesheet" href="{{asset('client-assets/fonts/font-awesome/css/font-awesome.min.css')}}">
         <link type="text/css" rel="stylesheet" href="{{asset('client-assets/fonts/flaticon/font/flaticon.css')}}">
+        <link type='text/css' refl='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >
 
         <!-- Favicon icon -->
         <link rel="shortcut icon" href="{{asset('storage/img/settings/'.config('app.logo'))}}" type="image/x-icon" >

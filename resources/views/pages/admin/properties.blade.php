@@ -571,7 +571,7 @@
     $('#area').val(property.area)
     $('#bedroom').val(property.bedroom)
     $('#bathroom').val(property.bathroom)
-    if(property.type != 'land' &&  property.type != 'shop' && property.type != 'building' && property.type != 'warehouse' && property.type != 'hotel/resort'){
+    if(property.type != 'land' &&  property.type != 'shop' && property.type != 'building' && property.type != 'warehouse/factory' && property.type != 'hotel/resort'){
         $('#bedroom').removeAttr('disabled')
         $('#bathroom').removeAttr('disabled')
     }
@@ -647,7 +647,7 @@
         event.preventDefault();
         let bedroomInput = document.getElementById('bedroom')
         let bathroomInput = document.getElementById('bathroom')
-        if (event.target.value == 'land' || event.target.value == 'shop' || event.target.value == 'building' || event.target.value == 'warehouse') {
+        if (event.target.value == 'land' || event.target.value == 'shop' || event.target.value == 'building' || event.target.value == 'warehouse/factory') {
             bedroomInput.setAttribute('disabled','')
             bathroomInput.setAttribute('disabled','')
         }else{

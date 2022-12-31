@@ -72,7 +72,7 @@
 
                                         <x-common.client.form-group :label="'Category | ምድብ'">
                                                 <x-common.client.select class="search-fields" :name="'type'" :options="[['value'=>'house','name'=>'House|ቤት'],['value'=>'land','name'=>'Land|
-መሬት'],['value'=>'apartment','name'=>'Apartment|አፓርታማ'],['value'=>'warehouse','name'=>'Warehouse|መጋዘን'],['value'=>'building','name'=>'Building|ህንፃ'],['value'=>'shop','name'=>'Shop|ሱቅ'],['value' => 'hotel/resort', 'name'=>'Hotel/resort|ሆቴል/ሪዞርት']]" />
+መሬት'],['value'=>'apartment','name'=>'Apartment|አፓርታማ'],['value'=>'warehouse/factory','name'=>'Warehouse/factory|መጋዘን/ፋብሪካ'],['value'=>'building','name'=>'Building|ህንፃ'],['value'=>'shop','name'=>'Shop|ሱቅ'],['value' => 'hotel/resort', 'name'=>'Hotel/resort|ሆቴል/ሪዞርት']]" />
                                         </x-common.client.form-group >
 
                                         <x-common.client.form-group :label="'Location | አካባቢ'" >

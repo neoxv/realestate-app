@@ -1,5 +1,5 @@
 @props(['ad'=>null])
-<div class="col-lg-6 col-md-6 col-sm-12" onclick="javascript:window.location.href='https://{{$ad?->link}}'">
+<div class="col-lg-6 col-md-6 col-sm-12" onclick="javascript:window.location.href='{{$ad?->link}}'">
                     <div class="slick-slide-item">
                     <div class="property-box-4">
                         <div class="thumbnail_inner">

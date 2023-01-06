@@ -76,7 +76,13 @@
                                         </x-common.client.form-group >
 
                                         <x-common.client.form-group :label="'Location | አካባቢ'" >
-                                                <x-common.client.select class="search-fields" :name="'city'" :options="[['value'=>'addis ababa','name'=>'Addis Ababa|አዲስ አበባ']]" />
+                                                @php
+                                                    $locationList = [["value"=>'all',"name"=>"All"]];
+                                                    foreach ($locations as $key => $value) {
+                                                      array_push($locationList,['value'=>strtolower($value->city),'name'=> ucwords($value->city)]);
+                                                    }
+                                                @endphp
+                                                <x-common.client.select class="search-fields" :name="'city'" :options="$locationList" />
                                         </x-common.client.form-group >
 
                                         <x-common.client.form-group :label="'Sub City | ክፍለ ከተማ'" >

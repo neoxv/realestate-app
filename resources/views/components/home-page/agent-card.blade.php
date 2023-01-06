@@ -29,6 +29,12 @@
                     <p>
                         <a href="{{'tel:'.config('app.phone')}}"> <i class="fa fa-phone"></i>{{config('app.phone')}}</a>
                     </p>
+                    @if (config('app.second_phone') != null || config('app.second_phone') != '' )
+                        <p>
+                            <a href="{{'tel:'.config('app.second_phone')}}"> <i class="fa fa-phone"></i>{{config('app.second_phone')}}</a>
+                        </p>
+                    @endif
+
                 </div>
             </div>
         </div>

@@ -21,4 +21,5 @@ interface PropertyServiceInterface
     public function getAllFavourites();
     public function searchFavourite($key);
     public function searchFeatured($key);
+    public function getAllLocations();
 }

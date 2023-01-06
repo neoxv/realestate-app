@@ -120,8 +120,10 @@ class PropertyController extends Controller
         foreach ($report as $type => $value) {
             $count[$value->type] = $value->stock_count;
         }
+        $locations = $this->propertyService->getAllLocations();
 
-        return view('pages.property-list', ['properties' => $response,'count'=>$count]);
+
+        return view('pages.property-list', ['properties' => $response,'count'=>$count, 'locations'=>$locations]);
     }
 
 
@@ -238,7 +240,10 @@ class PropertyController extends Controller
                 unset($keys['area']);
                 unset($keys['bedroom']);
                 $keys['subcity']="all";
-                $properties = $this->propertyService->filter($keys);
+                $keys['city'] = "all";
+                $x = $this->propertyService->filter($keys);
+                // dd($x);
+
             }
             $report = $this->propertyService->getPropertyReportForDashboard();
             $count = [];
@@ -249,7 +254,8 @@ class PropertyController extends Controller
             if(isset($keys['is_rental']) && ($keys['is_rental'] == true || $keys['is_rental'] == '1')){
                 $switchStatus = true;
             }
-            return view('pages.property-list', ['properties' => $properties,'count'=>$count, 'category_switch'=>$switchStatus]);
+            $locations = $this->propertyService->getAllLocations();
+            return view('pages.property-list', ['properties' => $properties,'count'=>$count, 'category_switch'=>$switchStatus,'locations'=>$locations]);
         }
         return redirect()->route('search');
     }
@@ -264,8 +270,9 @@ class PropertyController extends Controller
             foreach ($report as $type => $value) {
                 $count[$value->type] = $value->stock_count;
             }
+            $locations = $this->propertyService->getAllLocations();
 
-            return view('pages.property-list', ['properties' => $properties, 'key' => $key, 'count' => $count, 'category_switch' => false]);
+            return view('pages.property-list', ['properties' => $properties, 'key' => $key, 'count' => $count, 'category_switch' => false, 'locations' =>$locations]);
         }
         return redirect()->route('user.property.filter',['is_rental'=>'0', 'category_switch' => false]);
     }

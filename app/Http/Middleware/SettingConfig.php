@@ -43,6 +43,7 @@ class SettingConfig
                 'app.telegram' => $setting->telegram,
                 'app.email' => $setting->email,
                 'app.phone' => $setting->primary_phone,
+                'app.second_phone' => $setting->secondary_phone,
                 'app.address' => $setting->address,
                 'app.description' => $setting->description
             ]);

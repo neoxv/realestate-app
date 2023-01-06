@@ -98,6 +98,7 @@ class OwnerController extends Controller
      */
     public function destroy(Owner $owner)
     {
+
         $properties = $owner->properties;
         foreach ($properties as $property) {
             $documents = $property->documents;
@@ -106,7 +107,7 @@ class OwnerController extends Controller
             }
             $response = $this->propertyService->delete($property);
         }
-        $this->ownerService->delete($owner);
+        $response = $this->ownerService->delete($owner);
         if ($response->success) {
             return redirect()->route('admin.properties')->with('success', $response->message);
         } else {

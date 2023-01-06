@@ -11,6 +11,7 @@
     gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var data = [0,0,0,0,0,0,0,0,0,0,0,0];
+
     @foreach($userData as $user)
         data[{{$user->month}}-1] = {{$user->count}};
     @endforeach
@@ -20,10 +21,11 @@
     if(currentMonth - 5 < 0) {
         var secondHalfData = data.slice(0, currentMonth + 1);
         var firstHalfData = data.slice(currentMonth - 5);
-        slicedData = firstHalfLabel.concat(secondHalfLabel);
+
         var secondHalfLabel = months.slice(0, currentMonth + 1);
         var firstHalfLabel = months.slice(currentMonth - 5);
-        sliced = firstHalfLabel.concat(secondHalfLabel);
+        slicedLabel = firstHalfLabel.concat(secondHalfLabel);
+        slicedData = firstHalfData.concat(secondHalfData);
     } else {
         slicedLabel = months.slice(currentMonth - 5, currentMonth + 1);
         slicedData = data.slice(currentMonth - 5, currentMonth + 1);

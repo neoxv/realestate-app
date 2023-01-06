@@ -15,6 +15,10 @@ class PropertyService implements PropertyServiceInterface
         return Property::with(['owner','documents'])->paginate(10,['*'],'propertiesAllPage')->withQueryString();
     }
 
+    public function getAllLocations(){
+        return Property::select('city')->distinct()->get();
+    }
+
     public function getFeatured($page = null)
     {
         if($page != null){
@@ -202,7 +206,7 @@ class PropertyService implements PropertyServiceInterface
         // dd($keys);
         $property = Property::where(function ($query) use ($keys) {
                 foreach ($keys as $key => $value) {
-                    if($key != 'page' &&  $key != 'price' && $key != 'area' && ($key != 'subcity' || ($key == 'subcity' && $keys['city'] == 'addis ababa' && $keys['subcity'] != 'all' ))){
+                    if($value != null && $value != 'all' && $key != 'page' && ($key != 'subcity' || ($key == 'subcity' && $keys['city'] == 'addis ababa' )) && ($key != "bedroom" || $key == 'bedroom' && ($keys['type'] == 'house' || $keys['type'] == 'apartment'))){
                         if($key == 'is_rental'){
                             if($value == "0"){
                                 $query->where($key, '=', false);

@@ -7,6 +7,7 @@ use App\Models\Property;
 use Illuminate\Support\Facades\DB;
 use App\Interfaces\PropertyServiceInterface;
 use App\Models\User;
+use Carbon\Carbon;
 
 class PropertyService implements PropertyServiceInterface
 {
@@ -19,12 +20,18 @@ class PropertyService implements PropertyServiceInterface
         return Property::select('city')->distinct()->get();
     }
 
-    public function getFeatured($page = null)
+    public function getFeatured($page = null,$dashboard=false)
     {
         if($page != null){
             return Property::where('is_featured', true)->orderBy('updated_at','desc')->with(['documents', 'owner','users'])->paginate($page, ['*'], 'featuredClientPage')->withQueryString();
         }
 
+        if($dashboard){
+            $allFeatured = Property::where('is_featured', true)->where("is_brokered",false)->orderBy('updated_at', 'desc');
+            $today =  Carbon::now()->subDays(5)->format('Y-m-d H:i:s');
+            // dd($today);
+            return Property::where('is_featured', true)->where("is_brokered", true)->whereDate('closing_date', '>', $today)->orderBy('updated_at', 'desc')->union($allFeatured)->with(['documents', 'owner', 'users'])->get();
+        }
         return Property::where('is_featured', true)->orderBy('updated_at', 'desc')->with(['documents', 'owner','users'])->get();
     }
 
@@ -43,7 +50,13 @@ class PropertyService implements PropertyServiceInterface
         return Property::find($id);
     }
 
-    public function getByAttribute($attribute, $value,$with=['documents','users'],$page=5){
+    public function getByAttribute($attribute, $value,$with=['documents','users'],$page=5,$dashboard=false){
+        if($dashboard){
+            $all = Property::where($attribute, $value)->where('is_featured',false)->where('is_brokered',false)->orderBy('updated_at', 'desc');
+            $today =  Carbon::now()->subDays(5)->format('Y-m-d H:i:s');
+            // dd($today);
+            return Property::where($attribute, $value)->where('is_brokered',true)->where('is_featured',false)->whereDate('closing_date', '>', $today)->union($all)->orderBy('updated_at', 'desc')->with($with)->get();
+        }
         return Property::where($attribute,$value)->orderBy('updated_at', 'desc')->with($with)->paginate($page,['*'],'byAttributePage')->withQueryString();
     }
 

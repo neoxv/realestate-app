@@ -25,7 +25,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="text-primary" for="address">Address</label>
-                            <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address" placeholder="Building, Office Number"  value={{$setting ? $setting->address:""}}>
+                            <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address" placeholder="Building, Office Number"  value="{{$setting ? $setting->address:""}}">
                         </div>
                     </div>
                 </div>

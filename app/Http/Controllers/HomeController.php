@@ -24,15 +24,15 @@ class HomeController extends Controller
      */
     public function show()
     {
-        $featured = $this->propertyService->getFeatured(null);
+        $featured = $this->propertyService->getFeatured(null,true);
         $count = 6 - count($featured);
         if($count > 0){
             $recent = $this->propertyService->getRecent($count);
         }else{
             $recent = [];
         }
-        $sale = $this->propertyService->getByAttribute('is_rental', false, ['documents', 'users'], 6);
-        $rent = $this->propertyService->getByAttribute('is_rental', true, ['documents', 'users'], 6);
+        $sale = $this->propertyService->getByAttribute('is_rental', false, ['documents', 'users'], 6,true);
+        $rent = $this->propertyService->getByAttribute('is_rental', true, ['documents', 'users'], 6,true);
         $ads = $this->advertisementService->getActiveAdvertisements();
         return view('pages.home-page',['featured'=>$featured,'recent'=>$recent,'ads'=> $ads,'sale'=>$sale,'rent'=>$rent]);
     }

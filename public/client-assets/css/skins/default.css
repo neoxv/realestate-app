@@ -786,6 +786,10 @@ blockquote footer{
     color: #3f56ff;
 }
 
+.property-box:hover .listing-badges .brokered{
+    color: #C81011 !important;
+}
+
 .property-box:hover .tag-for {
     color: #3f56ff;
 }
@@ -802,6 +806,11 @@ blockquote footer{
     color: #3f56ff;
 }
 
+.property-box-5:hover .brokered {
+    color: white !important;
+}
+
+
 .contact-section .login-inner-form .footer span a:hover{
     color: #3f56ff;
 }
@@ -812,6 +821,10 @@ blockquote footer{
 
 .listing-badges .featured {
     background: #3f56ff;
+}
+
+.listing-badges .brokered{
+    background: #C81011 ;
 }
 
 .property-box-7 .footer ul li a:hover{

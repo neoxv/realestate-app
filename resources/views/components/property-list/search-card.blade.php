@@ -4,9 +4,13 @@
         <div class="col-lg-5 col-md-5 col-pad" >
             <div class="">
                 <a href="{{route('detail',['property'=>$property->id])}}" class="property-img">
-                    @if ($property->is_featured)
+                    @if ($property->is_featured && !$property->is_brokered)
                         <div class="listing-badges">
                             <span class="featured">Featured</span>
+                        </div>
+                    @elseif ($property->is_brokered)
+                        <div class="listing-badges">
+                            <span class="featured brokered" style="background: #C81011"> {{$property->is_rental?'RENTED':'SOLD'}}</span>
                         </div>
                     @endif
                     <div class="tag-for"  style="background-color: {{$property->is_rental?'#937666':'#47A8BD'}};">{{$property->is_rental?'For Rent':'For Sale'}}</div>

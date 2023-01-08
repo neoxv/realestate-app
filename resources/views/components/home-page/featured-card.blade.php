@@ -3,8 +3,15 @@
 <div class="col-lg-4 col-md-4 col-sm-12 filtr-item mb-2" data-category="3, 2">
     <div class="property-box-7">
         <div class="property-thumbnail">
+
             <a href="{{route('detail',['property'=>$property->id])}}" class="property-img">
-                <div class="tag-2" style="background-color: {{$property->is_rental?'#937666':'#47A8BD'}};">{{$property->is_rental?'For Rent':'For Sale'}}</div>
+
+                @if ($property->is_brokered)
+                    <div class="ribbon ribbon-top-right"><span>  {{$property->is_rental?'RENTED':'SOLD'}}</span></div>
+                @endif
+
+                <div class="tag-2" style="background-color: {{$property->is_rental?'#937666':'#47A8BD'}};">
+                    {{$property->is_rental?'For Rent':'For Sale'}}</div>
                 <div class="price-box"><span>{{number_format($property->price)}} Birr </span>{{$property->is_negotiable?'Negotioable':'Fixed'}} </div>
                 <img src="{{asset(count($property->documents) > 0 ?'storage/img/properties/'. $property->documents->first()->filename:'storage/img/default.png')}}" alt="property-box-7" class="img-fluid" style="width: 100%; height: 288px; object-fit: cover;">
             </a>

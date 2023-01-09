@@ -560,7 +560,7 @@
   function editProperty(property){
     $('#property-form').modal('show')
     $('#property-id').val(property.id)
-    $('#is_rental').val(property.is_rental?'1':'0')
+    $('#is_rental').val(property.is_rental == 1?'1':'0')
     $('#type').val(property.type)
     $('#city').val(property.city)
     $('#subcity').val(property.subcity??'none')

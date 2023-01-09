@@ -30,7 +30,7 @@ class PropertyService implements PropertyServiceInterface
             $allFeatured = Property::where('is_featured', true)->where("is_brokered",false)->orderBy('updated_at', 'desc');
             $today =  Carbon::now()->subDays(5)->format('Y-m-d H:i:s');
             // dd($today);
-            return Property::where('is_featured', true)->where("is_brokered", true)->whereDate('closing_date', '>', $today)->orderBy('updated_at', 'desc')->union($allFeatured)->with(['documents', 'owner', 'users'])->get();
+            return Property::where('is_featured', true)->where("is_brokered", true)->whereDate('closing_date', '>', $today)->orderBy('updated_at', 'desc')->union($allFeatured)->with(['documents', 'owner', 'users'])->paginate($page, ['*'], 'FeaturedPage')->withQueryString();
         }
         return Property::where('is_featured', true)->orderBy('updated_at', 'desc')->with(['documents', 'owner','users'])->get();
     }
@@ -55,7 +55,7 @@ class PropertyService implements PropertyServiceInterface
             $all = Property::where($attribute, $value)->where('is_featured',false)->where('is_brokered',false)->orderBy('updated_at', 'desc');
             $today =  Carbon::now()->subDays(5)->format('Y-m-d H:i:s');
             // dd($today);
-            return Property::where($attribute, $value)->where('is_brokered',true)->where('is_featured',false)->whereDate('closing_date', '>', $today)->union($all)->orderBy('updated_at', 'desc')->with($with)->get();
+            return Property::where($attribute, $value)->where('is_brokered',true)->where('is_featured',false)->whereDate('closing_date', '>', $today)->union($all)->orderBy('updated_at', 'desc')->with($with)->paginate($page, ['*'], 'byAttributePage')->withQueryString();
         }
         return Property::where($attribute,$value)->orderBy('updated_at', 'desc')->with($with)->paginate($page,['*'],'byAttributePage')->withQueryString();
     }

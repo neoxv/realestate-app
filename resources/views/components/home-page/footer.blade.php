@@ -56,7 +56,7 @@
                                     <li><a href="{{config('app.youtube')}}" target="_blank"><i class="fa fa-youtube-play" style="color:#fb3958"></i></a></li>
                                     <li><a href="{{config('app.telegram')}}" target="_blank" ><i class="fa fa-telegram" style="color:#1c82ca"></i></a></li>
                                     <li><a href="{{config('app.tiktok')}}" target="_blank" ><img src="{{asset('storage/img/others/tik-tok.png')}}" style="width: 20px;" alt=""></a></li>
-                                    <li><a href="https://wa.me/+251{{config('app.phone')}}" target="_blank"  ><img src="{{asset('storage/img/others/whatsapp.png')}}" style="width: 20px;" alt=""></a></li>
+                                    <li><a href="https://wa.me/{{config('app.phone')}}" target="_blank"  ><img src="{{asset('storage/img/others/whatsapp.png')}}" style="width: 20px;" alt=""></a></li>
 
                                 </ul>
                             </div>

@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function show()
     {
-        $featured = $this->propertyService->getFeatured(null,true);
+        $featured = $this->propertyService->getFeatured(6,true);
         $count = 6 - count($featured);
         if($count > 0){
             $recent = $this->propertyService->getRecent($count);

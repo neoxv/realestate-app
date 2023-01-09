@@ -6,7 +6,7 @@
 
         <div class="property-thumbnail">
                 @if ($property->is_brokered)
-                        <div class="ribbon ribbon-top-right" style="z-index: 9999;"><span>  {{$property->is_rental?'RENTED':'SOLD'}}</span></div>
+                        <div class="ribbon ribbon-top-right" style="z-index: 100;"><span>  {{$property->is_rental?'RENTED':'SOLD'}}</span></div>
                 @endif
             <a href="{{$property->is_brokered?'#':route('detail',['property'=>$property->id])}}" class="property-img">
 

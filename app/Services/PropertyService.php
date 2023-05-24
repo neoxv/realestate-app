@@ -37,7 +37,7 @@ class PropertyService implements PropertyServiceInterface
 
     public  function get()
     {
-        return Property::where('is_brokered', false)->where('status',true)->orderBy('updated_at', 'desc')->with(['documents','users'])->paginate(5, ['*'], 'listPage')->withQueryString();
+        return Property::where('is_brokered', false)->where('status',true)->orderBy('created_at', 'desc')->with(['documents','users'])->paginate(5, ['*'], 'listPage')->withQueryString();
     }
 
     public function getRecent($amount=5)
@@ -210,7 +210,7 @@ class PropertyService implements PropertyServiceInterface
             foreach ($columns as $column) {
                 $query->orWhere($column, 'LIKE', '%' . $key . '%');
             }
-        })->paginate(5, ['*'], 'propertiesSearchPage')->withQueryString();
+        })->orderBy('created_at', 'desc')->paginate(5, ['*'], 'propertiesSearchPage')->withQueryString();
         return $property;
     }
 
@@ -238,7 +238,7 @@ class PropertyService implements PropertyServiceInterface
 
                 $query->where('is_brokered', '=', 0);
 
-        })->paginate(5)->withQueryString();
+        })->orderBy('created_at', 'desc')->paginate(5)->withQueryString();
         return $property;
     }
 }
